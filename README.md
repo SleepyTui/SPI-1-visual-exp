@@ -1,6 +1,6 @@
 # SPI-1 visual experiments
 
-这个仓库保存 SPI-1 的可继续开发视觉实验。当前已迁移的实验是 `demos/md-atelier/`：一套共享 SVG 引擎的 MiniDisc 封面设计工作台和 MD 收藏家界面。
+这个仓库保存 SPI-1 的可继续开发视觉实验。`demos/md-atelier/` 是 MiniDisc 设计实验；[Rain Pond 雨滴音符机](demos/rain-pond/README.md) 提供三套视觉皮肤与共享的生成式声音系统。
 
 设计同事从这里开始：[无需终端命令的接手流程](docs/project-workflow.md)。对 Codex 说“开始〈项目名称〉工作，并在电脑端打开视觉预览”，按 [项目索引](demos/README.md) 定位 demo；修改确认后说“确认提交到云端”。
 
