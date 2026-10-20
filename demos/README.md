@@ -9,6 +9,9 @@ Codex 根据“开始〈项目名称〉工作，并在电脑端打开视觉预�
 | MiniDisc / MD 收藏家 | MD、MiniDisc Atelier、md-atelier、收藏家、MD 收藏室 | `demos/md-atelier/` | 打开 MD 收藏家 / `node scripts/preview.mjs collector` | `dist/collector.html` |
 | MD 封面工作台 | MD 封面编辑器、封面工作台、MD 工作台 | `demos/md-atelier/` | 打开 MD 封面工作台 / `node scripts/preview.mjs editor` | `dist/index.html` |
 
+| 编织音符机 / Music Mouse 录制与回放 | 编织音符机、织布、Music Mouse、打孔带、weave-record | `demos/music-mouse-weave/` | 打开编织音符机 / `node scripts/preview-weave.mjs` | `weave-record-lab.html` |
+| 编织视觉预览 | 编织视觉、织布预览、Music Mouse 视觉 | `demos/music-mouse-weave/` | `node scripts/preview-weave.mjs visual` | `index.html` |
+
 通用流程：[设计工作流程](../docs/project-workflow.md)。MD 的运行与验证细节：[demo README](md-atelier/README.md)。
 
 新增 demo 时必须更新本表：写明名称、常用简称、实际工作目录、可运行的预览入口和命令。为常用入口增加本机 Action；不要假设新项目也使用 MD 的启动脚本。优先用当前对话消除歧义；只有多个独立项目仍无法区分时，才问一句用户指的是哪个。
