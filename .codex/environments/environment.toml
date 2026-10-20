@@ -1,0 +1,15 @@
+version = 1
+name = "MiniDisc Atelier"
+
+[setup]
+script = ""
+
+[[actions]]
+name = "打开 MD 收藏家"
+icon = "run"
+command = "node scripts/preview.mjs collector"
+
+[[actions]]
+name = "打开 MD 封面工作台"
+icon = "run"
+command = "node scripts/preview.mjs editor"
