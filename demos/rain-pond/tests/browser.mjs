@@ -1,0 +1,46 @@
+import {chromium} from 'playwright';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+const browser=await chromium.launch({executablePath:process.env.PLAYWRIGHT_BROWSER_PATH || undefined,headless:true});
+await fs.mkdir('test-output',{recursive:true});
+const context=await browser.newContext({viewport:{width:1440,height:1080},hasTouch:true});
+const page=await context.newPage();const errors=[],warnings=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',msg=>{if(msg.type()==='warning'&&/polyphony|voice/i.test(msg.text()))warnings.push(msg.text());});
+await page.goto('http://127.0.0.1:4176',{waitUntil:'domcontentloaded'});
+await page.waitForFunction(()=>window.__rainPond?.renderer.ready);
+await page.screenshot({path:'test-output/desktop-idle.png',fullPage:true});
+await page.getByRole('button',{name:'▶ 开始聆听'}).click();
+await page.waitForFunction(()=>window.__rainPond.sound.running);
+const id=await page.evaluate(()=>window.__rainPond.sound.instanceId);
+const audio=await page.evaluate(async()=>{let peak=0;for(let i=0;i<100;i++){await new Promise(r=>setTimeout(r,100));peak=Math.max(peak,window.__rainPond.sound.level());}return{peak,counts:window.__rainPond.sound.counts,context:window.__rainPond.sound.initialized};});
+assert.ok(audio.peak>0.0001,`no measurable audio ${audio.peak}`);
+const sequence=await page.evaluate(()=>window.__rainPond.sound.process.sequence);
+for(const skin of ['frost','ink','doodle']){await page.locator(`[data-skin="${skin}"]`).click();await page.waitForTimeout(550);assert.equal(await page.evaluate(()=>window.__rainPond.sound.instanceId),id);await page.screenshot({path:`test-output/${skin}-live.png`,fullPage:true});}
+assert.ok(await page.evaluate(()=>window.__rainPond.sound.process.sequence)>=sequence);
+await page.locator('[data-panel="playground"]').click();const before=await page.evaluate(()=>JSON.stringify(window.__rainPond.state));await page.locator('#v-rainSize').fill('2');await page.locator('#v-rainSize').dispatchEvent('input');assert.equal(await page.evaluate(()=>window.__rainPond.appearances.doodle.rainSize),2);assert.equal(await page.evaluate(()=>JSON.stringify(window.__rainPond.state)),before);
+await page.screenshot({path:'test-output/playground.png',fullPage:true});
+await page.locator('[data-panel="performance"]').click();await page.locator('#s-radius').fill('0.4');await page.locator('#s-radius').dispatchEvent('input');
+const bounds=await page.locator('#pond').boundingBox();const point=await page.evaluate(()=>window.__rainPond.renderer.project(.5,.5));const x=bounds.x+point.x*bounds.width,y=bounds.y+point.y*bounds.height;
+await page.mouse.move(x,y);await page.mouse.down();assert.equal(await page.evaluate(()=>window.__rainPond.state.hold),1);await page.mouse.move(x+30,y+10);await page.mouse.up();assert.equal(await page.evaluate(()=>window.__rainPond.state.hold),0);
+await page.mouse.wheel(0,-120);assert.ok((await page.evaluate(()=>window.__rainPond.state.radius))>.4);
+await page.keyboard.down('Alt');await page.mouse.move(x,y);await page.mouse.down();assert.equal(await page.evaluate(()=>window.__rainPond.state.hold),0);await page.mouse.up();await page.keyboard.up('Alt');
+await page.locator('#hold-button').focus();await page.keyboard.down('Space');assert.equal(await page.evaluate(()=>window.__rainPond.state.hold),1);await page.keyboard.up('Space');assert.equal(await page.evaluate(()=>window.__rainPond.state.hold),0);
+const strip=await page.locator('#x-strip').boundingBox();await page.mouse.click(strip.x+strip.width*.8,strip.y+3);assert.ok(Math.abs((await page.evaluate(()=>window.__rainPond.state.x))-.8)<.02);
+await page.locator('#profile').selectOption('320');assert.equal(await page.evaluate(()=>window.__rainPond.renderer.canvas.width),320);for(const skin of ['frost','ink','doodle']){await page.locator(`[data-skin="${skin}"]`).click();await page.waitForTimeout(80);await page.locator('#pond').screenshot({path:`test-output/${skin}-320.png`});}await page.screenshot({path:'test-output/device-320.png',fullPage:true});
+await page.locator('#profile').selectOption('desktop');await page.locator('[data-panel="console"]').click();await page.waitForTimeout(200);assert.ok((await page.locator('#event-log li').count())>0);await page.screenshot({path:'test-output/console.png',fullPage:true});
+// Real browser touch dispatch verifies the two-contact pinch path.
+await page.evaluate(()=>window.__rainPond.store.set('radius',.3));
+const touchBounds=await page.locator('#pond').boundingBox(),tx=touchBounds.x+touchBounds.width*.5,ty=touchBounds.y+touchBounds.height*.55;
+const cdp=await context.newCDPSession(page);
+await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:tx-25,y:ty,id:1},{x:tx+25,y:ty,id:2}]});
+await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:tx-50,y:ty,id:1},{x:tx+50,y:ty,id:2}]});
+await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+assert.ok(Math.abs(await page.evaluate(()=>window.__rainPond.state.radius)-.6)<.08);assert.equal(await page.evaluate(()=>window.__rainPond.state.hold),0);
+// Exercise sustained high density and long tails: admitted notes stay bounded.
+await page.evaluate(()=>{const a=window.__rainPond;for(const[k,v]of Object.entries({rain:1,radius:1,density:1,bpm:150,waterTail:6}))a.store.set(k,v);});await page.waitForTimeout(6500);
+const voiceReservations=await page.evaluate(()=>Object.fromEntries(Object.entries(window.__rainPond.sound.reservations).map(([k,v])=>[k,v.length])));assert.ok(voiceReservations.water<=10&&voiceReservations.leaf<=2&&voiceReservations.dish<=4);
+await page.locator('[data-panel="playground"]').click();const downloadPromise=page.waitForEvent('download');await page.locator('#export-config').click();const download=await downloadPromise;await download.saveAs('test-output/exported-settings.json');
+await page.locator('#config-file').setInputFiles('test-output/exported-settings.json');await page.waitForFunction(()=>document.querySelector('#message').textContent.includes('参数已导入'));assert.equal(await page.evaluate(()=>window.__rainPond.sound.instanceId),id);
+await page.getByRole('button',{name:'Ⅱ 暂停聆听'}).click();await page.waitForTimeout(350);assert.equal(await page.evaluate(()=>window.__rainPond.sound.running),false);assert.ok(await page.evaluate(()=>window.__rainPond.sound.samplePeak())<.0001);
+await page.setViewportSize({width:390,height:844});await page.locator('[data-panel="performance"]').click();await page.screenshot({path:'test-output/mobile.png',fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+await fs.writeFile('test-output/report.json',JSON.stringify({audio,instanceId:id,voiceReservations,errors,warnings,checks:['audio output','skin continuity','appearance isolation','drag / hold / Alt','wheel','keyboard hold','XY strip','all 320 previews','console','two-contact pinch','voice budget','export/import','pause silence','mobile layout']},null,2));
+assert.deepEqual(errors,[]);assert.deepEqual(warnings,[]);console.log(JSON.stringify({audio,voiceReservations,errors,warnings,checks:14}));await browser.close();

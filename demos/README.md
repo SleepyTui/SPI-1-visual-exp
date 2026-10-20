@@ -8,6 +8,7 @@ Codex 根据“开始〈项目名称〉工作，并在电脑端打开视觉预�
 | --- | --- | --- | --- | --- |
 | MiniDisc / MD 收藏家 | MD、MiniDisc Atelier、md-atelier、收藏家、MD 收藏室 | `demos/md-atelier/` | 打开 MD 收藏家 / `node scripts/preview.mjs collector` | `dist/collector.html` |
 | MD 封面工作台 | MD 封面编辑器、封面工作台、MD 工作台 | `demos/md-atelier/` | 打开 MD 封面工作台 / `node scripts/preview.mjs editor` | `dist/index.html` |
+| Rain Pond 雨滴音符机 | 雨池、雨滴 demo、rain pond、rain_poddemo | `demos/rain-pond/` | `cd demos/rain-pond`，执行 `npm ci` 后 `npm run dev` | `http://127.0.0.1:4176/` |
 
 通用流程：[设计工作流程](../docs/project-workflow.md)。MD 的运行与验证细节：[demo README](md-atelier/README.md)。
 

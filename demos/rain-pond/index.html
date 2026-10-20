@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="theme-color" content="#f5f5f0"><title>Rain Pond — Live sound studies</title></head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="Rain Pond 首页"><span class="brand-mark">雨</span><span><strong>Rain Pond</strong><small>A LIVE SOUND STUDY</small></span></a>
+    <div class="header-actions"><span class="audio-status" id="audio-status"><i></i> 声音待开启</span><button id="help-button" class="quiet-button">交互说明 ↗</button><button id="play-button" class="play-button">▶ 开始聆听</button></div>
+  </header>
+  <main>
+    <div class="study-bar">
+      <div class="skin-tabs" role="tablist" aria-label="视觉皮肤">
+        <button class="skin-tab active" role="tab" aria-selected="true" data-skin="frost"><img src="./assets/reference-frost.png" alt=""><span><small>01 / FROSTED</small>雾蓝透明</span></button>
+        <button class="skin-tab" role="tab" aria-selected="false" data-skin="ink"><img src="./assets/reference-ink.png" alt=""><span><small>02 / WATERTRACK</small>曲水版画</span></button>
+        <button class="skin-tab" role="tab" aria-selected="false" data-skin="doodle"><img src="./assets/reference-doodle.png" alt=""><span><small>03 / DOODLE</small>程序随笔</span></button>
+      </div>
+      <div class="view-actions"><button class="quiet-button" id="reference-button">对照定稿</button><label class="profile-label"><span class="sr-only">画布分辨率</span><select id="profile"><option value="desktop">桌面预览</option><option value="320">320 × 320</option></select></label></div>
+    </div>
+    <div class="workspace">
+      <section class="scene-section" aria-label="雨池演奏场景">
+        <div class="scene-stage" id="scene-stage">
+          <div class="vertical-axis"><span>Y</span><div id="y-strip" class="axis-strip vertical" role="slider" tabindex="0" aria-label="Y 触摸条（设备：纵向触摸条）" aria-valuemin="0" aria-valuemax="100" aria-valuenow="52"><i></i></div><span>近</span></div>
+          <div class="canvas-wrap" id="canvas-wrap"><canvas id="pond" width="800" height="800" aria-label="拖动移动并聚雨，滚轮缩放雨区；Alt 拖动只移动，Shift 拖动改变范围"></canvas><div id="loading" class="loading">正在准备池面素材…</div></div>
+        </div>
+        <div class="horizontal-axis"><span>X</span><div id="x-strip" class="axis-strip horizontal" role="slider" tabindex="0" aria-label="X 触摸条（设备：横向触摸条）" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><i></i></div><span>右</span></div>
+        <div class="scene-caption"><span id="scene-caption">雾蓝透明 / 独立声音实体 · 共享交互</span><button id="capture-button" class="text-button">保存画面 ↓</button></div>
+        <div class="gesture-note"><span>拖动 <b>聚雨＋移动</b></span><span>滚轮 <b>缩放</b></span><span>Alt 拖动 <b>仅移动</b></span><span>空格 <b>临时加雨</b></span></div>
+      </section>
+      <aside class="inspector" aria-label="控制与调试">
+        <div class="panel-tabs" role="tablist" aria-label="控制面板"><button class="active" role="tab" aria-selected="true" data-panel="performance">演奏</button><button role="tab" aria-selected="false" data-panel="playground">Playground</button><button role="tab" aria-selected="false" data-panel="console">Console</button></div>
+        <div class="panel-content" id="panel-performance" role="tabpanel">
+          <div class="panel-heading"><h1>让雨慢慢成曲</h1><p>移动落点，改变疏密。把其余的交给雨。</p></div>
+          <div id="rain-controls"></div>
+          <button id="hold-button" class="hold-button"><span>按住 · 聚雨</span><small>空格亦可（设备：触摸按住）</small></button>
+          <details class="control-group"><summary>雨区与触摸映射 <span>XY / SPREAD</span></summary><div id="region-controls"></div></details>
+          <details class="control-group"><summary>声部与空间 <span>SOUND</span></summary><div id="sound-controls"></div><label class="check-label"><input type="checkbox" id="harmony-toggle" checked> 缓慢和声进行</label></details>
+          <p class="panel-footnote">松手回到基础雨量。雨区缩为 0 停雨，扩为 100% 覆盖全池。声音跟随雨滴落地。</p>
+        </div>
+        <div class="panel-content" id="panel-playground" role="tabpanel" hidden>
+          <div class="panel-heading"><h2>雕琢雨的样子</h2><p>参数按皮肤独立保存，调整立即可见。</p></div>
+          <div id="visual-controls"></div>
+          <div class="config-actions"><button class="small-button" id="reset-visual">还原当前皮肤</button><button class="small-button" id="export-config">导出参数</button><button class="small-button" id="import-config">导入参数</button><input id="config-file" type="file" accept="application/json,.json" hidden></div>
+          <p class="panel-footnote">背景为素材层；叶、碟为缓存图形；雨与水波为限量动态图元。320 预览仅检查画面层次，不代表设备实测性能。</p>
+        </div>
+        <div class="panel-content" id="panel-console" role="tabpanel" hidden>
+          <div class="panel-heading"><h2>观察同一个声音过程</h2><p>切换皮肤时，实体 ID、时钟与事件序列继续。</p></div>
+          <dl class="telemetry" id="telemetry"></dl>
+          <div class="mapping-status"><small>最近的输入映射</small><p id="mapping-status">等待操作</p></div>
+          <div class="event-heading"><span>最近命中</span><span>音符 / 世界坐标</span></div><ol id="event-log" class="event-log"></ol>
+        </div>
+      </aside>
+    </div>
+    <footer class="footer"><span><i id="live-dot"></i><b id="chord">Dm9</b> <span id="bpm-label">76 BPM</span></span><span id="performance-status">Canvas 2D · 正在准备</span><span id="message" role="status" aria-live="polite">三种画面，一个声音实体</span></footer>
+  </main>
+  <dialog id="help-dialog"><div class="dialog-heading"><h2>用鼠标模拟设备手势</h2><button data-close aria-label="关闭">×</button></div><table><thead><tr><th>前端操作</th><th>改变的参数</th><th>设备端对应</th></tr></thead><tbody><tr><td>池面按住并拖动</td><td>临时雨量＋X/Y</td><td>触摸按住并滑动</td></tr><tr><td>Alt＋拖动 / 方向键</td><td>只改变 X/Y</td><td>移动雨区的触摸输入</td></tr><tr><td>滚轮 / Shift＋横拖 / ＋－</td><td>雨区范围</td><td>双指拉开、合拢</td></tr><tr><td>双指触屏</td><td>中点位置＋间距</td><td>双手联动缩放</td></tr><tr><td>场景左、下触摸条</td><td>单轴 X 或 Y</td><td>纵、横触摸条</td></tr><tr><td>空格 / 聚雨垫按住</td><td>临时加雨，松开恢复</td><td>触摸门控</td></tr></tbody></table><p>先点击「开始聆听」。基础雨量为零时，只有按住才下雨。雨速决定脉冲速度，雨密决定命中数量，节律感决定到达时刻的松紧。Console 可检查实际映射与命中事件。</p><p>氛围雨是无音符的视觉纹理，可在 Playground 设为 0，只观察与声音对应的雨滴。移动雨区不会改写已经在空中下落的雨。</p></dialog>
+  <dialog id="reference-dialog"><div class="dialog-heading"><h2 id="reference-title">视觉定稿</h2><button data-close aria-label="关闭">×</button></div><img id="reference-image" alt="当前视觉方向的最终设计参考"><p>素材背景保留原稿质感；实时雨滴、涟漪及物体反馈由共享命中事件驱动。</p></dialog>
+  <script type="module" src="/src/main.js"></script>
+</body></html>
