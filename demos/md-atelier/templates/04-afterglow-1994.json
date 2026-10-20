@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "template": 3,
+  "seed": 3400,
+  "disc": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "program": 3,
+    "p": [
+      48,
+      65,
+      33,
+      45
+    ],
+    "color": "#cd644e",
+    "accent": "#fbd6a7"
+  },
+  "shell": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "texture": 3,
+    "color": "#f0af83",
+    "transparency": 78,
+    "blur": 17,
+    "relief": 58,
+    "wear": 22
+  },
+  "label": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "font": 11,
+    "title": "AFTERGLOW",
+    "subtitle": "SUMMER MEMORY",
+    "code": "MD-04",
+    "paper": "#ddf2b5",
+    "ink": "#273428",
+    "size": 43,
+    "tracking": 0,
+    "angle": 0
+  },
+  "stickers": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "style": 6,
+    "p": [
+      2,
+      69,
+      24,
+      60
+    ],
+    "color": "#ddf2b5",
+    "ink": "#cd644e"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "presets": 12,
+  "layers": 4,
+  "sliders": true,
+  "undo": true,
+  "SVG": true,
+  "JSONRoundtrip": true,
+  "persistence": true,
+  "mobile390": true,
+  "errors": []
+}

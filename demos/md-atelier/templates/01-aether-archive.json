@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "template": 0,
+  "seed": 1687,
+  "disc": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "program": 0,
+    "p": [
+      48,
+      44,
+      18,
+      45
+    ],
+    "color": "#667965",
+    "accent": "#d8ebaf"
+  },
+  "shell": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "texture": 1,
+    "color": "#c0d7a1",
+    "transparency": 81,
+    "blur": 8,
+    "relief": 58,
+    "wear": 22
+  },
+  "label": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "font": 1,
+    "title": "AETHER",
+    "subtitle": "ETHEREAL ARCHIVES",
+    "code": "MD-01",
+    "paper": "#e2e7bc",
+    "ink": "#273428",
+    "size": 43,
+    "tracking": 0,
+    "angle": 0
+  },
+  "stickers": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "style": 0,
+    "p": [
+      1,
+      69,
+      24,
+      30
+    ],
+    "color": "#e2e7bc",
+    "ink": "#667965"
+  }
+}

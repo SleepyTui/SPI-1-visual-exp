@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "template": 2,
+  "seed": 2829,
+  "disc": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "program": 2,
+    "p": [
+      68,
+      58,
+      28,
+      45
+    ],
+    "color": "#785aaf",
+    "accent": "#e2b9fb"
+  },
+  "shell": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "texture": 9,
+    "color": "#b9a3ed",
+    "transparency": 84,
+    "blur": 12,
+    "relief": 58,
+    "wear": 22
+  },
+  "label": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "font": 4,
+    "title": "CLOUD 9",
+    "subtitle": "R&B TRANSMISSIONS",
+    "code": "MD-03",
+    "paper": "#e9e0ff",
+    "ink": "#273428",
+    "size": 43,
+    "tracking": 0,
+    "angle": 0
+  },
+  "stickers": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "style": 3,
+    "p": [
+      1,
+      69,
+      24,
+      50
+    ],
+    "color": "#e9e0ff",
+    "ink": "#785aaf"
+  }
+}

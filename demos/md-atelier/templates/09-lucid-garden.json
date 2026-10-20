@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "template": 8,
+  "seed": 6255,
+  "disc": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "program": 8,
+    "p": [
+      68,
+      44,
+      58,
+      45
+    ],
+    "color": "#8a527f",
+    "accent": "#ecd591"
+  },
+  "shell": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "texture": 11,
+    "color": "#c69ebc",
+    "transparency": 85,
+    "blur": 10,
+    "relief": 58,
+    "wear": 22
+  },
+  "label": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "font": 7,
+    "title": "LUCID",
+    "subtitle": "DREAM TRANCE FILES",
+    "code": "MD-09",
+    "paper": "#f0dd95",
+    "ink": "#273428",
+    "size": 43,
+    "tracking": 0,
+    "angle": 0
+  },
+  "stickers": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "style": 9,
+    "p": [
+      1,
+      69,
+      24,
+      30
+    ],
+    "color": "#f0dd95",
+    "ink": "#8a527f"
+  }
+}

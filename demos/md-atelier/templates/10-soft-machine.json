@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "template": 9,
+  "seed": 6826,
+  "disc": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "program": 9,
+    "p": [
+      48,
+      51,
+      63,
+      45
+    ],
+    "color": "#3b4cbe",
+    "accent": "#eea6c6"
+  },
+  "shell": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "texture": 4,
+    "color": "#8aa4de",
+    "transparency": 87,
+    "blur": 3,
+    "relief": 58,
+    "wear": 22
+  },
+  "label": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "font": 8,
+    "title": "SOFT\nMACHINE",
+    "subtitle": "INTELLIGENT RHYTHMS",
+    "code": "MD-10",
+    "paper": "#dfed7d",
+    "ink": "#273428",
+    "size": 43,
+    "tracking": 0,
+    "angle": 0
+  },
+  "stickers": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "style": 10,
+    "p": [
+      2,
+      69,
+      24,
+      40
+    ],
+    "color": "#dfed7d",
+    "ink": "#3b4cbe"
+  }
+}

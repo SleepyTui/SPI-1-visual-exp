@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "template": 7,
+  "seed": 5684,
+  "disc": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "program": 7,
+    "p": [
+      58,
+      65,
+      53,
+      45
+    ],
+    "color": "#384e7a",
+    "accent": "#a7d3df"
+  },
+  "shell": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "texture": 2,
+    "color": "#91afdc",
+    "transparency": 83,
+    "blur": 15,
+    "relief": 58,
+    "wear": 22
+  },
+  "label": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "font": 10,
+    "title": "RAIN FM",
+    "subtitle": "GARAGE TRANSMISSIONS",
+    "code": "MD-08",
+    "paper": "#e5dfec",
+    "ink": "#273428",
+    "size": 43,
+    "tracking": 0,
+    "angle": 0
+  },
+  "stickers": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "style": 1,
+    "p": [
+      2,
+      69,
+      24,
+      60
+    ],
+    "color": "#e5dfec",
+    "ink": "#384e7a"
+  }
+}

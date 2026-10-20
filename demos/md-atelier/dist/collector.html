@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MD Collector — 掌心唱片收藏室</title><link rel="stylesheet" href="collector.css"></head>
+<body>
+<header class="page-head"><a href="collector.html" class="wordmark"><span class="symbol">m∂</span>MINIDISC <b>COLLECTOR</b></a><a class="editor-link" href="index.html">唱片设计工作台 ↗</a></header>
+<main>
+<section class="intro"><span class="eyebrow">A SMALL LIBRARY OF INNER WORLDS</span><h1>把声音，收在掌心。</h1><p>从侧脊间翻找，停在属于此刻的那张唱片。</p></section>
+<section class="device" aria-label="MD 唱片收藏家">
+<div class="device-top"><span><i></i> POCKET ARCHIVE</span><span>MD / 001—012</span></div>
+<div class="screen" id="screen" aria-label="正方形唱片浏览屏幕">
+<div class="screen-grain" aria-hidden="true"></div>
+<div class="screen-head"><span id="collection-label">MY COLLECTION</span><span class="screen-status">● <span id="collection-size">12 DISCS</span></span></div>
+<div class="catalog-line"><span id="catalog-id">ARCHIVE 001</span><button id="favorite" aria-label="收藏当前唱片" aria-pressed="false">☆</button></div>
+<div id="shelf" class="shelf" tabindex="0" role="group" aria-label="唱片架，左右方向键选取唱片"></div>
+<div class="screen-info" aria-live="polite"><div class="album-kicker"><span id="album-year">PRIVATE PRESS / 1998</span><span id="album-number">01 <em>/ 12</em></span></div><h2 id="album-title">Aether Archive</h2><p id="album-genre">NewAge / Ethereal / Drone</p><div class="bottom-line"><span id="album-mood">漂浮 · 雾气 · 无限延音</span><span>74 MIN <b>STEREO</b></span></div></div>
+<div class="screen-corner tl"></div><div class="screen-corner tr"></div><div class="screen-corner bl"></div><div class="screen-corner br"></div>
+</div>
+<div class="navigation"><button id="previous" class="nav-button" aria-label="上一张唱片">←</button><div class="rail-block"><div class="rail-meta"><label for="disc-range">SLIDE TO EXPLORE <span>滑动选片</span></label><output id="range-output" for="disc-range">01 / 12</output></div><div class="rail-wrap"><div class="rail-ticks" id="rail-ticks" aria-hidden="true"></div><input type="range" id="disc-range" min="0" max="11" value="0" step="0.001" aria-label="滑动选择 MD 唱片" aria-valuetext="第1张，Aether Archive"></div></div><button id="next" class="nav-button" aria-label="下一张唱片">→</button></div>
+<div class="device-bottom"><span class="mini-mark">MD</span><span>PERSONAL MUSIC COLLECTION</span><div class="speaker" aria-hidden="true"></div><button id="show-favorites" aria-pressed="false">☆ 仅看收藏 <span id="favorite-count">0</span></button></div>
+</section>
+<aside class="under-device"><p>拖动滑条或唱片架 · 点击侧脊选片 · ← → 键切换</p><div class="secondary-actions"><button id="import-disc">＋ 收入我的 MD</button><input hidden id="disc-file" type="file" accept=".json,application/json"><button id="export-disc">导出当前 SVG ↗</button></div></aside>
+<footer><span>TWELVE GENRES. ONE LITTLE UNIVERSE.</span><span>DESIGNED TO BE KEPT.</span></footer>
+</main><div id="notice" role="status"></div><script src="engine.js"></script><script src="collector-material.js"></script><script src="collector.js"></script>
+</body></html>
+

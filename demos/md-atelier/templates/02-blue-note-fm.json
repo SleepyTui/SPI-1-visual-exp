@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "template": 1,
+  "seed": 2258,
+  "disc": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "program": 1,
+    "p": [
+      58,
+      51,
+      23,
+      45
+    ],
+    "color": "#13356b",
+    "accent": "#f2b449"
+  },
+  "shell": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "texture": 0,
+    "color": "#3c76b7",
+    "transparency": 85,
+    "blur": 3,
+    "relief": 58,
+    "wear": 22
+  },
+  "label": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "font": 9,
+    "title": "BLUE NOTE",
+    "subtitle": "JAZZ SAMPLER VOL.02",
+    "code": "MD-02",
+    "paper": "#f3c14f",
+    "ink": "#13356b",
+    "size": 43,
+    "tracking": 0,
+    "angle": 0
+  },
+  "stickers": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "style": 7,
+    "p": [
+      2,
+      69,
+      24,
+      40
+    ],
+    "color": "#f3c14f",
+    "ink": "#13356b"
+  }
+}

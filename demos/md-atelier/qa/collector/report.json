@@ -1,0 +1,43 @@
+{
+  "status": "pass",
+  "square": true,
+  "continuousSamples": [
+    {
+      "position": 3.1,
+      "selected": 3,
+      "rotation": "7.800"
+    },
+    {
+      "position": 3.25,
+      "selected": 3,
+      "rotation": "19.500"
+    },
+    {
+      "position": 3.45,
+      "selected": 3,
+      "rotation": "35.100"
+    },
+    {
+      "position": 3.55,
+      "selected": 4,
+      "rotation": "42.900"
+    },
+    {
+      "position": 3.7,
+      "selected": 4,
+      "rotation": "54.600"
+    }
+  ],
+  "releaseSnap": true,
+  "keyboard": true,
+  "spineClick": true,
+  "shelfDrag": true,
+  "dragPos": 6.3352023403217945,
+  "favorites": true,
+  "SVG": true,
+  "customImport": true,
+  "persistence": true,
+  "edgeBounds": true,
+  "mobile390": true,
+  "errors": []
+}

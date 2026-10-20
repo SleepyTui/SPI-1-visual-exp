@@ -1,0 +1,68 @@
+'use strict';
+(()=>{
+const $=s=>document.querySelector(s), storage='md-collector-v1', moods=['漂浮 · 雾气 · 无限延音','爵士切片 · 暖色采样 · 松弛律动','云端 · 丝绒声线 · 紫色夜晚','海岸 · 录像带 · 夏日余晖','旧唱针 · 深夜 · 缓慢鼓点','微小节拍 · 留白 · 深夜派对','水下声场 · 回声 · 低频脉冲','雨后街道 · 摇摆碎拍 · 夜行','迷幻花园 · 旋转 · 梦境航行','逻辑碎片 · 游戏机 · 不规则律动','断裂轨道 · 推进 · 暖色低频','森林电台 · 气流 · 极速鼓点'];
+let saved={};try{saved=JSON.parse(localStorage.getItem(storage)||'{}');}catch{}
+let extras=Array.isArray(saved.extras)?saved.extras.filter(x=>x&&typeof x.id==='string'&&x.state&&x.state.version===1&&x.state.template>=0&&x.state.template<12).slice(0,24):[];
+const records=Array.from({length:12},(_,i)=>({id:'md-'+i,state:MD.preset(i),name:MD.names[i],genre:MD.genres[i],mood:moods[i]}));
+for(const x of extras){try{MD.render(x.state);records.push(x);}catch{}}
+let favorites=new Set(Array.isArray(saved.favorites)?saved.favorites.filter(x=>typeof x==='string'):[]), onlyFavorites=false, list=[...records], current=3, position=3, target=3, raf=0, dragging=false, shelfDrag=null, wheelTimer,noticeTimer;
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let initial=list.findIndex(x=>x.id===saved.selected);if(initial>=0)position=current=target=initial;
+const clamp=v=>MD.clamp(v,0,Math.max(0,list.length-1));
+const materialCache=new Map();
+function getMaterial(record){if(!materialCache.has(record.id))materialCache.set(record.id,CollectionMaterial.parts(record.state,record.name,records.indexOf(record)));return materialCache.get(record.id);}
+function persist(){try{localStorage.setItem(storage,JSON.stringify({favorites:[...favorites],selected:list[current]?.id,extras:records.filter(x=>x.id.startsWith('custom-'))}));}catch{notice('本地空间不足，请保留原始参数文件');}}
+function notice(t){$('#notice').textContent=t;$('#notice').classList.add('show');clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>$('#notice').classList.remove('show'),2400);}
+function build(){
+$('#shelf').innerHTML=list.map((record,i)=>{const m=getMaterial(record);return `<div class="disc-case" data-index="${i}" style="--plastic:${m.plastic};--paper:${m.paper};--print:${m.ink};--accent:${m.accent}"><div class="case-back"></div><div class="cover-face" role="img" aria-label="${MD.esc(record.name)} 乳白磨砂 MD 封面"><img class="case-matter" alt="" draggable="false" src="${m.core}"><img class="case-glass" alt="" draggable="false" src="${m.shell}"><img class="case-print" alt="" draggable="false" src="${m.print}"></div><div class="case-spine left"><div class="spine-surface"></div><div class="spine-label"><small>MD ${String(i+1).padStart(2,'0')}</small><span>${MD.esc(record.name.toUpperCase())}</span><small>74</small></div></div><div class="case-spine right"><div class="spine-surface"></div><div class="spine-label"><small>MD ${String(i+1).padStart(2,'0')}</small><span>${MD.esc(record.name.toUpperCase())}</span><small>74</small></div></div></div><button class="spine-hit" data-index="${i}" aria-label="选取 ${MD.esc(record.name)}" tabindex="-1"></button>`;}).join('');
+$('#disc-range').max=String(Math.max(0,list.length-1));$('#disc-range').disabled=list.length<2;
+$('#rail-ticks').innerHTML=list.map(()=>'<i></i>').join('');
+$('#shelf').querySelectorAll('.spine-hit').forEach(b=>b.onclick=()=>{if(!shelfDrag?.moved)select(+b.dataset.index);});
+paint();updateInfo();
+}
+function paint(){
+const width=$('#screen').clientWidth;
+$('#shelf').querySelectorAll('.disc-case').forEach((el,i)=>{
+const d=i-position,ad=Math.abs(d),sg=Math.sign(d),travel=ad<=1?ad*.345:.345+(ad-1)*.043;
+const x=sg*travel*width,angle=-sg*(ad<=1?ad*78:Math.min(84,78+(ad-1)*1.5)),scale=1-Math.min(.22,ad*.035),z=-Math.min(270,ad*40);
+const depth=1-Math.exp(-ad*.48),alpha=1,saturation=1-depth*.91,brightness=1-depth*.68,blur=depth*7.5;
+el.style.transform=`translate3d(${x.toFixed(3)}px,0,${z.toFixed(3)}px) rotateY(${angle.toFixed(3)}deg) scale(${scale.toFixed(4)})`;
+el.style.zIndex=String(100-Math.round(ad*10));el.style.opacity='1';el.style.visibility=ad>6?'hidden':'visible';el.classList.toggle('current',i===current);el.dataset.rotation=angle.toFixed(3);
+const face=el.querySelector('.cover-face');face.style.opacity='1';face.style.filter='none';
+el.querySelector('.case-matter').style.filter=`blur(${blur.toFixed(2)}px) saturate(${saturation.toFixed(3)}) contrast(${(1-depth*.36).toFixed(3)}) brightness(${brightness.toFixed(3)})`;
+el.querySelector('.case-glass').style.filter=`blur(${(depth*1.6).toFixed(2)}px) brightness(${brightness.toFixed(3)})`;
+el.querySelector('.case-print').style.filter=`saturate(${Math.max(.25,saturation).toFixed(3)}) brightness(${(1-depth*.46).toFixed(3)})`;
+el.querySelectorAll('.case-spine,.case-back').forEach(surface=>{surface.style.opacity='1';surface.style.filter='none';});
+el.style.setProperty('--depth-blur',blur.toFixed(2)+'px');el.style.setProperty('--depth-brightness',brightness.toFixed(3));el.style.setProperty('--depth-saturation',saturation.toFixed(3));el.style.setProperty('--depth',depth.toFixed(3));
+el.dataset.lean='0';el.dataset.alpha=alpha.toFixed(4);el.dataset.saturation=saturation.toFixed(4);
+const hit=$('#shelf').querySelector(`.spine-hit[data-index="${i}"]`);let hitWidth=ad<.7?width*.54:width*.044;
+hit.style.left=`calc(50% + ${(x-hitWidth/2).toFixed(2)}px)`;hit.style.width=hitWidth+'px';hit.style.display=ad>5.5?'none':'block';hit.style.zIndex=String(100-Math.round(ad*10));hit.tabIndex=i===current?0:-1;
+});
+// Measure projected side faces after the transform writes; hit targets follow actual geometry.
+const shelfBounds=$('#shelf').getBoundingClientRect();
+const hits=Array.from($('#shelf').querySelectorAll('.disc-case')).flatMap((el,i)=>{const d=i-position;if(Math.abs(d)<.7||Math.abs(d)>5.5)return[];const edge=el.querySelector(d>0?'.case-spine.right':'.case-spine.left').getBoundingClientRect(),w=Math.max(20,edge.width+8);return[{el:$('#shelf').querySelector(`.spine-hit[data-index="${i}"]`),left:edge.x+edge.width/2-shelfBounds.x-w/2,width:w}];});
+hits.forEach(h=>{h.el.style.left=h.left+'px';h.el.style.width=h.width+'px';});
+$('#disc-range').value=String(position);$('#disc-range').style.setProperty('--value',position);
+const chosen=Math.round(position);if(chosen!==current){current=chosen;updateInfo();}
+$('#rail-ticks').querySelectorAll('i').forEach((el,i)=>el.classList.toggle('selected',i===current));
+}
+function updateInfo(){const r=list[current];if(!r)return;$('#album-title').textContent=r.name;$('#album-genre').textContent=r.genre;$('#album-mood').textContent=r.mood||'我的私人录音 · 自定义收藏';$('#album-number').innerHTML=String(current+1).padStart(2,'0')+' <em>/ '+String(list.length).padStart(2,'0')+'</em>';$('#catalog-id').textContent='ARCHIVE '+String(records.indexOf(r)+1).padStart(3,'0');$('#album-year').textContent=r.id.startsWith('custom-')?'PERSONAL EDITION / 2026':'PRIVATE PRESS / '+[1998,1996,2001,1994,1997,1999,2000,2002,1995,1997,2001,1996][r.state.template];$('#range-output').textContent=String(current+1).padStart(2,'0')+' / '+String(list.length).padStart(2,'0');$('#disc-range').setAttribute('aria-valuetext',`第${current+1}张，${r.name}，${r.genre}`);$('#collection-size').textContent=list.length+' DISCS';$('#collection-label').textContent=onlyFavorites?'FAVORITE RECORDS':'MY COLLECTION';$('#previous').disabled=current===0;$('#next').disabled=current===list.length-1;$('#favorite').setAttribute('aria-pressed',String(favorites.has(r.id)));$('#favorite').textContent=favorites.has(r.id)?'★':'☆';$('#favorite').setAttribute('aria-label',(favorites.has(r.id)?'取消收藏 ':'收藏 ')+r.name);$('#favorite-count').textContent=favorites.size;persist();}
+function stop(){if(raf)cancelAnimationFrame(raf);raf=0;}
+function select(v){target=Math.round(clamp(v));stop();if(reduced){position=target;paint();updateInfo();return;}let last=performance.now();function tick(now){const dt=Math.min(40,now-last);last=now;position+=(target-position)*(1-Math.exp(-dt/73));if(Math.abs(target-position)<.001){position=target;raf=0;paint();updateInfo();return;}paint();raf=requestAnimationFrame(tick);}raf=requestAnimationFrame(tick);}
+const range=$('#disc-range');range.addEventListener('pointerdown',()=>{dragging=true;stop();});range.addEventListener('input',()=>{stop();position=clamp(+range.value);target=position;paint();});range.addEventListener('change',()=>{dragging=false;select(+range.value);});window.addEventListener('pointerup',()=>{if(dragging){dragging=false;select(position);}if(shelfDrag){const drag=shelfDrag;if(drag.moved)select(position);setTimeout(()=>{if(shelfDrag===drag)shelfDrag=null;},0);}});range.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();select(e.key==='Home'?0:e.key==='End'?list.length-1:current+(e.key==='ArrowRight'?1:-1));}});
+$('#previous').onclick=()=>select(current-1);$('#next').onclick=()=>select(current+1);
+$('#shelf').addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();select(current+(e.key==='ArrowRight'?1:-1));}});
+$('#shelf').addEventListener('pointerdown',e=>{if(e.button!==0)return;stop();shelfDrag={id:e.pointerId,start:e.clientX,pos:position,moved:false};});
+window.addEventListener('pointermove',e=>{if(!shelfDrag||shelfDrag.id!==e.pointerId)return;const dx=e.clientX-shelfDrag.start;if(Math.abs(dx)>5)shelfDrag.moved=true;if(shelfDrag.moved){$('#shelf').classList.add('dragging');position=clamp(shelfDrag.pos-dx/($('#screen').clientWidth*.28));paint();}});
+window.addEventListener('pointerup',()=>$('#shelf').classList.remove('dragging'));window.addEventListener('pointercancel',()=>{shelfDrag=null;dragging=false;$('#shelf').classList.remove('dragging');select(position);});
+$('#shelf').addEventListener('wheel',e=>{if(Math.abs(e.deltaX)<Math.abs(e.deltaY)&&!e.shiftKey)return;e.preventDefault();stop();position=clamp(position+(e.deltaX||e.deltaY)/300);paint();clearTimeout(wheelTimer);wheelTimer=setTimeout(()=>select(position),120);},{passive:false});
+$('#favorite').onclick=()=>{const id=list[current].id;if(favorites.has(id))favorites.delete(id);else favorites.add(id);if(onlyFavorites){if(!favorites.size){onlyFavorites=false;$('#show-favorites').setAttribute('aria-pressed','false');notice('收藏已清空，返回全部唱片');}rebuildList();}else updateInfo();};
+function rebuildList(){stop();const selected=list[current]?.id;list=onlyFavorites?records.filter(x=>favorites.has(x.id)):[...records];current=position=target=Math.max(0,list.findIndex(x=>x.id===selected));build();}
+$('#show-favorites').onclick=()=>{if(!onlyFavorites&&!favorites.size){notice('点击屏幕右上角的星标，先收藏一张 MD');return;}onlyFavorites=!onlyFavorites;$('#show-favorites').setAttribute('aria-pressed',String(onlyFavorites));rebuildList();};
+$('#export-disc').onclick=()=>{const r=list[current],url=URL.createObjectURL(new Blob([getMaterial(r).svg],{type:'image/svg+xml'})),a=document.createElement('a');a.href=url;a.download=r.name.replace(/[^\p{L}\p{N}_-]/gu,'-')+'.svg';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);notice('已导出 '+r.name+' 的四层 SVG');};
+function validateImport(raw){if(!raw||raw.version!==1||!Number.isInteger(raw.template)||raw.template<0||raw.template>11)throw Error('请载入设计工作台保存的参数 JSON');let safe=MD.preset(raw.template);for(const k of ['disc','shell','label','stickers']){if(!raw[k])throw Error('缺少图层参数');for(const [key,base]of Object.entries(safe[k])){let v=raw[k][key];if(typeof base==='boolean'){safe[k][key]=typeof v==='boolean'?v:base;}else if(Array.isArray(base)){if(!Array.isArray(v)||v.length!==4||v.some(n=>typeof n!=='number'||!Number.isFinite(n)))throw Error('图层参数错误');safe[k][key]=v.map((n,j)=>MD.clamp(n,k==='stickers'&&j===0?1:0,k==='stickers'&&j===0?5:100));if(k==='stickers')safe[k][key][0]=Math.round(safe[k][key][0]);}else if(typeof base==='number'){if(typeof v!=='number'||!Number.isFinite(v))throw Error('图层参数错误');const enumKey=['program','texture','font','style'].includes(key);safe[k][key]=MD.clamp(v,key==='angle'?-15:key==='tracking'?-3:0,enumKey?11:key==='size'?64:key==='angle'?15:key==='tracking'?8:200);if(enumKey)safe[k][key]=Math.round(safe[k][key]);}else if(['color','accent','paper','ink'].includes(key)){if(!/^#[a-f0-9]{6}$/i.test(v))throw Error('颜色格式错误');safe[k][key]=v;}else{if(typeof v!=='string')throw Error('文字格式错误');safe[k][key]=v.slice(0,80);}}}safe.seed=typeof raw.seed==='number'&&Number.isFinite(raw.seed)?MD.clamp(raw.seed,0,4294967295):safe.seed;return safe;}
+$('#import-disc').onclick=()=>$('#disc-file').click();$('#disc-file').onchange=async()=>{try{const f=$('#disc-file').files[0];if(!f)return;if(f.size>100000)throw Error('文件过大');if(records.length>=36)throw Error('当前收藏最多容纳 36 张唱片');const s=validateImport(JSON.parse(await f.text())),name=s.label.title.replace(/\n/g,' ').trim()||'Untitled MD',record={id:'custom-'+Date.now(),state:s,name,genre:s.label.subtitle||MD.genres[s.template],mood:'私人收藏 · 自定义设计'};records.push(record);onlyFavorites=false;$('#show-favorites').setAttribute('aria-pressed','false');rebuildList();select(records.length-1);persist();notice('已收入收藏：'+name);}catch(e){notice(e.message||'无法读取此文件');}$('#disc-file').value='';};
+new ResizeObserver(()=>paint()).observe($('#screen'));build();window.MDCollector={get position(){return position;},get selected(){return current;},get count(){return list.length;},select,get record(){return list[current];}};
+})();
+
+

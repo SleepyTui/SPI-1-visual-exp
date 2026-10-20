@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "template": 10,
+  "seed": 7397,
+  "disc": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "program": 10,
+    "p": [
+      58,
+      58,
+      68,
+      45
+    ],
+    "color": "#a55032",
+    "accent": "#f2cd82"
+  },
+  "shell": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "texture": 7,
+    "color": "#dca478",
+    "transparency": 82,
+    "blur": 5,
+    "relief": 58,
+    "wear": 22
+  },
+  "label": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "font": 9,
+    "title": "PARALLEL",
+    "subtitle": "PROGRESSIVE BREAKS",
+    "code": "MD-11",
+    "paper": "#ddebca",
+    "ink": "#273428",
+    "size": 43,
+    "tracking": 0,
+    "angle": 0
+  },
+  "stickers": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "style": 8,
+    "p": [
+      1,
+      69,
+      24,
+      50
+    ],
+    "color": "#ddebca",
+    "ink": "#a55032"
+  }
+}

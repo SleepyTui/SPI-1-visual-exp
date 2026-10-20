@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "template": 5,
+  "seed": 4542,
+  "disc": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "program": 5,
+    "p": [
+      68,
+      51,
+      43,
+      45
+    ],
+    "color": "#c1c3ae",
+    "accent": "#415f4f"
+  },
+  "shell": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "texture": 6,
+    "color": "#b9d3bc",
+    "transparency": 87,
+    "blur": 4,
+    "relief": 58,
+    "wear": 22
+  },
+  "label": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "font": 0,
+    "title": "SMALL HRS",
+    "subtitle": "MICRO HOUSE CUTS",
+    "code": "MD-06",
+    "paper": "#f1e9d3",
+    "ink": "#273428",
+    "size": 43,
+    "tracking": 0,
+    "angle": 0
+  },
+  "stickers": {
+    "opacity": 100,
+    "saturation": 100,
+    "brightness": 100,
+    "visible": true,
+    "locked": false,
+    "style": 8,
+    "p": [
+      2,
+      69,
+      24,
+      40
+    ],
+    "color": "#f1e9d3",
+    "ink": "#c1c3ae"
+  }
+}

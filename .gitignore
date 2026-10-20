@@ -147,3 +147,9 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# The MD demo is intentionally source-deliverable, including its browser-ready dist.
+!demos/
+!demos/md-atelier/
+!demos/md-atelier/dist/
+!demos/md-atelier/dist/**
