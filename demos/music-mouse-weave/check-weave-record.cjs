@@ -1,0 +1,56 @@
+// Browser check for the standalone record/reweave concept. No firmware build.
+const {chromium}=require('playwright');
+const {pathToFileURL}=require('url');
+const path=require('path');
+(async()=>{
+ const browser=await chromium.launch({channel:'msedge',headless:true});
+ try{
+  const page=await browser.newPage({viewport:{width:1200,height:920}}),errors=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(pathToFileURL(path.join(__dirname,'weave-record-lab.html')).href);
+  const canvas=page.locator('#screen');
+  await page.waitForTimeout(240);
+  const a=await canvas.evaluate(c=>c.toDataURL());
+  await page.waitForTimeout(260);
+  if(a===await canvas.evaluate(c=>c.toDataURL()))throw Error('Demo did not animate');
+  await page.locator('#bpm').fill('220');await page.locator('#bpm').dispatchEvent('change');
+  await page.locator('#bars').selectOption('1');
+  await page.locator('[data-mode="chord"]').click();
+  await page.locator('#rec').click();
+  const r=await canvas.boundingBox(),s=r.width/320;
+  await page.mouse.move(r.x+84*s,r.y+122*s);await page.mouse.down();
+  await page.waitForTimeout(205);
+  await page.mouse.move(r.x+138*s,r.y+160*s,{steps:3});await page.mouse.up();
+  await page.waitForTimeout(1170);
+  if(await page.locator('#keep').isDisabled())throw Error('Record did not capture events');
+  await page.locator('#keep').click();
+  if(!await page.locator('[data-slot="0"]').evaluate(e=>e.classList.contains('filled')))throw Error('Track did not save');
+  await page.locator('#play').click();
+  await page.waitForTimeout(160);
+  if(await page.locator('#state-label').textContent()!=='PLAY')throw Error('Track did not play');
+  if(process.env.WEFT_REVIEW_IMAGE)await canvas.screenshot({path:process.env.WEFT_REVIEW_IMAGE});
+  await page.reload();
+  if(!await page.locator('[data-slot="0"]').evaluate(e=>e.classList.contains('filled')))throw Error('Track did not persist');
+  await page.locator('[data-slot="1"]').click();
+  await page.locator('[data-mode="improv"]').click();
+  await page.locator('#rec').click();
+  const r2=await canvas.boundingBox(),s2=r2.width/320;
+  await page.mouse.move(r2.x+95*s2,r2.y+154*s2);await page.mouse.down();await page.waitForTimeout(205);await page.mouse.up();
+  await page.waitForTimeout(1120);
+  await page.locator('#keep').click();
+  if(await page.locator('#track-stat').textContent()!=='02')throw Error('Second track did not join arrangement');
+  await page.locator('#play').click();
+  await page.waitForTimeout(180);
+  await page.locator('#play').click();await page.locator('[data-drive="step"]').click();await page.locator('#rec').click();
+  const r3=await canvas.boundingBox(),s3=r3.width/320;
+  await page.mouse.click(r3.x+110*s3,r3.y+120*s3);await page.locator('#crank').click();
+  if(await page.locator('#tick-stat').textContent()!=='02'||await page.locator('#keep').isDisabled())throw Error('Touch-step punch or blank advance failed');
+  const before=Number(await page.locator('#event-stat').textContent());
+  await page.mouse.move(r3.x+110*s3,r3.y+120*s3);await page.mouse.down();
+  await page.mouse.move(r3.x+180*s3,r3.y+180*s3,{steps:6});await page.waitForTimeout(340);await page.mouse.up();
+  if(Number(await page.locator('#event-stat').textContent())<=before+4)throw Error('Held drag did not keep punching quantized steps');
+  if(errors.length)throw Error(errors.join('; '));
+  if(errors.length)throw Error(errors.join('; '));
+  console.log('PASS: demo motion, quantized touch capture, two saved tracks, loop playback and reload persistence; no browser errors.');
+ }finally{await browser.close()}
+})().catch(e=>{console.error(e.message);process.exitCode=1});

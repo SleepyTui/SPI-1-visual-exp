@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WEFT / Music Mouse 录制与编织实验</title>
+<style>
+  :root{color-scheme:light;--bg:#f8f6f1;--panel:#fdfbf7;--line:#dcded9;--text:#343943;--muted:#818a91;--red:#da8da3;--cyan:#83afd0;--lime:#93bba8;--ochre:#d2b88e}
+  *{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font:13px/1.5 Inter,"Avenir Next",system-ui,sans-serif}
+  body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 10% 29%,#c7ddf17c,transparent 42%),radial-gradient(ellipse at 79% 9%,#f4d7d790,transparent 32%),radial-gradient(ellipse at 80% 85%,#d9e9dd8a,transparent 44%);z-index:-1}
+  main{max-width:1090px;margin:0 auto;padding:38px 25px 70px;display:grid;grid-template-columns:minmax(340px,520px) minmax(280px,1fr);gap:38px}
+  h1,h2,p{margin:0}.eyebrow{color:#7798a7;font-size:11px;letter-spacing:.16em}.head{grid-column:1/-1;border-bottom:1px solid var(--line);padding-bottom:17px;display:flex;justify-content:space-between;align-items:end;gap:12px}.head h1{font-size:28px;line-height:1.1;font-weight:400;letter-spacing:-.04em;margin-top:8px}.head p{color:var(--muted);max-width:360px;font-size:11px}
+  .device-shell{width:min(100%,520px);padding:20px;background:linear-gradient(138deg,#fffcf8,#e9f0f0 66%,#e7e7ee);border:1px solid #e0e1df;border-radius:19px;box-shadow:0 21px 60px #9cabb02e,0 5px 16px #c9c0b920;position:relative}.device-shell:before,.device-shell:after{content:"";position:absolute;top:9px;width:3px;height:3px;background:#b3bfbe;border-radius:50%;opacity:.5}.device-shell:before{left:10px}.device-shell:after{right:10px}canvas{display:block;width:100%;aspect-ratio:1;touch-action:none;background:#f8f7f2;border-radius:10px;image-rendering:auto}.device-foot{margin-top:12px;display:flex;justify-content:space-between;color:#89939b;font-size:10px;letter-spacing:.08em}.device-foot b{color:var(--red);font-weight:500}
+  .panel{min-width:0;display:flex;flex-direction:column;gap:19px}.section{border-top:1px solid var(--line);padding-top:12px}.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}.section-head h2{font-size:12px;letter-spacing:.12em;font-weight:500}.section-head span{color:var(--muted);font-size:10px}.row{display:flex;gap:7px;flex-wrap:wrap}.row button{flex:1 1 auto}button,select,input{font:inherit}button,select{border:1px solid #d9e2e1;background:#fdfdfb;color:var(--text);border-radius:8px;min-height:34px;padding:6px 10px}button{cursor:pointer}button:hover{border-color:#9fbac2}button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}button.active{background:#e7f0f2;border-color:var(--cyan)}button.primary{background:#d7a9b8;border-color:#d7a9b8;color:#403c43}button.primary.active{background:#e7a5b2;color:#403c43}button:disabled{opacity:.45;cursor:not-allowed}.slot{position:relative}.slot.filled:after{content:"";position:absolute;right:5px;top:5px;width:4px;height:4px;background:var(--lime);border-radius:50%}
+  .settings{display:grid;grid-template-columns:1fr 1fr;gap:10px}.settings label,.slider{display:flex;flex-direction:column;gap:5px;font-size:11px;color:var(--muted)}select,input[type=number]{width:100%;background:#fffefa;color:var(--text);border:1px solid #d9e2e1;padding:7px;min-height:34px}input[type=range]{width:100%;accent-color:var(--red)}.slider span{color:var(--text)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.stat{background:#f5f8f6;padding:8px;border-left:2px solid #a9c7c4}.stat strong{display:block;font-weight:500;color:var(--text);font-size:17px}.stat span{font-size:10px;color:var(--muted)}.explain{color:var(--muted);font-size:11px;line-height:1.65}.explain em{color:var(--text);font-style:normal}.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--muted)}.legend i{display:inline-block;width:7px;height:7px;margin-right:5px}.message{color:#698e8b;min-height:22px;font-size:11px}.small{color:var(--muted);font-size:10px}
+  @media(max-width:800px){main{grid-template-columns:1fr;max-width:570px;padding:22px 16px 50px;gap:24px}.head{grid-column:1;display:block}.head p{margin-top:9px}.device-shell{margin:0 auto}.panel{gap:15px}}
+</style>
+</head>
+<body>
+<main>
+  <header class="head"><div><div class="eyebrow">SOUND MACHINE / STUDY 02</div><h1>WEFT · 声音织物实验</h1></div><p>一个 320 × 320 的录制玩法草模：触摸织布，时间打孔；保存片段后，让纸带带动布面重演。</p></header>
+  <div><div class="device-shell"><canvas id="screen" width="320" height="320" role="img" aria-label="织布机与下方录制打孔带"></canvas><div class="device-foot"><span>WEAVE / PUNCH / REPLAY</span><span id="foot-state">DEMO LOOP</span></div></div></div>
+  <div class="panel">
+    <section class="section"><div class="section-head"><h2>01 / 演奏方式</h2><span>先演奏，随后形成织物</span></div><div class="row" id="modes"><button type="button" data-mode="chord" class="active">CHORD</button><button type="button" data-mode="arp">ARP</button><button type="button" data-mode="line">LINE</button><button type="button" data-mode="improv">IMPROVISE</button></div><p class="small" style="margin-top:8px">布面拖动可同时控制 XY；上方 X 触条与左侧 Y 触条可分别按住，支持两指独立移动。线条在发声时从边缘织入，不是在现成格子上填音。</p></section>
+    <section class="section"><div class="section-head"><h2>02 / 记录带</h2><span>每一轨是一段可循环的布</span></div><div class="row" id="slots"><button type="button" class="slot active" data-slot="0">TRACK 01</button><button type="button" class="slot" data-slot="1">TRACK 02</button><button type="button" class="slot" data-slot="2">TRACK 03</button></div><div class="row" id="record-drive" style="margin-top:8px"><button type="button" data-drive="clock" class="active">节拍驱动</button><button type="button" data-drive="step">触摸步进</button><button type="button" id="crank" title="留空一格并摇动纸带">↷ 摇把 · 空一格</button></div><div class="row" style="margin-top:8px"><button type="button" id="rec" class="primary">● 开始录制</button><button type="button" id="keep">保存当前段</button><button type="button" id="play">▶ 播放各轨</button></div><div class="row" style="margin-top:7px"><button type="button" id="clear">清空当前草稿</button><button type="button" id="demo">观看示例</button><button type="button" id="sound">声音：开</button></div><p class="message" id="message" aria-live="polite">示例正在无声循环；点击播放或触摸布面启用声音。</p></section>
+    <section class="section"><div class="section-head"><h2>03 / 时间与材料</h2><span>仅控制这个原型</span></div><div class="settings"><label>BPM<input id="bpm" type="number" min="40" max="220" value="96"></label><label>录制长度<select id="bars"><option value="1">1 小节</option><option value="2" selected>2 小节</option><option value="4">4 小节</option></select></label><label>每拍量化格数<select id="division"><option value="1">1</option><option value="2">2</option><option value="4" selected>4</option><option value="8">8</option></select></label><label>最短触发间隔 / 格<input id="min-gap" type="number" min="1" max="16" value="2"></label><label>布条织入 / ms<input id="enter-time" type="number" min="100" max="10000" value="1000"></label><label>第一阶段变浅 / ms<input id="fast-fade" type="number" min="100" max="30000" value="1400"></label><label>第二阶段继续淡 / ms<input id="slow-fade" type="number" min="100" max="120000" value="9500"></label><label class="slider">传播跨度 <span id="reach-label">4 格</span><input id="reach" type="range" min="1" max="8" value="4"></label><label class="slider">残影时间 <span id="decay-label">1000 ms</span><input id="decay" type="range" min="250" max="5000" step="50" value="1000"></label><label>音量<input id="gain" type="number" min="0" max="0.2" step="0.005" value="0.052"></label><label>起音 / ms<input id="attack" type="number" min="1" max="1000" value="12"></label><label>音长系数<input id="note-length" type="number" min="0.1" max="3" step="0.05" value="0.75"></label></div><details class="small" style="margin-top:10px"><summary>布条颜色 · 高亮 / 第一阶段 / 最终</summary><div class="settings" style="margin-top:8px"><label>经线高亮<input id="v-hot" type="color" value="#82bde4"></label><label>纬线高亮<input id="h-hot" type="color" value="#e5a6c2"></label><label>经线浅色<input id="v-rest" type="color" value="#c4dce9"></label><label>纬线浅色<input id="h-rest" type="color" value="#ead4de"></label><label>经线最终<input id="v-pale" type="color" value="#f0f3f2"></label><label>纬线最终<input id="h-pale" type="color" value="#f3f1ef"></label></div></details><p class="small" style="margin-top:8px">传播跨度只决定触发图案向周围扩散的半径，不增加音符或打孔数量。</p></section>
+    <section class="section"><div class="section-head"><h2>04 / 算法现场</h2><span id="state-label">DEMO</span></div><div class="stats"><div class="stat"><strong id="tick-stat">00</strong><span>当前量化步</span></div><div class="stat"><strong id="event-stat">00</strong><span>当前段音符事件</span></div><div class="stat"><strong id="track-stat">00</strong><span>已保存轨道</span></div></div><p id="event-readout" class="explain" style="margin-top:10px">等待下一次音符事件…</p><p class="explain" style="margin-top:8px"><em>节拍驱动</em>按设定的量化边界取双轴位置；<em>触摸步进</em>在音符实际触发时打孔，按住移动仍可继续触发，摇把留空一格。布在压紧后向上卷，纸带录制时向下吐出；录制结束断带、移到侧面，回放时驱动重新编织。</p></section>
+    <div class="legend"><span><i style="background:#d6a7b7"></i>起音／穿梭</span><span><i style="background:#b8d5ea"></i>经线</span><span><i style="background:#cbded1"></i>纬线</span><span><i style="background:#8eacd0"></i>打孔／结点</span></div>
+  </div>
+</main>
+<script>
+(() => {
+  const canvas=document.getElementById('screen'),g=canvas.getContext('2d',{alpha:false}),view=document.createElement('canvas'),vg=view.getContext('2d'),cloth=document.createElement('canvas'),cg=cloth.getContext('2d'),bg=document.createElement('canvas');
+  view.width=view.height=cloth.width=cloth.height=320;
+  bg.width=bg.height=320;const b=bg.getContext('2d',{alpha:false});
+  const $=id=>document.getElementById(id),N=23,F={x:25,y:61,p:9},T={x:248,y:54,w:63,h:229},palette=['#83afd0','#739fc5','#648fb9','#d897b3'];
+  const holeColors=[['#b5cde1','#98bad6','#7fa9cc','#6998c2','#5385b4','#3e71a3'],['#a9c5dc','#8eafd0','#759fc5','#608db8','#4e7aa9','#3d6798'],['#9fbed8','#85aaca','#6d98c0','#5b86b1','#4a73a1','#3b638f'],['#e1bdcc','#d4a4bc','#c78dae','#b7779e','#a9638d','#95507b']];
+  const number=(id,fallback,min,max)=>clamp(Number($(id).value)||fallback,min,max);
+  const storage='musicmouse-weft-record-lab-v1';
+  let mode='chord',recordDrive='clock',manualStep=0,lastCrankAt=-1000,lastAdvanceAt=-1000,lastBeatAt=-1000,lastBeatTick=-1,lastWeftRow=-1,lastWeftAt=-1000,loomAdvance=0,cutAt=-1,playAt=-1,rewindFrom=0,slot=0,state='demo',tracks=[null,null,null],draft=null,pointer={down:false,x:11,y:11},contacts=new Map(),pending=null,live=[],pulses=[],woven=Array(N*N).fill(null);
+  const strands={v:Array(N).fill(null),h:Array(N).fill(null)};
+  let epoch=performance.now(),processed=-1,frameAt=0,lastArp=-99,lastGestureTick=-999,audio=null,soundOn=true,masterLength=32,parkedPhase=0;
+  const clamp=(v,a,z)=>Math.max(a,Math.min(z,v)),stepMs=()=>60000/clamp(Number($('bpm').value)||96,40,220)/Number($('division').value);
+  const ease=t=>{t=clamp(t,0,1);return t*t*(3-2*t)},out=t=>1-Math.pow(1-clamp(t,0,1),3);
+  function blend(a,b,t){t=clamp(t,0,1);const h=s=>[1,3,5].map(i=>parseInt(s.slice(i,i+2),16));const x=h(a),y=h(b);return '#'+x.map((v,i)=>Math.round(v+(y[i]-v)*t).toString(16).padStart(2,'0')).join('')}
+  function strandColor(axis,age){const hot=$(axis+'-hot').value,rest=$(axis+'-rest').value,pale=$(axis+'-pale').value,fast=number('fast-fade',1400,100,30000),slow=number('slow-fade',9500,100,120000);return age<fast?blend(hot,rest,age/fast):blend(rest,pale,(age-fast)/slow)}
+  const currentTick=()=>Math.floor((performance.now()-epoch)/stepMs());
+  const scale=[0,2,4,5,7,9,11];
+  function noteAt(p,voice){const d=p+(voice===3?4:0);return 48+Math.floor(d/7)*12+scale[d%7]}
+  function hash(n){n=(n^61)^(n>>>16);n=Math.imul(n,9);n=n^(n>>>4);n=Math.imul(n,0x27d4eb2d);return (n^(n>>>15))>>>0}
+  function compose(x,y,treatment,tick){
+    const offsets=[0,4,9,0],pattern=treatment==='improv'?[[0,0,0,0],[0,1,1,2],[0,1,2,3],[0,0,1,2]][hash(x*71+y*17+tick)%4]:null;
+    return offsets.map((offset,voice)=>{
+      const at=tick+(treatment==='arp'?voice:treatment==='line'?voice*2:treatment==='improv'?pattern[voice]:0);
+      const px=voice===3?x:clamp(x+offset,0,22),py=y;
+      return {tick:at,x:px,y:py,voice,note:noteAt(voice===3?y:px,voice),duration:treatment==='chord'?2:1,velocity:.54+(voice===0?.13:0),id:hash(tick*137+px*23+py*5+voice)};
+    });
+  }
+  const demo={length:32,events:[[0,3,14,'chord'],[5,7,11,'arp'],[11,11,8,'line'],[17,14,14,'improv'],[23,6,18,'chord'],[27,12,6,'arp']].flatMap(([t,x,y,m])=>compose(x,y,m,t)).map(e=>({...e,tick:e.tick%32}))};
+  function save(){try{localStorage.setItem(storage,JSON.stringify(tracks))}catch{}}
+  try{const old=JSON.parse(localStorage.getItem(storage));if(Array.isArray(old)&&old.length===3)tracks=old.map(c=>c&&Array.isArray(c.events)&&Number.isInteger(c.length)&&c.length>=4&&c.length<=256?c:null)}catch{}
+  function setMessage(text){$('message').textContent=text}
+  function updateUI(){
+    $('foot-state').textContent=state==='demo'?'DEMO LOOP':state==='recording'?'● RECORDING':state==='play'?'▶ PLAYBACK':state==='draft'?'DRAFT READY':'LIVE TOUCH';
+    $('state-label').textContent=state.toUpperCase();$('rec').classList.toggle('active',state==='recording');$('rec').textContent=state==='recording'?'■ 结束录制':'● 开始录制';$('play').classList.toggle('active',state==='play');$('play').textContent=state==='play'?'■ 停止播放':'▶ 播放各轨';
+    $('keep').disabled=!draft||!draft.events.length;$('sound').textContent='声音：'+(soundOn?'开':'关');$('crank').disabled=state!=='recording'||recordDrive!=='step';
+    document.querySelectorAll('[data-drive]').forEach(el=>{el.classList.toggle('active',el.dataset.drive===recordDrive);el.disabled=state==='recording'});
+    document.querySelectorAll('[data-slot]').forEach(el=>{const i=Number(el.dataset.slot);el.classList.toggle('active',i===slot);el.classList.toggle('filled',!!tracks[i])});
+    $('track-stat').textContent=String(tracks.filter(Boolean).length).padStart(2,'0');$('event-stat').textContent=String((draft||tracks[slot]||demo).events.length).padStart(2,'0');
+  }
+  function resetClock(){epoch=performance.now();processed=-1;lastArp=-99;lastGestureTick=-999;pending=null;live=[];parkedPhase=0}
+  function clearFabric(){woven.fill(null);strands.v.fill(null);strands.h.fill(null);pulses=[];lastBeatTick=-1;lastWeftRow=-1;loomAdvance=0}
+  function sources(){if(state==='demo')return [demo];if(state!=='play')return [];const list=tracks.slice();if(draft&&draft.events.length)list[slot]=draft;return list.filter(Boolean)}
+  function startPlay(){const list=tracks.slice();if(draft&&draft.events.length)list[slot]=draft;if(!list.some(Boolean)){setMessage('还没有片段。先录制并保存，或点击观看示例。');return}
+    rewindFrom=parkedPhase||draft?.length||tracks[slot]?.length||masterLength;state='play';playAt=performance.now();if(cutAt<0)cutAt=playAt-1200;masterLength=Math.max(...list.filter(Boolean).map(c=>c.length));clearFabric();resetClock();epoch=playAt+1400;setMessage('纸带脱离打孔口、翻面并倒卷到首步；倒卷完成才开始读取。');updateUI()}
+  function armAudio(){if(!soundOn)return;try{audio||=(new (window.AudioContext||window.webkitAudioContext)());if(audio.state==='suspended')audio.resume()}catch{soundOn=false;updateUI()}}
+  function sound(e){if(!soundOn||!audio||audio.state!=='running')return;
+    const t=audio.currentTime,d=Math.min(2,Math.max(.03,e.duration*stepMs()/1000*number('note-length',.75,.1,3))),attack=number('attack',12,1,1000)/1000,o=audio.createOscillator(),v=audio.createGain();
+    o.type=e.voice===3?'sine':'triangle';o.frequency.value=440*Math.pow(2,(e.note-69)/12);v.gain.setValueAtTime(.0001,t);v.gain.exponentialRampToValueAtTime(Math.max(.0001,number('gain',.052,0,.2)*e.velocity),t+Math.min(attack,d*.8));v.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(v);v.connect(audio.destination);o.start(t);o.stop(t+d+.025);
+  }
+  function hit(e,now){
+    if(e.tick!==lastBeatTick){lastBeatTick=e.tick;lastBeatAt=now;loomAdvance++}
+    const axis=e.voice===3?'h':'v',position=axis==='h'?e.y:e.x;
+    if(axis==='h'){lastWeftRow=e.y;lastWeftAt=now}
+    if(!strands[axis][position])strands[axis][position]={born:now,last:now};
+    else strands[axis][position].last=now;
+    const i=e.y*N+e.x,prior=woven[i],count=(prior?.count||0)+1;
+    woven[i]={count,voice:e.voice,id:e.id};
+    pulses.push({x:e.x,y:e.y,voice:e.voice,at:now,id:e.id});if(pulses.length>24)pulses.shift();sound(e);
+    $('event-readout').textContent=`TICK ${String(e.tick%masterLength).padStart(2,'0')}  /  X ${String(e.x).padStart(2,'0')} · Y ${String(e.y).padStart(2,'0')}  /  VOICE ${e.voice+1}  /  孔位触发 ${count} 次`;
+  }
+  function finishManual(){state='draft';cutAt=performance.now();pointer.down=false;contacts.clear();pending=null;live=[];parkedPhase=draft.length;setMessage('纸带已走完，正在断带；试听后保存或清空重织。');updateUI()}
+  function advanceManual(blank){
+    if(state!=='recording'||recordDrive!=='step'||manualStep>=draft.length)return;
+    const now=performance.now(),tick=manualStep++;
+    if(blank){lastCrankAt=now;setMessage(`第 ${tick+1} 格留白；摇把将纸带推进一格。`)}
+    parkedPhase=manualStep;lastAdvanceAt=now;$('tick-stat').textContent=String(manualStep%draft.length).padStart(2,'0');updateUI();
+    if(manualStep>=draft.length)finishManual();
+  }
+  function queueStep(x,y,tick){live.push(...compose(x,y,mode,tick).map((e,i)=>({...e,stepGap:mode==='line'&&i>0?1:0})));lastArp=lastGestureTick=tick}
+  function processStepTick(tick,now){
+    const gap=number('min-gap',2,1,16);
+    if(pending&&pending.due<=tick&&tick-lastGestureTick>=gap){queueStep(pending.x,pending.y,tick);pending=null}
+    else if(pointer.down&&mode==='arp'&&tick-lastArp>=Math.max(4,gap))queueStep(pointer.x,pointer.y,tick);
+    const due=live.filter(e=>e.tick<=tick);live=live.filter(e=>e.tick>tick);
+    if(!due.length||state!=='recording'||manualStep>=draft.length)return;
+    if(due.some(e=>e.stepGap)&&manualStep<draft.length)manualStep++;
+    if(manualStep>=draft.length){finishManual();return}
+    const step=manualStep++;
+    for(const e of due){const recorded={...e,tick:step};delete recorded.stepGap;draft.events.push(recorded);hit(recorded,now)}
+    parkedPhase=manualStep;lastAdvanceAt=now;$('tick-stat').textContent=String(step).padStart(2,'0');updateUI();
+    if(manualStep>=draft.length)finishManual();
+  }
+  function processTick(tick,now){
+    if(state==='recording'&&tick>=draft.length){state='draft';cutAt=now;pointer.down=false;contacts.clear();pending=null;live=[];parkedPhase=draft.length;setMessage('片段录完，纸带正在断开。试听后保存或清空重织。');updateUI()}
+    if(state==='recording'||state==='idle'||state==='draft'||state==='play'){
+      const gap=number('min-gap',2,1,16);
+      if(pending&&pending.due<=tick&&tick-lastGestureTick>=gap){live.push(...compose(pending.x,pending.y,mode,tick));pending=null;lastArp=lastGestureTick=tick}
+      else if(pointer.down&&mode==='arp'&&tick-lastArp>=Math.max(4,gap)){live.push(...compose(pointer.x,pointer.y,mode,tick));lastArp=lastGestureTick=tick}
+    }
+    const due=live.filter(e=>e.tick===tick);
+    for(const e of due){if(state==='recording')draft.events.push({...e,tick:tick%draft.length});hit(e,now)}
+    if(due.length)updateUI();live=live.filter(e=>e.tick>tick);
+    const list=sources();if(list.length){if(tick>0&&tick%masterLength===0)clearFabric();for(const clip of list)for(const e of clip.events)if(e.tick===tick%clip.length)hit(e,now)}
+    $('tick-stat').textContent=String(tick%masterLength).padStart(2,'0');
+  }
+  function staticBase(){
+    b.fillStyle='#f8f7f3';b.fillRect(0,0,320,320);
+    for(const [x,y,r,c] of [[42,92,121,'#d9e9f1'],[227,55,92,'#f1dfe4'],[187,262,119,'#e2eee2']]){
+      const wash=b.createRadialGradient(x,y,1,x,y,r);wash.addColorStop(0,c+'8c');wash.addColorStop(1,c+'00');b.fillStyle=wash;b.fillRect(x-r,y-r,r*2,r*2);
+    }
+    b.fillStyle='#66737b';b.font='9px sans-serif';b.fillText('WEFT / LIVE MATERIAL',17,22);b.fillStyle='#aabfbe';b.fillRect(227,15,3,3);b.fillStyle='#87939a';b.font='7px sans-serif';b.fillText('X / TOUCH',25,39);b.fillText('Y',9,48);b.fillText('TIME',260,49);
+    b.strokeStyle='#d8e2df';b.lineWidth=1;b.strokeRect(19.5,55.5,216,220);b.fillStyle='#f6f7f3';b.fillRect(21,57,212,217);
+    for(let y=0;y<N;y++)for(let x=0;x<N;x++){b.fillStyle='#b5c7bf59';b.fillRect(F.x+x*F.p,F.y+y*F.p,1,1)}
+    b.fillStyle='#e3eced';b.fillRect(23,43,204,10);b.fillStyle='#e4ece6';b.fillRect(8,59,10,204);
+    for(let i=0;i<N;i++){b.fillStyle=i%4===0?'#8eb6c5':'#b8cdd0';b.fillRect(F.x+i*F.p,45,2,5);b.fillStyle=i%4===0?'#a6c5b3':'#c6d9c8';b.fillRect(10,F.y+i*F.p,5,2)}
+    for(const xx of [20,234])for(const yy of [56,274]){b.fillStyle='#c5b3ab';b.fillRect(xx-2,yy-2,3,3)}
+    const rail=b.createLinearGradient(244,0,316,0);rail.addColorStop(0,'#b8cbd1');rail.addColorStop(.1,'#f4f2ef');rail.addColorStop(.9,'#f1eeeb');rail.addColorStop(1,'#bfd2d8');b.fillStyle=rail;b.fillRect(243,53,74,230);
+    b.fillStyle='#87939a';b.font='7px sans-serif';b.fillText('01',25,292);b.fillText('02',190,292);b.fillText('SOUND → PATTERN',25,307);
+  }
+  staticBase();
+  function knot(x,y,node,g){
+    const px=F.x+x*F.p,py=F.y+y*F.p,c=holeColors[node.voice][Math.min(6,node.count)-1];g.fillStyle=c;
+    if(node.voice===0){g.fillRect(px-4,py-4,8,8);g.fillStyle='#f8f6f0';g.fillRect(px-1,py-2,3,4)}
+    else if(node.voice===1){g.fillRect(px-4,py-3,9,7);g.fillStyle='#f8f6f0';g.fillRect(px-1,py-2,2,5)}
+    else if(node.voice===2){g.fillRect(px-3,py-4,7,9);g.fillStyle='#f8f6f0';g.fillRect(px-2,py-1,5,2)}
+    else {g.fillRect(px-4,py-4,9,9);g.fillStyle='#f8f6f0';g.beginPath();g.arc(px+.5,py+.5,2.2,0,7);g.fill()}
+  }
+  function weftProgress(s,now){return clamp((now-s.born)/number('enter-time',1000,100,10000),0,1)}
+  function weftRise(s,now){const p=weftProgress(s,now);return p<.55?10:p<.88?10*(1-ease((p-.55)/.33)):-1.3*Math.sin((p-.88)/.12*Math.PI)}
+  function weftExtent(s,now,length){return Math.max(1,length*out(weftProgress(s,now)/.55))}
+  function fabric(now,g){
+    const length=(N-1)*F.p+5;
+    const vColors=Array(N),hColors=Array(N);
+    g.save();g.beginPath();g.rect(21,57,212,217);g.clip();
+    for(let x=0;x<N;x++){
+      const s=strands.v[x];if(!s)continue;const px=F.x+x*F.p,extent=Math.min(length,Math.max(1,length*out((now-s.born)/number('enter-time',1000,100,10000))));
+      const col=vColors[x]=strandColor('v',now-s.last);g.fillStyle=col;g.fillRect(px-3,F.y-3,6,extent);
+      g.fillStyle=blend(col,'#ffffff',.38);g.fillRect(px-2,F.y-3,1,extent);
+      if(extent<length){g.fillStyle='#dceaf1';g.fillRect(px-4,F.y-3+extent,8,3)}
+    }
+    for(let y=0;y<N;y++){
+      const s=strands.h[y];if(!s)continue;const py=F.y+y*F.p+weftRise(s,now),extent=weftExtent(s,now,length);
+      const col=hColors[y]=strandColor('h',now-s.last);g.fillStyle=col;g.fillRect(F.x-3,py-3,extent,6);
+      g.fillStyle=blend(col,'#ffffff',.36);g.fillRect(F.x-3,py-2,extent,1);
+      if(extent<length){g.fillStyle='#f3e7e8';g.fillRect(F.x-3+extent,py-4,3,8)}
+      if(weftProgress(s,now)<.55){const xx=F.x-3+extent;g.fillStyle='#bd9ead';g.fillRect(xx-3,py-5,12,9);g.fillStyle='#f7e5e6';g.fillRect(xx-1,py-4,8,7);g.fillStyle='#9db6bf';g.fillRect(xx+7,py-2,3,3)}
+    }
+    for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+      const v=strands.v[x],h=strands.h[y];if(!v||!h)continue;
+      if(length*out((now-v.born)/number('enter-time',1000,100,10000))<y*F.p||weftExtent(h,now,length)<x*F.p)continue;
+      const px=F.x+x*F.p,py=F.y+y*F.p+weftRise(h,now),verticalTop=(x+y)%2===0;
+      const col=verticalTop?vColors[x]:hColors[y];g.fillStyle=blend(col,'#aeb8bb',.09);g.fillRect(px-4,py-4,8,8);
+      if(verticalTop){g.fillStyle=col;g.fillRect(px-3,py-5,6,10);g.fillStyle=blend(col,'#ffffff',.38);g.fillRect(px-2,py-5,1,10)}
+      else{g.fillStyle=col;g.fillRect(px-5,py-3,10,6);g.fillStyle=blend(col,'#ffffff',.36);g.fillRect(px-5,py-2,10,1)}
+      const node=woven[y*N+x];if(node&&weftRise(h,now)<1)knot(x,y,node,g);
+    }
+    g.restore();
+    const decay=Number($('decay').value),reach=Number($('reach').value)*F.p;
+    pulses=pulses.filter(p=>now-p.at<decay);
+    for(const p of pulses){
+      const u=clamp((now-p.at)/decay,0,1),a=(1-u)*(1-u),x=F.x+p.x*F.p,y=F.y+p.y*F.p,r=reach*(.12+u*.9),col=palette[p.voice];
+      g.save();g.beginPath();g.rect(21,57,212,217);g.clip();g.globalAlpha=a;
+      const glow=g.createRadialGradient(x,y,1,x,y,Math.min(35,r));glow.addColorStop(0,col+'a0');glow.addColorStop(.35,col+'2b');glow.addColorStop(1,col+'00');g.fillStyle=glow;g.fillRect(x-38,y-38,76,76);
+      g.strokeStyle=col;g.lineWidth=1.3;g.beginPath();g.moveTo(x-r,y);g.lineTo(x+r,y);g.moveTo(x,y-r*.78);g.lineTo(x,y+r*.78);g.stroke();
+      const core=Math.max(4,Math.round(13*(1-u)));g.fillStyle=col;g.fillRect(Math.round(x-core/2),Math.round(y-core/2),core,core);
+      g.fillStyle='#f8f6f0';g.fillRect(Math.round(x-2),Math.round(y-2),4,4);
+      for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1]]){
+        const px=x+dx*r*.55,py=y+dy*r*.55,w=Math.max(2,Math.round((1-u)*8));
+        g.fillStyle=col;g.fillRect(Math.round(px-w/2),Math.round(py-w/2),w,w);
+        if((dx+dy+p.voice)%2===0){g.fillStyle='#f8f6f0';g.fillRect(Math.round(px)-1,Math.round(py)-1,2,2)}
+      }
+      for(let k=0;k<13;k++){
+        const v=hash(p.id+k*7919),sign=v&1?1:-1,axis=(v>>>1)&1,d=(.16+((v>>>3)%83)/100)*r;
+        const px=x+(axis?sign*d:((v>>>9)%7-3)*F.p),py=y+(axis?((v>>>11)%7-3)*F.p:sign*d);
+        const size=2+((v>>>17)%9);g.fillStyle=k%5===0?'#f4ebd4':col;g.fillRect(Math.round(px),Math.round(py),size,size);
+        if(k%4===0){g.fillStyle='#f8f6f0';g.fillRect(Math.round(px)+1,Math.round(py)+1,2,2)}
+      }
+      g.restore();
+    }
+    if(pointer.down){const x=F.x+pointer.x*F.p,y=F.y+pointer.y*F.p;g.strokeStyle='#a992ad';g.lineWidth=.8;g.strokeRect(x-5.5,y-5.5,11,11)}
+  }
+  function tape(now,g){
+    const list=sources(),clip=state==='recording'||state==='draft'?draft:list.length?{length:masterLength}:tracks[slot];
+    const moving=(state==='recording'&&recordDrive==='clock')||state==='play'||state==='demo';
+    const stepping=state==='recording'&&recordDrive==='step';
+    const phase=Math.max(0,moving?(now-epoch)/stepMs():stepping?parkedPhase-1+clamp((now-lastAdvanceAt)/180,0,1):parkedPhase),head=163;
+    g.save();g.beginPath();g.rect(249,54,63,229);g.clip();
+    const paper=g.createLinearGradient(249,0,312,0);
+    paper.addColorStop(0,'#c2d4db');paper.addColorStop(.09,'#e2ebec');paper.addColorStop(.34,'#f7f1ef');paper.addColorStop(.7,'#e8e2eb');paper.addColorStop(.93,'#e1ece9');paper.addColorStop(1,'#bbced4');
+    g.fillStyle=paper;g.fillRect(249,54,63,229);
+    for(const [xx,yy,rr,col] of [[267,87,62,'#c2e3f0'],[298,156,70,'#f3d7e3'],[265,235,57,'#dcebd9']]){
+      const wash=g.createRadialGradient(xx,yy,2,xx,yy,rr);wash.addColorStop(0,col+'8c');wash.addColorStop(1,col+'00');g.fillStyle=wash;g.fillRect(xx-rr,yy-rr,rr*2,rr*2);
+    }
+    g.fillStyle='#ffffff8c';g.fillRect(257,54,2,229);g.fillStyle='#9dbac548';g.fillRect(307,54,2,229);
+    for(let n=Math.floor(phase)-13;n<=Math.ceil(phase)+13;n++){
+      const yy=head+(n-phase)*13;if(yy<48||yy>289)continue;
+      g.fillStyle=n%4===0?'#ffffff46':'#ffffff24';g.fillRect(251,yy-5,59,11);
+      g.fillStyle='#a8b8bf';g.fillRect(254,yy-2,3,3);g.fillRect(304,yy-2,3,3);
+      if(!clip)continue;const tt=((n%clip.length)+clip.length)%clip.length;
+      const events=((state==='play'||state==='demo')?list:[clip]).flatMap(c=>c.events.filter(e=>e.tick===((n%c.length)+c.length)%c.length));
+      for(const e of events){for(const [xx,col] of [[260+e.x*1.05,'#6998c2'],[284+e.y*1.05,'#b7779e']]){g.fillStyle='#fffaf2';g.fillRect(xx-.5,yy-3,2.5,6);g.fillStyle=col;g.fillRect(xx,yy-2,1.5,4)}}
+      if(n%4===0){g.fillStyle='#889aa1';g.font='5px monospace';g.fillText(String(tt).padStart(2,'0'),251,yy+2)}
+    }
+    g.restore();g.fillStyle='#bd94a9';g.fillRect(243,161,73,2);g.fillStyle='#f6e9e9';g.fillRect(242,159,4,6);g.fillStyle='#b8ccdb';g.fillRect(311,158,5,8);
+    const flare=g.createRadialGradient(267,162,0,267,162,33);flare.addColorStop(0,'#e7b7c990');flare.addColorStop(1,'#e7b7c900');g.fillStyle=flare;g.fillRect(234,129,66,66);
+  }
+  function machine(now,g){
+    g.save();g.fillStyle='#b9cbd0';g.fillRect(253,278,55,10);
+    const body=g.createLinearGradient(247,283,306,312);body.addColorStop(0,'#fdf8f3');body.addColorStop(.52,'#e9e3e8');body.addColorStop(1,'#cadce0');
+    g.fillStyle=body;g.beginPath();g.moveTo(251,288);g.lineTo(301,288);g.lineTo(307,294);g.lineTo(307,310);g.lineTo(249,310);g.lineTo(249,294);g.closePath();g.fill();
+    g.strokeStyle='#aebfc4';g.lineWidth=1;g.stroke();g.fillStyle='#a9bdc2';g.fillRect(259,286,39,3);
+    g.fillStyle='#fffaf4';g.fillRect(259,291,38,3);g.fillStyle='#d9aabb';g.fillRect(275,295,5,4);
+    g.fillStyle='#8daeb7';g.fillRect(254,304,45,1);
+    const turn=clamp((now-lastCrankAt)/210,0,1),angle=-.7+turn*Math.PI*1.4;
+    g.fillStyle='#f8f3ed';g.beginPath();g.arc(307,298,5,0,Math.PI*2);g.fill();g.strokeStyle='#91a7b0';g.stroke();
+    g.strokeStyle='#8d9fa9';g.lineWidth=2;g.beginPath();g.moveTo(307,298);g.lineTo(307+8*Math.cos(angle),298+8*Math.sin(angle));g.stroke();
+    g.fillStyle='#d2a0b2';g.beginPath();g.arc(307+8*Math.cos(angle),298+8*Math.sin(angle),2.5,0,Math.PI*2);g.fill();g.restore();
+  }
+  let layoutSplit=0;
+  function card(now,split){
+    if(state==='demo'||(state==='idle'&&cutAt<0))return;
+    const clips=state==='play'?sources():[draft||tracks[slot]].filter(Boolean);
+    const moving=(state==='recording'&&recordDrive==='clock')||state==='play';
+    const stepPhase=parkedPhase?parkedPhase-1+out((now-lastAdvanceAt)/240):0;
+    const rewinding=state==='play'&&now<epoch,reverse=rewindFrom*(1-ease((now-playAt-520)/880));
+    const phase=Math.max(0,rewinding?reverse:moving?(now-epoch)/stepMs():state==='recording'&&recordDrive==='step'?stepPhase:parkedPhase),len=state==='recording'?Math.min(190,18+phase*8):155+35*(1-split);
+    const cx=160,top=232-52*split,w=62+78*split;
+    g.save();g.beginPath();g.rect(0,0,320,320);g.clip();
+    g.save();
+    if(state==='play'){const turn=ease((now-playAt)/520),drop=22*(1-ease((now-playAt-520)/880));g.translate(cx,top+len/2+drop);g.rotate(.42+(Math.PI-.42)*turn);g.translate(-cx,-top-len/2)}
+    else if(cutAt>=0){const u=ease((now-cutAt)/700);g.translate(cx-w/2,top);g.rotate(.42*u);g.translate(-(cx-w/2),-top);g.translate(0,22*ease((u-.35)/.65))}
+    const paper=g.createLinearGradient(cx-w/2,0,cx+w/2,0);paper.addColorStop(0,'#b7cbd2');paper.addColorStop(.12,'#e4eaea');paper.addColorStop(.5,'#f7eeed');paper.addColorStop(.88,'#e6e6ea');paper.addColorStop(1,'#bfd3d7');
+    g.beginPath();g.moveTo(cx-w/2,top+(cutAt>=0?2:0));
+    if(cutAt>=0)for(let i=1;i<12;i++)g.lineTo(cx-w/2+i*w/12,top+1+((i*7)%5)*.65);
+    g.lineTo(cx+w/2,top);g.lineTo(cx+w/2,top+len);g.lineTo(cx-w/2,top+len);g.closePath();g.fillStyle=paper;g.fill();g.save();g.clip();
+    const flutter=Math.sin(now/150)*Math.min(3,len/35);g.strokeStyle='#b7cad0';g.beginPath();g.moveTo(cx-w/2,top+len-1);g.quadraticCurveTo(cx,top+len+2+flutter,cx+w/2,top+len-1);g.stroke();
+    g.fillStyle='#fffefaaf';g.fillRect(cx-w/2+3,top,2,len);g.fillStyle='#9bb6bd65';g.fillRect(cx+w/2-4,top,2,len);
+    for(let n=0;n<Math.ceil(len/8);n++){const yy=top+5+n*8;g.fillStyle='#9cb1b9';g.fillRect(cx-w/2+5,yy,2,2);g.fillRect(cx+w/2-7,yy,2,2)}
+    for(const clip of clips)for(const e of clip.events){const dist=state==='play'?((e.tick-phase)%clip.length+clip.length)%clip.length:phase-e.tick;if(dist<0||dist*8>=len)continue;
+      const yy=state==='play'?top+len-dist*8-4:top+dist*8+4,xx=cx-w/2+10+(e.x/22)*(w*.39),yx=cx+w*.06+(e.y/22)*(w*.39);
+      g.fillStyle='#fffaf4';g.fillRect(xx-1,yy-2,4,5);g.fillRect(yx-1,yy-2,4,5);g.fillStyle='#648fb9';g.fillRect(xx,yy-1,2,3);g.fillStyle='#b7779e';g.fillRect(yx,yy-1,2,3);
+    }
+    g.restore();g.restore();
+    if(state!=='play'){const housing=g.createLinearGradient(0,214,0,244);housing.addColorStop(0,'#f9f6f0');housing.addColorStop(1,'#c7d9dc');g.fillStyle=housing;g.fillRect(112,213,96,26);g.strokeStyle='#b1c4ca';g.strokeRect(112.5,213.5,95,25);g.fillStyle='#9fb4bb';g.fillRect(126,229,68,3);const strike=Math.max(0,1-(now-lastBeatAt)/210);g.fillStyle='#e0b8c5';g.fillRect(154,216+strike*5,12,5);g.strokeStyle='#8b9fa8';g.beginPath();g.arc(204,225,6,0,7);g.stroke();g.beginPath();g.moveTo(204,225);g.lineTo(211,220+(now-lastCrankAt<220?Math.sin(now/55)*5:0));g.stroke()}
+    if(state==='play'){g.fillStyle='#d0dfe1';g.fillRect(cx-w/2-5,top-7,w+10,10);g.fillStyle='#faf6f0';g.fillRect(cx-w/2,top-3,w,3);g.fillStyle='#b68fa5';g.fillRect(cx-9,top-2,18,2)}
+    g.restore();
+  }
+  function display(now){
+    cg.clearRect(0,0,320,320);fabric(now,cg);vg.clearRect(0,0,320,320);vg.drawImage(cloth,7,40,236,236,0,0,320,320);
+    layoutSplit=0;
+    g.fillStyle='#f8f7f3';g.fillRect(0,0,320,320);
+    const split=layoutSplit,x=60+30*split,y=12-4*split,w=200-60*split,h=200-60*split;
+    const loom=g.createLinearGradient(x,0,x+w,0);loom.addColorStop(0,'#b6cad0');loom.addColorStop(.18,'#f6f0e9');loom.addColorStop(.82,'#ece7e9');loom.addColorStop(1,'#aebfc7');
+    g.fillStyle=loom;g.fillRect(x-11,y-13,w+22,h+31);g.fillStyle='#e5eced';g.fillRect(x-4,y-4,w+8,h+9);
+    g.save();g.beginPath();g.rect(x,y,w,h);g.clip();g.fillStyle='#f8f7f3';g.fillRect(x,y,w,h);
+    g.fillStyle='#b9cbd12d';for(let i=0;i<23;i++){g.fillRect(x+((F.x+i*F.p-7)/236)*w,y,1,h);g.fillRect(x,y+((F.y+i*F.p-40)/236)*h,w,1)}
+    g.drawImage(view,x,y,w,h);
+    if(lastWeftRow>=0){const u=(now-lastWeftAt)/number('enter-time',1000,100,10000);if(u>=.5&&u<1.1){const rowY=y+((F.y+lastWeftRow*F.p-40)/236)*h,gap=(u<.88?10*(1-ease((u-.55)/.33)):0)*h/236;g.globalAlpha=u>1?1-(u-1)/.1:.85;g.fillStyle='#a9bec3';g.fillRect(x,rowY+gap+6,w,3);g.fillStyle='#faf5ed';g.fillRect(x,rowY+gap+6,w,1);g.globalAlpha=1}}
+    g.restore();
+    g.fillStyle='#b6c7cd';g.fillRect(x-11,y-13,w+22,5);g.fillRect(x-11,y+h+14,w+22,5);
+    g.fillStyle='#f8f2ec';g.fillRect(x-9,y-9,w+18,3);g.fillRect(x-9,y+h+15,w+18,2);
+    g.fillStyle='#c3d4d7';g.fillRect(x-4,y+h-8,w+8,3);g.fillStyle='#faf4ed';g.fillRect(x-4,y+h-8,w+8,1);
+    for(let i=0;i<12;i++){g.fillStyle=i%3===0?'#aabec5':'#d5d8d4';g.fillRect(x+5+i*(w-10)/12,y-7,2,4)}
+    g.strokeStyle='#91aeb8';g.lineWidth=1;for(const xx of [x-6,x+w+6]){g.beginPath();g.moveTo(xx,y-7);g.lineTo(xx,y+h+17);g.stroke();for(const yy of [y+3,y+h-7]){g.fillStyle='#f8f2ed';g.beginPath();g.arc(xx,yy,3,0,7);g.fill();g.stroke()}}
+    const roller=g.createLinearGradient(0,y+h+3,0,y+h+14);roller.addColorStop(0,'#f9f5ef');roller.addColorStop(.5,'#adc4ca');roller.addColorStop(1,'#e6e5e2');g.fillStyle=roller;g.fillRect(x-4,y+h+3,w+8,9);
+    g.strokeStyle='#a6bdc4';g.strokeRect(x-4.5,y+h+3.5,w+9,8);
+    if(split<.9){g.strokeStyle='#b1c5c9';g.beginPath();g.moveTo(x+w*.35,y+h+18);g.lineTo(136,212);g.moveTo(x+w*.65,y+h+18);g.lineTo(185,212);g.stroke()}
+    card(now,split);
+  }
+  function animate(now){requestAnimationFrame(animate);if(now-frameAt<32)return;frameAt=now;
+    const t=Math.floor((now-epoch)/stepMs());if(t>processed){for(let i=Math.max(processed+1,t-8);i<=t;i++){if(state==='recording'&&recordDrive==='step')processStepTick(i,now);else processTick(i,now)}processed=t}display(now)
+  }
+  function point(e,locked){const r=canvas.getBoundingClientRect(),px=(e.clientX-r.left)*320/r.width,py=(e.clientY-r.top)*320/r.height,x=60+30*layoutSplit,y=12-4*layoutSplit,w=200-60*layoutSplit,h=200-60*layoutSplit;if(px<x||px>x+w||py<y||py>y+h)return null;const sx=7+(px-x)*236/w,sy=40+(py-y)*236/h;
+    const axis=locked||(sx>=22&&sx<=229&&sy>=41&&sy<=54?'x':sx>=7&&sx<=19&&sy>=57&&sy<=266?'y':sx>=20&&sx<=235&&sy>=55&&sy<=275?'xy':null);
+    if(!axis)return null;return {axis,x:clamp(Math.round((sx-F.x)/F.p),0,22),y:clamp(Math.round((sy-F.y)/F.p),0,22)};
+  }
+  function touch(e,first){const p=point(e,contacts.get(e.pointerId));if(!p)return;
+    if(state==='demo'){state='idle';clearFabric();resetClock();setMessage('现场演奏中。按录制键可把下一段触摸保存为循环。');updateUI()}
+    const x=p.axis==='y'?pointer.x:p.x,y=p.axis==='x'?pointer.y:p.y;
+    if(first||x!==pointer.x||y!==pointer.y){pointer.x=x;pointer.y=y;if(state==='recording'&&recordDrive==='step'&&first){const tick=currentTick();queueStep(x,y,tick);processStepTick(tick,performance.now())}else pending={x,y,due:pending?.due??currentTick()+1}}
+  }
+  canvas.addEventListener('pointerdown',e=>{const p=point(e);if(!p)return;armAudio();contacts.set(e.pointerId,p.axis);pointer.down=true;canvas.setPointerCapture(e.pointerId);touch(e,true)});
+  canvas.addEventListener('pointermove',e=>{if(contacts.has(e.pointerId))touch(e,false)});
+  for(const name of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(name,e=>{contacts.delete(e.pointerId);pointer.down=contacts.size>0;if(!pointer.down){pending=null;if(!(state==='recording'&&recordDrive==='step'))live=[]}});
+  document.querySelectorAll('[data-mode]').forEach(btn=>btn.onclick=()=>{mode=btn.dataset.mode;document.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle('active',x===btn));setMessage(`${mode.toUpperCase()}：下一次触摸将按这个方式产生音符事件。`)});
+  document.addEventListener('keydown',e=>{if(e.repeat||e.ctrlKey||e.altKey||e.metaKey||e.target.closest('input,select,textarea,[contenteditable]'))return;const i='1234'.indexOf(e.key);if(i<0)return;document.querySelectorAll('#modes [data-mode]')[i].click();e.preventDefault()});
+  document.querySelectorAll('[data-drive]').forEach(btn=>btn.onclick=()=>{if(state==='recording')return;recordDrive=btn.dataset.drive;setMessage(recordDrive==='step'?'触摸步进：按下立即打孔；按住移动时，在量化边界继续打孔。摇把留空一格。':'节拍驱动：录制期间纸带随 BPM 匀速前进。');updateUI()});
+  $('crank').onclick=()=>advanceManual(true);
+  document.querySelectorAll('[data-slot]').forEach(btn=>btn.onclick=()=>{slot=Number(btn.dataset.slot);updateUI();setMessage(`已选第 ${slot+1} 轨。录制草稿不会覆盖已保存轨道，直到点击保存。`)});
+  $('rec').onclick=()=>{armAudio();if(state==='recording'){parkedPhase=recordDrive==='step'?manualStep:currentTick();state='draft';cutAt=performance.now();pointer.down=false;contacts.clear();pending=null;live=[];setMessage('录制结束，纸带断开并移到侧面；空白余量仍保留。');updateUI();return}
+    draft={length:Number($('bars').value)*4*Number($('division').value),events:[]};masterLength=draft.length;state='recording';cutAt=-1;clearFabric();resetClock();manualStep=0;setMessage(recordDrive==='step'?`第 ${slot+1} 轨触摸步进：音符响起就打孔，摇把留空。`:`正在录制第 ${slot+1} 轨，${Number($('bars').value)} 小节后自动结束。`);updateUI()};
+  $('keep').onclick=()=>{if(!draft||!draft.events.length)return;const stop=parkedPhase;tracks[slot]={length:draft.length,events:draft.events.map(e=>({...e}))};save();draft=null;state='idle';resetClock();parkedPhase=stop;setMessage(`第 ${slot+1} 轨已保存。点击播放可让各轨一起循环。`);updateUI()};
+  $('play').onclick=()=>{armAudio();if(state==='play'){const stop=currentTick();state='idle';resetClock();parkedPhase=stop;setMessage('已停止播放。布面保留当前织痕。');updateUI()}else startPlay()};
+  $('clear').onclick=()=>{draft=null;state='idle';cutAt=-1;pointer.down=false;contacts.clear();clearFabric();resetClock();setMessage('草稿和当前织痕已清空；已保存轨道保留，可重新录制。');updateUI()};
+  $('demo').onclick=()=>{state='demo';cutAt=-1;pointer.down=false;contacts.clear();draft=null;masterLength=32;clearFabric();resetClock();setMessage('示例演奏中；未开始录制，所以不会吐出纸带。');updateUI()};
+  $('sound').onclick=()=>{soundOn=!soundOn;if(soundOn)armAudio();updateUI()};
+  $('bpm').onchange=()=>{$('bpm').value=clamp(Number($('bpm').value)||96,40,220);resetClock();clearFabric();setMessage('速度已更新，循环从第一步重新开始。')};
+  for(const [id,label,unit] of [['reach','reach-label',' 格'],['decay','decay-label',' ms']])$(id).oninput=()=>$(label).textContent=$(id).value+unit;
+  updateUI();requestAnimationFrame(animate);
+})();
+</script>
+</body>
+</html>

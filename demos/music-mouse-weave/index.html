@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Music Mouse Weave Preview</title>
+<style>
+  :root{color-scheme:dark;font-family:Inter,system-ui,sans-serif;background:#12101c;color:#eeeaf8}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;background:#12101c}
+  main{width:320px;margin:28px 0;zoom:1.5}.stage{width:320px;height:320px;margin:0;position:relative;overflow:hidden;outline:1px solid #b8acc9}
+  canvas{display:block;width:320px;height:320px;image-rendering:pixelated;touch-action:none}
+  .modes{position:absolute;z-index:2;left:20px;top:3px;width:280px;display:grid;grid-template-columns:repeat(4,64px);gap:8px;pointer-events:none}
+  .modes button{height:21px;padding:0;border:1px solid rgba(190,180,215,.22);border-radius:999px;background:rgba(43,38,56,.30);color:rgba(244,242,237,.62);font:500 10px/19px Inter,system-ui,sans-serif;backdrop-filter:blur(3px);pointer-events:auto}
+  .modes button.active{background:rgba(255,79,145,.68);color:#fff;border-color:rgba(213,255,105,.72);box-shadow:0 1px 7px rgba(255,79,145,.30)}
+  .tuner{padding:10px 4px 4px;display:grid;gap:7px;font-size:11px;color:#bdb5cc}
+  .colors{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}
+  .colors label{display:flex;align-items:center;justify-content:space-between;gap:6px}
+  .colors input{width:34px;height:22px;padding:0;border:0;background:transparent}
+  .code{margin:0;padding:8px;white-space:pre-wrap;user-select:all;background:#211d2b;color:#e8e0f3;border-radius:6px;font:10px/1.45 ui-monospace,Consolas,monospace}
+  #copy{height:28px;border:1px solid #4a4358;border-radius:999px;background:#2b2638;color:#eeeaf8;font:11px Inter,system-ui,sans-serif}
+  .styles{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+  .styles button{min-height:32px;border:1px solid #4a4358;border-radius:6px;background:#211d2b;color:#aaa3bb;font:10px/1.2 Inter,system-ui,sans-serif}
+  .styles button.active{background:#514767;color:#fff;border-color:#d6a8ff}
+  :root,body{background:#eaeaf1;color:#514964}.tuner{color:#655b73}.settings{display:grid;gap:7px}.settings label{display:flex;align-items:center;justify-content:space-between;gap:8px}.settings select,.settings input[type=number]{max-width:175px;border:1px solid #cec5d8;background:#faf8ff;color:#60516d;border-radius:6px;padding:4px;font:11px system-ui}.settings input[type=range]{width:130px;accent-color:#aa89bc}.actions{display:flex;gap:6px}.actions button{flex:1;background:#f7f2fd;color:#655275;border:1px solid #ccbdd9;border-radius:6px;padding:5px;font:11px system-ui}.code{background:#e2dbea;color:#655275}.note{font:10px/1.6 system-ui;color:#87788e;margin:3px 0}.modes{left:20px;top:8px}.modes button{background:#ffffff95;color:#70607e;border-color:#eee6f9}.modes button.active{background:#e8b4d8df;color:#594164;border-color:#c19ecb}#copy{background:#f5effb;color:#665274;border-color:#cdbfdb}
+</style>
+<style>
+ :root{color-scheme:light}body{background:#f1f1ee;color:#55535d;align-items:start}main{display:grid;grid-template-columns:320px 250px;gap:14px 28px;width:598px;margin:22px 0}.study-head{grid-column:1/-1;display:flex;align-items:baseline;justify-content:space-between;padding:0 0 9px;border-bottom:1px solid #d8d7d3;font:10px system-ui;letter-spacing:.15em;color:#88858c}.study-head strong{font-size:18px;font-weight:500;letter-spacing:-.03em;color:#4c4854}.filterbar{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:5px;align-items:center}.filterbar span{font:9px system-ui;letter-spacing:.08em;margin-right:4px;color:#827c88}.filterbar button{border:1px solid #dedbdc;background:#fafaf7;color:#807986;border-radius:2px;font:10px system-ui;padding:5px 9px;cursor:pointer}.filterbar button.active{background:#54505d;color:#fff;border-color:#54505d}.stage{outline-color:#e0dce3}.tuner{padding:0;align-self:start}.settings select,.settings input[type=number]{background:#fafaf7;border-color:#d8d5dc;border-radius:2px}.actions button,#copy{background:#fafaf7;border-color:#d8d5dc;border-radius:2px;color:#68616c}.note{color:#918c95}.code{background:#e9e7eb;color:#777080}.modes button{font-size:8px;height:17px;line-height:15px;box-shadow:none;backdrop-filter:none;background:#ffffffa0;border-color:#e9e5eb;color:#9a8c9e}.modes button.active{background:#f0d7e8c0;color:#76577b;border-color:#d5b9d8;box-shadow:none}
+ @media(max-width:960px){main{display:block;width:320px}.study-head,.filterbar{margin-bottom:12px}.tuner{padding-top:12px}}
+</style>
+</head>
+<body>
+<main aria-label="Music Mouse 钢琴织布机">
+  <header class="study-head"><strong>Soft apparatus.</strong><span>01 / SONIC TEXTILES</span></header>
+  <nav class="filterbar" aria-label="ASCII 滤镜切换"><span>视觉滤镜</span><button data-filter="none" class="active" aria-pressed="true">原画</button><button data-filter="ascii" aria-pressed="false">彩色 ASCII</button><button data-filter="terminal" aria-pressed="false">字符终端</button><button data-filter="paper" aria-pressed="false">方格纸 123*</button><button data-filter="blocks" aria-pressed="false">字符版画 ▒</button></nav>
+  <div class="stage"><canvas id="screen" width="320" height="320" aria-label="Music Mouse 编织动画模拟"></canvas>
+  <div class="modes" aria-label="演奏模式">
+    <button class="active" data-mode="chord">CHORD</button>
+    <button data-mode="arp">ARP</button>
+    <button data-mode="line">LINE</button>
+    <button data-mode="improv">IMPROV</button>
+  </div>
+  </div>
+  <section class="tuner" aria-label="织带颜色调试">
+    <div class="actions"><button id="demo">自动演奏</button><button id="clear">重新织布</button><button id="clock">暂停节拍</button></div>
+    <p class="note">320 × 320 · 在布面按住／拖动。此页为视觉与节奏模拟，不连接设备音频。</p>
+    <div class="settings">
+      <label>页面缩放 <output id="zoom-value">1.5×</output><input id="zoom" type="number" min="0.1" max="10" step="any" value="1.5" title="0.1–10 倍，仅改变页面显示大小"></label>
+      <label>材质配色<select id="theme"><option value="lilac">01 / 珠光 · 乳白粉紫</option><option value="citrus">02 / 气泡 · 天蓝奶油</option><option value="dusk">03 / 合金 · 黄铜鸢尾</option></select></label>
+      <select id="filter" hidden aria-label="当前视觉滤镜"><option value="none">原画</option><option value="ascii">彩色 ASCII</option><option value="terminal">字符终端</option><option value="paper">方格纸</option><option value="blocks">字符版画</option></select>
+      <label>BPM<input id="bpm" type="number" min="1" step="any" value="120"></label>
+      <label>量化分母（16 = 十六分）<input id="division" type="number" min="1" step="1" value="16"></label>
+      <label>每隔几步挠球<input id="stride" type="number" min="1" step="1" value="4"></label>
+      <label>手势起音<select id="onset"><option value="immediate">立即开始</option><option value="grid">等待量化边界</option></select></label>
+      <label>ARP 方式<select id="arpMode"><option value="loop">按住循环</option><option value="strum">Strum 一次拨弦</option></select></label>
+      <label>微光强度（%）<input id="glow" type="number" min="0" max="100" step="any" value="55"></label>
+      <label>动作幅度（%）<input id="motion" type="number" min="0" max="100" step="any" value="65"></label>
+      <label>第二阶段淡去 <span id="fade-value">12 s</span><input id="fade" type="number" min="0" step="any" value="12"></label>
+      <label>字符颗粒（px）<input id="cell" type="number" min="1" max="320" step="1" value="5"></label>
+    </div><p class="note">数值可直接输入。字符 1–320 px；1–3 px 更像像素纹理，字符难以辨认且刷新开销更高。缩放 0.1–10×；微光／动作 0–100%（动作受精灵画幅限制）；淡去 0 = 关闭。BPM、量化分母、挠球步数及淡去时长不设试验上限，但视觉刷新约 30 Hz，极快节拍不会逐拍显示。</p><p id="timing" class="note"></p>
+    <div class="colors">
+      <label>纵条闲置 <input type="color" data-color="verticalIdle" value="#d8cbef"></label>
+      <label>纵条触发 <input type="color" data-color="vertical" value="#d6a8ff"></label>
+      <label>横条闲置 <input type="color" data-color="horizontalIdle" value="#f3b8d3"></label>
+      <label>横条触发 <input type="color" data-color="horizontal" value="#ff4f91"></label>
+      <label>纵条最终 <input type="color" data-color="verticalGhost" value="#343040"></label>
+      <label>横条最终 <input type="color" data-color="horizontalGhost" value="#322e3b"></label>
+    </div>
+    <pre class="code" id="cpp-colors"></pre>
+    <button id="copy" type="button">复制嵌入式颜色常量</button>
+    <p class="note">设备实现方向：静态结构／纹理预烘焙；猫与毛球使用小尺寸精灵帧；运行时局部更新。字符滤镜按脏块采样字模。这里的浏览器帧率不代表 MCU 性能，固件移植前需另测内存和 SPI 吞吐。</p>
+  </section>
+</main>
+<script src="loom-art.js"></script>
+<script>
+(() => {
+  const canvas=document.getElementById('screen'), output=canvas.getContext('2d',{alpha:false});
+  const scene=document.createElement('canvas');scene.width=scene.height=320;
+  const ctx=scene.getContext('2d',{alpha:false,willReadFrequently:true});
+  const layouts=[{x:64,y:73,size:164}];
+  let plot={...layouts[0]},currentStyle=0;
+  const count=23,bar=5;
+  const activeHoldMs=150,primaryFadeMs=280,secondaryFadeMs=9000,secondaryColorSteps=31;
+  const C={canvas:'#16131f',surface:'#211d2b',raised:'#2b2638',border:'#4a4358',
+    verticalIdle:'#d8cbef',vertical:'#d6a8ff',horizontalIdle:'#f3b8d3',horizontal:'#ff4f91',verticalGhost:'#343040',horizontalGhost:'#322e3b',gold:'#ffe04b',white:'#f4f2ed',black:'#171326',active:'#d5ff69'};
+  const lines={v:Array(count).fill(null),h:Array(count).fill(null)};
+  let mode='chord', focus={x:11,y:11,valid:false}, arpTimers=[];
+  const art=new LoomArt();
+  const el=id=>document.getElementById(id);
+  const numericDefaults={zoom:1.5,bpm:120,division:16,stride:4,glow:55,motion:65,fade:12,cell:5};
+  const numericValues={...numericDefaults};
+  function validateNumber(id){const input=el(id);let value=Number(input.value);
+    if(input.value.trim()===''||!Number.isFinite(value))value=numericValues[id];
+    value=Math.max(Number(input.min),Math.min(input.max===''?Number.MAX_SAFE_INTEGER:Number(input.max),value));
+    if(input.step==='1')value=Math.round(value);input.value=value;numericValues[id]=value;return value}
+  const stepMs=()=>60000/numericValues.bpm*4/numericValues.division;
+  function applyZoom(){const value=Number(el('zoom').value);document.querySelector('main').style.zoom=value;el('zoom-value').textContent=Number(value.toFixed(2))+'×'}
+  try{const savedZoom=localStorage.getItem('loom-study-zoom');if(savedZoom!==null)el('zoom').value=savedZoom}catch{}
+  validateNumber('zoom');
+  el('zoom').onchange=()=>{validateNumber('zoom');applyZoom();try{localStorage.setItem('loom-study-zoom',el('zoom').value)}catch{}};
+  applyZoom();
+  let epoch=performance.now(),pausedTime=0,running=true,auto=false,lastDemo=-1,petFrame=-1,nextArp=0,voiceCursor=0;
+  const clockTime=()=>running?performance.now()-epoch:pausedTime;
+  const voices=()=>[['v',focus.x],['v',Math.min(22,focus.x+4)],['v',Math.min(22,focus.x+9)],['h',focus.y]];
+  const staticLayer=document.createElement('canvas'),staticCtx=staticLayer.getContext('2d');staticLayer.width=staticLayer.height=320;
+  function makeGlow(horizontalTop){
+    const glow=document.createElement('canvas');glow.width=glow.height=31;
+    const gx=glow.getContext('2d'),img=gx.createImageData(31,31);
+    for(let y=0;y<31;y++)for(let x=0;x<31;x++){
+      const ax=Math.abs(x-15),ay=Math.abs(y-15),i=(y*31+x)*4;
+      const blocked=horizontalTop?ay<=3:ax<=3;
+      const d=horizontalTop?Math.hypot(ax,Math.max(0,ay-3)):Math.hypot(Math.max(0,ax-3),ay);
+      const t=Math.max(0,1-d/17),a=blocked?0:Math.round(255*t*t);
+      img.data[i]=255;img.data[i+1]=224;img.data[i+2]=75;img.data[i+3]=a;
+    }gx.putImageData(img,0,0);return glow;
+  }
+  const horizontalTopGlow=makeGlow(true),verticalTopGlow=makeGlow(false);
+  const posPx=p=>Math.round(p*(plot.size-1)/(count-1));
+  const start=p=>Math.max(0,Math.min(plot.size-bar,posPx(p)-Math.floor(bar/2)));
+  const mix=(a,b,t)=>{const A=parseInt(a.slice(1),16),B=parseInt(b.slice(1),16),q=t/255;
+    const f=s=>Math.round(((A>>s)&255)*(1-q)+((B>>s)&255)*q);
+    return '#'+[f(16),f(8),f(0)].map(v=>v.toString(16).padStart(2,'0')).join('')};
+  const degree=p=>((p-11)%7+7)%7, intervals=[2,2,1,2,2,2,1];
+  const blackAfter=p=>p<22&&intervals[degree(p)]===2;
+  let dirty=[{x:0,y:0,w:320,h:320}],lastGlowState='',lastFrame=0,lastEdgeFrame=0;
+  function invalidate(x,y,w,h){const x1=Math.max(0,Math.floor(x)),y1=Math.max(0,Math.floor(y)),x2=Math.min(320,Math.ceil(x+w)),y2=Math.min(320,Math.ceil(y+h));if(x2>x1&&y2>y1)dirty.push({x:x1,y:y1,w:x2-x1,h:y2-y1})}
+  function invalidateBand(axis,p){
+    if(axis==='v'){
+      invalidate(plot.x+start(p)-2,plot.y,bar+4,plot.size);
+      if(currentStyle===0)invalidate(plot.x+start(p)-5,plot.y-14,bar+10,plot.size+28);
+      else{const inner=plot.x+posPx(p),outer=10+Math.round(p*300/(count-1));invalidate(Math.min(inner,outer)-5,0,Math.abs(inner-outer)+10,plot.y+2);invalidate(Math.min(inner,outer)-5,plot.y+plot.size-2,Math.abs(inner-outer)+10,320-(plot.y+plot.size)+2)}
+    }else{
+      invalidate(plot.x,plot.y+start(p)-2,plot.size,bar+4);
+      if(currentStyle===0)invalidate(plot.x-14,plot.y+start(p)-5,plot.size+28,bar+10);
+      else{const inner=plot.y+posPx(p),outer=10+Math.round(p*300/(count-1));invalidate(0,Math.min(inner,outer)-5,plot.x+2,Math.abs(inner-outer)+10);invalidate(plot.x+plot.size-2,Math.min(inner,outer)-5,320-(plot.x+plot.size)+2,Math.abs(inner-outer)+10)}
+    }
+  }
+  function invalidateGlow(f=focus){if(f.valid)invalidate(plot.x+posPx(f.x)-16,plot.y+posPx(f.y)-16,33,33)}
+  function add(axis,p,t){
+    const a=lines[axis]; if(!a[p])a[p]={born:t,extent:1,brightness:255,secondaryFade:0,motion:1,waveFrame:0,last:t};
+    a[p].brightness=255;a[p].secondaryFade=0;a[p].motion=1;a[p].waveFrame=0;a[p].last=t;
+    invalidateBand(axis,p);
+  }
+  function trigger(x,y){
+    invalidateGlow();
+    focus={x,y,valid:true};const t=clockTime();
+    invalidateGlow();
+    const voices=[['v',x],['v',Math.min(22,x+4)],['v',Math.min(22,x+9)],['h',y]];
+    arpTimers=[];const step=stepMs(),onset=el('onset').value==='grid'?Math.ceil(t/step)*step:t;
+    const fire=(pair,delay)=>arpTimers.push({pair,at:onset+delay});
+    if(mode==='chord')voices.forEach(v=>fire(v,0));
+    else if(mode==='arp'&&el('arpMode').value==='loop'){fire(voices[0],0);voiceCursor=1;nextArp=onset+step}
+    else if(mode==='arp')voices.forEach((v,i)=>fire(v,i*step/4));
+    else if(mode==='line')voices.forEach((v,i)=>fire(v,i*step));
+    else {const patterns=[[0,0,0,1],[0,1,1,2],[0,1,2,3],[1,0,2,1]],p=patterns[Math.floor(Math.random()*patterns.length)];voices.forEach((v,i)=>fire(v,p[i]*step))}
+  }
+  function update(t){
+    const tick=Math.floor(t/stepMs());
+    if(auto&&tick!==lastDemo){lastDemo=tick;if(tick%4===0){down=true;trigger(Math.floor(tick/4*3)%14,Math.floor(tick/4*5+6)%23)}}
+    if(down&&focus.valid&&mode==='arp'&&el('arpMode').value==='loop'&&t>=nextArp){const pair=voices()[voiceCursor++%4];arpTimers.push({pair,at:t});nextArp=t+stepMs()}
+    const due=arpTimers.filter(e=>e.at<=t);arpTimers=arpTimers.filter(e=>e.at>t);due.forEach(e=>add(e.pair[0],e.pair[1],t));
+    for(const axis of ['v','h'])for(let p=0;p<count;p++){const l=lines[axis][p];if(l){
+      const oldExtent=Math.floor(l.extent),oldBrightness=Math.round(l.brightness),oldSecondaryFade=l.secondaryFade,oldMotion=l.motion,oldWaveFrame=l.waveFrame;
+      l.extent=Math.max(l.extent,Math.min(plot.size,1+(t-l.born)*plot.size/300));
+      const age=t-l.last,secondaryAge=Math.max(0,age-activeHoldMs-primaryFadeMs);
+      l.brightness=age<activeHoldMs?255:Math.max(0,255-(age-activeHoldMs)*255/primaryFadeMs);
+      const fadeMs=numericValues.fade*1000;
+      const rawSecondaryFade=fadeMs?Math.min(1,secondaryAge/fadeMs):0;
+      l.secondaryFade=Math.round(rawSecondaryFade*secondaryColorSteps)/secondaryColorSteps;
+      l.motion=0;
+      l.waveFrame=l.motion>0?Math.floor(age/83):0;
+      if(Math.floor(l.extent)!==oldExtent||Math.round(l.brightness)!==oldBrightness||l.secondaryFade!==oldSecondaryFade||l.motion!==oldMotion||l.waveFrame!==oldWaveFrame)invalidateBand(axis,p);
+    }}
+    const V=focus.valid?lines.v[focus.x]:null,H=focus.valid?lines.h[focus.y]:null;
+    const glowState=V&&H?`${focus.x}:${focus.y}:${Math.round(Math.max(V.brightness,H.brightness))}:${V.extent>start(focus.y)&&H.extent>start(focus.x)}`:'none';
+    if(glowState!==lastGlowState){invalidateGlow();lastGlowState=glowState}
+    const beatPhase=(t%(stepMs()*numericValues.stride))/(stepMs()*numericValues.stride);
+    const nextFrame=Math.min(7,Math.floor(((beatPhase+.5)%1)*8));
+    if(nextFrame!==petFrame){petFrame=nextFrame;invalidate(217,225,95,69);invalidate(96,251,100,36)}
+  }
+  function rect(x,y,w,h,color){ctx.fillStyle=color;ctx.fillRect(Math.round(x),Math.round(y),Math.ceil(w),Math.ceil(h))}
+  function staticRect(x,y,w,h,color){staticCtx.fillStyle=color;staticCtx.fillRect(Math.round(x),Math.round(y),Math.ceil(w),Math.ceil(h))}
+  function rebuildStatic(){
+    art.build(staticCtx,plot,C,el('theme').value,Number(el('motion').value)/100,Number(el('glow').value)/100);
+  }
+  function looseThread(axis,p,l,side,t){
+    const inner=axis==='v'?plot.x+start(p)+bar/2:plot.y+start(p)+bar/2,outer=10+Math.round(p*300/(count-1)),phase=p*1.73+side*2.1+(axis==='v'?0:.8),wobble=Math.sin(t*.006+phase)*1.6,color=lineColor(axis,l),rag=endLength(axis,p,side);
+    ctx.save();ctx.strokeStyle=color;ctx.lineWidth=bar;ctx.lineCap='butt';ctx.beginPath();
+    if(axis==='v'){const oy=side===0?rag:320-rag,iy=side===0?plot.y:plot.y+plot.size,cy=(oy+iy)/2;ctx.moveTo(outer+wobble,oy);ctx.quadraticCurveTo((outer+inner)/2-wobble,cy,inner,iy)}
+    else{const ox=side===0?rag:320-rag,ix=side===0?plot.x:plot.x+plot.size,cx=(ox+ix)/2;ctx.moveTo(ox,outer+wobble);ctx.quadraticCurveTo(cx,(outer+inner)/2-wobble,ix,inner)}
+    ctx.stroke();ctx.globalAlpha=.28;ctx.strokeStyle='#ffffff';ctx.lineWidth=1;ctx.stroke();ctx.restore();
+  }
+  function ribbonOffset(axis,p,l,d){const s=d/plot.size,staticBend=Math.sin(Math.PI*s)*((((p*13)%5)-2)*.38),wave=Math.sin(l.waveFrame*.75+p*1.61+s*Math.PI*2)*1.65*l.motion;return staticBend+wave}
+  function ribbon(axis,p,l,from=0,to=l.extent,crossingBend=0){
+    from=Math.max(0,from);to=Math.min(plot.size,to);if(to<=from)return;const steps=Math.max(2,Math.ceil((to-from)/28)),half=bar/2,base=axis==='v'?plot.x+start(p)+half:plot.y+start(p)+half,points=[];
+    for(let i=0;i<=steps;i++){const u=i/steps,d=from+(to-from)*u,o=ribbonOffset(axis,p,l,d)+crossingBend*Math.sin(Math.PI*u);points.push(axis==='v'?{x:base+o,y:plot.y+d}:{x:plot.x+d,y:base+o})}
+    ctx.save();ctx.fillStyle=lineColor(axis,l);ctx.beginPath();for(let i=0;i<points.length;i++){const q=points[i];if(i===0)ctx.moveTo(q.x+(axis==='v'?-half:0),q.y+(axis==='h'?-half:0));else ctx.lineTo(q.x+(axis==='v'?-half:0),q.y+(axis==='h'?-half:0))}for(let i=points.length-1;i>=0;i--){const q=points[i];ctx.lineTo(q.x+(axis==='v'?half:0),q.y+(axis==='h'?half:0))}ctx.closePath();ctx.fill();
+    const edge=sign=>{ctx.beginPath();for(let i=0;i<points.length;i++){const q=points[i],x=q.x+(axis==='v'?half*sign:0),y=q.y+(axis==='h'?half*sign:0);i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke()};ctx.lineWidth=1;ctx.globalAlpha=.28;ctx.strokeStyle='#ffffff';edge(-1);ctx.globalAlpha=.18;ctx.strokeStyle='#120f19';edge(1);ctx.restore();
+  }
+  const endLength=(axis,p,side)=>5+((p*7+(axis==='v'?11:3)+side*5)%9);
+  const lineColor=(axis,l)=>{const idle=axis==='v'?C.verticalIdle:C.horizontalIdle,active=axis==='v'?C.vertical:C.horizontal,ghost=axis==='v'?C.verticalGhost:C.horizontalGhost;return mix(mix(idle,ghost,Math.round(l.secondaryFade*255)),active,l.brightness)};
+  function render(){
+    if(dirty.length===0)return;
+    const changed=dirty.slice();
+    ctx.save();ctx.beginPath();for(const d of dirty)ctx.rect(d.x,d.y,d.w,d.h);ctx.clip();dirty=[];
+    ctx.drawImage(staticLayer,0,0);
+    if(currentStyle===0){
+      for(let p=0;p<count;p++){const l=lines.v[p];if(l){const x=plot.x+start(p),top=endLength('v',p,0),bottom=endLength('v',p,1),color=lineColor('v',l);rect(x,plot.y-top,bar,top,color);if(l.extent>=plot.size)rect(x,plot.y+plot.size,bar,bottom,color)}}
+      for(let p=0;p<count;p++){const l=lines.h[p];if(l){const y=plot.y+start(p),left=endLength('h',p,0),right=endLength('h',p,1),color=lineColor('h',l);rect(plot.x-left,y,left,bar,color);if(l.extent>=plot.size)rect(plot.x+plot.size,y,right,bar,color)}}
+    }else{
+      for(let p=0;p<count;p++){const l=lines.v[p];if(l){looseThread('v',p,l,0,lastFrame);if(l.extent>=plot.size)looseThread('v',p,l,1,lastFrame)}}
+      for(let p=0;p<count;p++){const l=lines.h[p];if(l){looseThread('h',p,l,0,lastFrame);if(l.extent>=plot.size)looseThread('h',p,l,1,lastFrame)}}
+    }
+    for(let p=0;p<count;p++){const l=lines.v[p];if(l)ribbon('v',p,l)}
+    for(let p=0;p<count;p++){const l=lines.h[p];if(l)ribbon('h',p,l)}
+    for(let v=0;v<count;v++){const V=lines.v[v];if(!V)continue;for(let h=0;h<count;h++){const H=lines.h[h];if(!H)continue;
+      const x=start(v),y=start(h);if(V.extent<=y||H.extent<=x)continue;
+      if((v+h)%2===0)ribbon('v',v,V,y-3,y+bar+3,-2.2);
+      else ribbon('h',h,H,x-3,x+bar+3,-2.2)}}
+    if(focus.valid){
+      const V=lines.v[focus.x],H=lines.h[focus.y],x=start(focus.x),y=start(focus.y);
+      if(V&&H&&V.extent>y&&H.extent>x){
+        const horizontalTop=(focus.x+focus.y)%2!==0,alpha=Math.max(V.brightness,H.brightness)/255;
+        ctx.globalAlpha=alpha*Number(el('glow').value)/100;ctx.drawImage(horizontalTop?horizontalTopGlow:verticalTopGlow,plot.x+posPx(focus.x)-15,plot.y+posPx(focus.y)-15);ctx.globalAlpha=1;
+        if(horizontalTop)ribbon('h',focus.y,H,x-15,x+16,-2.2);
+        else ribbon('v',focus.x,V,y-15,y+16,-2.2);
+      }
+    }
+    ctx.drawImage(art.frames[Math.max(0,petFrame)],217,225);
+    ctx.drawImage(art.spoolFrames[Math.max(0,petFrame)],96,251);
+    ctx.restore();
+    art.present(scene,output,changed,el('filter').value,numericValues.cell);
+  }
+  function draw(t){
+    if(t-lastFrame>=33){
+      lastFrame=t;if(running)update(clockTime());
+      if(currentStyle===1&&t-lastEdgeFrame>=100&&(lines.v.some(Boolean)||lines.h.some(Boolean))){
+        const edge=plot.x+3,far=plot.x+plot.size-3;
+        invalidate(0,0,320,plot.y+3);invalidate(0,far,320,320-far);
+        invalidate(0,plot.y,edge,plot.size);invalidate(far,plot.y,320-far,plot.size);
+        lastEdgeFrame=t;
+      }
+      render();
+    }
+    requestAnimationFrame(draw);
+  }
+  function point(e){const r=canvas.getBoundingClientRect(),x=(e.clientX-r.left)*canvas.width/r.width,y=(e.clientY-r.top)*canvas.height/r.height;
+    if(x<plot.x||x>plot.x+plot.size||y<plot.y||y>plot.y+plot.size)return null;
+    return {x:Math.max(0,Math.min(22,Math.round((x-plot.x)*(count-1)/(plot.size-1)))),y:Math.max(0,Math.min(22,Math.round((y-plot.y)*(count-1)/(plot.size-1))))}}
+  let down=false;canvas.addEventListener('pointerdown',e=>{const p=point(e);if(!p)return;auto=false;el('demo').textContent='自动演奏';down=true;canvas.setPointerCapture(e.pointerId);trigger(p.x,p.y)});
+  canvas.addEventListener('pointermove',e=>{if(!down)return;const p=point(e);if(p&&(p.x!==focus.x||p.y!==focus.y))trigger(p.x,p.y)});
+  const release=()=>{down=false;if(mode==='arp'&&el('arpMode').value==='loop')arpTimers=[]};
+  canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);canvas.addEventListener('lostpointercapture',release);
+  document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;arpTimers=[];document.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle('active',x===b));if(down&&focus.valid)trigger(focus.x,focus.y)});
+  document.querySelectorAll('[data-style]').forEach(b=>b.onclick=()=>{
+    currentStyle=Number(b.dataset.style);plot={...layouts[currentStyle]};
+    arpTimers.forEach(clearTimeout);arpTimers=[];lines.v.fill(null);lines.h.fill(null);focus={x:11,y:11,valid:false};lastGlowState='';dirty=[{x:0,y:0,w:320,h:320}];
+    lastEdgeFrame=0;rebuildStatic();
+    document.querySelectorAll('[data-style]').forEach(x=>x.classList.toggle('active',x===b));
+  });
+  const cpp=document.getElementById('cpp-colors');
+  const cppNames={verticalIdle:'kMouseVerticalIdleColor',vertical:'kMouseVerticalActiveColor',horizontalIdle:'kMouseHorizontalIdleColor',horizontal:'kMouseHorizontalActiveColor',verticalGhost:'kMouseVerticalGhostColor',horizontalGhost:'kMouseHorizontalGhostColor'};
+  function updateCpp(){cpp.textContent=[...document.querySelectorAll('[data-color]')].map(input=>`constexpr uint32_t ${cppNames[input.dataset.color]} = 0x${input.value.slice(1).toUpperCase()}U;`).join('\n')}
+  function save(){try{localStorage.setItem('loom-study-settings',JSON.stringify({artVersion:2,colors:C,settings:Object.fromEntries(['theme','filter','bpm','division','stride','onset','arpMode','motion','glow','fade','cell'].map(id=>[id,el(id).value]))}))}catch{}}
+  function syncFilters(){canvas.style.imageRendering=el('filter').value==='none'?'auto':'pixelated';document.querySelectorAll('[data-filter]').forEach(b=>{const active=b.dataset.filter===el('filter').value;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))})}
+  document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{el('filter').value=b.dataset.filter;el('filter').dispatchEvent(new Event('change'));syncFilters()});
+  function timing(){el('timing').textContent=`量化 ${stepMs().toFixed(1)} ms · 挠球 ${(stepMs()*Number(el('stride').value)).toFixed(0)} ms / 次`;el('fade-value').textContent=el('fade').value==='0'?'关闭':el('fade').value+' s'}
+  function palette(){Object.assign(C,art.palettes[el('theme').value]);document.querySelectorAll('[data-color]').forEach(i=>i.value=C[i.dataset.color]);updateCpp();rebuildStatic();invalidate(0,0,320,320);save()}
+  el('theme').onchange=palette;
+  for(const id of ['filter','bpm','division','stride','onset','arpMode','motion','glow','fade','cell'])el(id).onchange=()=>{if(id in numericDefaults)validateNumber(id);if(['bpm','division','onset','arpMode'].includes(id)){arpTimers=[];if(down&&focus.valid)trigger(focus.x,focus.y)}if(['motion','glow'].includes(id))rebuildStatic();art.glyphs.clear();invalidate(0,0,320,320);timing();save()};
+  el('demo').onclick=()=>{auto=!auto;down=auto;lastDemo=-1;el('demo').textContent=auto?'停止自动演奏':'自动演奏';if(!auto)release()};
+  el('clear').onclick=()=>{lines.v.fill(null);lines.h.fill(null);arpTimers=[];focus.valid=false;lastGlowState='';lastDemo=-1;invalidate(0,0,320,320)};
+  el('clock').onclick=()=>{if(running){pausedTime=clockTime();running=false}else{epoch=performance.now()-pausedTime;running=true}el('clock').textContent=running?'暂停节拍':'继续节拍'};
+  document.querySelectorAll('[data-color]').forEach(input=>input.oninput=()=>{C[input.dataset.color]=input.value;invalidate(0,0,320,320);updateCpp();save()});
+  document.getElementById('copy').onclick=async()=>{try{await navigator.clipboard.writeText(cpp.textContent);el('copy').textContent='已复制'}catch{const range=document.createRange();range.selectNodeContents(cpp);getSelection().removeAllRanges();getSelection().addRange(range);el('copy').textContent='已选中，请 Ctrl+C'}setTimeout(()=>el('copy').textContent='复制嵌入式颜色常量',900)};
+  Object.assign(C,art.palettes.lilac);
+  try{const saved=JSON.parse(localStorage.getItem('loom-study-settings'));if(saved){for(const [id,value] of Object.entries(saved.settings||{}))if(el(id))el(id).value=value;Object.assign(C,art.palettes[el('theme').value]||art.palettes.lilac);if(saved.artVersion===2)Object.assign(C,saved.colors);else for(const key of Object.keys(cppNames))if(saved.colors&&saved.colors[key])C[key]=saved.colors[key]}}catch{}
+  Object.keys(numericDefaults).forEach(validateNumber);
+  syncFilters();
+  document.querySelectorAll('[data-color]').forEach(i=>i.value=C[i.dataset.color]);timing();
+  updateCpp();
+  rebuildStatic();
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
