@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-21T04:05:38.335Z",
+  "browser": "Chromium / Playwright",
+  "checks": [
+    "All 8 layouts render without errors",
+    "All 6 forms and 4 motion controls respond",
+    "Theme, glow, opacity, guide toggle, and visual reset respond",
+    "FM produces measurable audio, VA starts detuned sawtooth oscillators",
+    "All 4 scan paths complete in once mode and stop at end",
+    "Loop wraps and remains playing",
+    "Click audition and note dragging persist position",
+    "JSON export/import roundtrip keeps positions; invalid file leaves score intact",
+    "PNG export returns valid PNG",
+    "Settings restore after reload",
+    "Responsive layouts at 375, 768, 1024, 1440px; mobile tabs and synthesis controls respond",
+    "No JavaScript runtime errors"
+  ],
+  "fmRms": 0.007164147053980009,
+  "errors": [],
+  "limitations": [
+    "Audio output measured programmatically; musical timbre has not been judged by human listening.",
+    "The preview server is running in the cloud, not on the user computer."
+  ]
+}

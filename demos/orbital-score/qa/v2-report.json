@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-21T04:06:48.050Z",
+  "checks": [
+    "Curved layout morph starts continuously, moves, supports interruption and completes",
+    "All six families show 12 visually distinct thumbnails (72 total)",
+    "Shape selection filters the actual canvas, cannot become empty, and is remembered per family",
+    "Universe and shape line-width controls reach Canvas independently",
+    "Outline, fill, and outline+fill change actual painting operations",
+    "Global random transition remains active through 4.6 seconds and completes after 5 seconds",
+    "New shape selections, widths and render mode persist across reload",
+    "Network-blocked single HTML records and downloads real GIF",
+    "Network-blocked single HTML records and downloads real MP4",
+    "Recording cancels cleanly, restarts, and supports early finish",
+    "Updated UI and recording dialog fit mobile and desktop viewports"
+  ],
+  "thumbnailHashes": {
+    "mixed": 12,
+    "circles": 12,
+    "geometry": 12,
+    "notes": 12,
+    "staff": 12,
+    "graphic": 12
+  },
+  "errors": [],
+  "limitations": [
+    "Audio measured by signal and decoded file, not judged by human listening.",
+    "MP4 depends on native browser encoding; supported formats are checked in the UI.",
+    "Direct file:// navigation is blocked by managed browser policy; single-file execution and recording were verified as document content with all network requests blocked."
+  ]
+}

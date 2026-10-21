@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-21T04:13:00.357Z",
+  "checks": [
+    "Three layers independently edit gradient colors, direction, span, speed, width, opacity, blur, and inner/outer glow color, intensity and reach",
+    "Pixel tests verify true clipped inner glow, external-only outer glow, blur, animated gradients, speed-zero freeze, and eight distinct cursor drawings",
+    "All eight styles reach the live playback renderer with the independent cursor width",
+    "Playback materials/styles work across all four scan paths and random playback",
+    "Layer settings and cursor style restore after reload",
+    "JSON roundtrip includes materials; invalid effect values are rejected without changing the composition",
+    "Old parameter files receive compatible material defaults and migrate legacy glow",
+    "Offline single-file GIF export records the animated layered materials",
+    "Offline single-file MP4 export records the animated layered materials",
+    "Material controls and eight-style chooser fit mobile and desktop"
+  ],
+  "pixelVerification": {
+    "inner": {
+      "outside": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "edge": [
+        134,
+        134,
+        134,
+        255
+      ],
+      "center": [
+        34,
+        34,
+        34,
+        255
+      ]
+    },
+    "outer": {
+      "outside": [
+        255,
+        0,
+        0,
+        72
+      ],
+      "center": [
+        34,
+        34,
+        34,
+        255
+      ]
+    },
+    "blur": {
+      "outside": [
+        36,
+        36,
+        36,
+        57
+      ],
+      "center": [
+        34,
+        34,
+        34,
+        255
+      ]
+    },
+    "animated": [
+      "178,76,0,255",
+      "61,134,59,255"
+    ],
+    "still": [
+      "178,76,0,255",
+      "178,76,0,255"
+    ],
+    "conicBlue": [
+      1,
+      0,
+      254,
+      255
+    ],
+    "conicYellow": [
+      255,
+      254,
+      0,
+      255
+    ],
+    "radial": [
+      "184,255,0,255",
+      "40,255,0,255"
+    ],
+    "distinctStyles": 8
+  },
+  "errors": [],
+  "limitations": [
+    "MP4 recording depends on the browser native encoder.",
+    "Audio is signal-tested rather than judged by human listening.",
+    "file:// navigation is blocked by managed browser policy; standalone operation was verified with document content and network requests blocked.",
+    "Several simultaneous blur/glow layers increase rendering cost; effective frame rate depends on the device."
+  ],
+  "mediaVerification": {
+    "gif": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "gif",
+          "width": 512,
+          "height": 512,
+          "nb_frames": "32"
+        }
+      ],
+      "format": {
+        "format_name": "gif",
+        "duration": "5.010000"
+      }
+    },
+    "mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 512,
+          "height": 512
+        },
+        {
+          "codec_name": "opus"
+        }
+      ],
+      "format": {
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": "4.939417"
+      }
+    },
+    "audioRms": 0.003988265349040944,
+    "gifDecode": "All frames decoded successfully"
+  }
+}

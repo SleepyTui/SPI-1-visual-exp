@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ec">
+  <meta name="description" content="Orbital — an interactive graphic score. Compose a small universe, then listen to its motion.">
+  <title>ORBITAL — 宇宙图形乐谱</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg class="icon-defs" xmlns="http://www.w3.org/2000/svg"><defs>
+ <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z" fill="currentColor" stroke="none"/></symbol>
+ <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14" stroke-width="3"/></symbol>
+ <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M3 6h3c5 0 7 12 12 12h3m-4-4 4 4-4 4M3 18h3c2 0 3-2 5-5m2-2c2-3 3-5 5-5h3m-4-4 4 4-4 4"/></symbol>
+ <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 1 7M4 3v7h7"/></symbol>
+ <symbol id="i-expand" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></symbol>
+ <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 14v6h16v-6"/></symbol>
+ <symbol id="i-volume" viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3Zm13-1c2 2 2 6 0 8m3-11c4 4 4 10 0 14"/></symbol>
+ <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+</defs></svg>
+<header class="topbar">
+ <a class="brand" href="#" aria-label="Orbital 首页"><svg class="brand-mark" viewBox="0 0 44 44" aria-hidden="true"><path d="M22 3v38M3 22h38M8.5 8.5l27 27m-27 0 27-27"/></svg> ORBITAL<span class="brand-dot">®</span></a>
+ <span class="top-description">A GENERATIVE GRAPHIC SCORE <span class="muted">/</span> 宇宙图形乐谱</span>
+ <div class="top-actions"><button class="random-all" id="randomAll" aria-label="全局随机，5秒平滑过渡"><svg><use href="#i-shuffle"/></svg><span>Random universe <small>全局随机 · 5s</small></span></button><button class="icon-button help-button" id="help" aria-label="使用说明">?</button><div class="export-wrap"><button class="export-button" id="export" aria-expanded="false"><svg><use href="#i-export"/></svg> Export <span>⌄</span></button><div class="export-menu" id="exportMenu" hidden><button id="exportRecording">录制 GIF / MP4 <span>●</span></button><button id="exportPng">导出乐谱 PNG <span>↗</span></button><button id="exportJson">保存参数 JSON <span>↓</span></button><button id="importJson">导入参数 JSON <span>↑</span></button></div></div></div>
+</header>
+<main>
+ <section class="page-heading"><div><p class="eyebrow"><span>EXPERIMENT NO. 001</span><span class="heading-rule"></span> SOUND IN SPACE</p><h1>A universe, <em>in notation.</em></h1><p class="intro">让每颗行星成为音符，让宇宙自己演奏。</p></div><div class="heading-note"><span class="mini-orbit">◎</span><p>Arrange. Move. Listen.<br><span>一场没有标准答案的星际即兴。</span></p></div></section>
+ <div class="studio">
+  <aside class="library panel">
+   <div class="panel-title"><span>01 / CONSTELLATION</span><span class="tiny">星系布局</span></div>
+   <h2>Choose your universe.</h2><p class="panel-intro">Eight ways to arrange a little infinity.</p>
+   <div class="layout-grid" id="layouts"></div>
+   <div class="library-divider"></div>
+   <div class="field-heading"><label for="theme">Atmosphere <span>视觉预设</span></label></div>
+   <select id="theme"><option value="paper">01 — Celestial paper</option><option value="midnight">02 — Midnight observatory</option><option value="blueprint">03 — Stellar blueprint</option><option value="rose">04 — Martian dusk</option></select>
+   <div class="palette-dots" id="paletteDots"><i></i><i></i><i></i><span>CURATED PALETTE</span></div>
+   <button class="generate-button" id="generate"><svg><use href="#i-shuffle"/></svg> Regenerate score <span>↗</span></button>
+   <p class="seed-label">SEED <span id="seedLabel"></span> <span class="seed-note">/ 每一次，都是新宇宙</span></p>
+   <div class="library-foot"><span class="asterisk">∗</span><p>There is music<br>between the stars.</p><small>INSPIRED BY GRAPHIC NOTATION<br>& CELESTIAL CARTOGRAPHY</small></div>
+  </aside>
+  <section class="score-column">
+   <div class="score-topline"><span><i class="status-dot"></i> <span id="scoreStatus">LIVE GENERATIVE SCORE</span></span><div><button class="mini-button" id="recordOpen" title="录制正方形 GIF / MP4">● Record</button><button class="mini-button" id="motionToggle" title="暂停 / 继续视觉运动">Ⅱ Motion</button><button class="icon-button" id="fullscreen" aria-label="全屏乐谱"><svg><use href="#i-expand"/></svg></button></div></div>
+   <div class="score-frame" id="scoreFrame"><canvas id="score" aria-label="交互宇宙图形乐谱。点击音符试听，拖动音符改变位置。" tabindex="0"></canvas><div class="canvas-tip" id="canvasTip" hidden></div><span class="frame-corner top-left"></span><span class="frame-corner bottom-right"></span></div>
+   <div class="score-caption"><span><span class="caption-dot"></span><span id="layoutCaption">01 — Solar system</span></span><span id="noteCount">48 CELESTIAL BODIES</span><span>1 : 1 <span class="muted">/</span> INFINITE POSSIBILITIES</span></div>
+   <div class="transport panel">
+    <div class="transport-main"><button id="play" class="play-button" aria-label="播放乐谱"><svg><use href="#i-play"/></svg></button><button id="stop" class="icon-button" aria-label="停止并回到起点"><svg><use href="#i-reset"/></svg></button><div class="time-block"><span id="time">00:00</span><small id="transportStatus">READY TO EXPLORE</small></div><div class="tempo"><label for="bpm">TEMPO</label><div><input type="number" id="bpm" value="84" min="30" max="200" aria-label="速度 BPM"><span>BPM</span></div></div><div class="volume"><button class="icon-button" id="mute" aria-label="静音"><svg><use href="#i-volume"/></svg></button><input type="range" id="volume" min="0" max="100" value="65" aria-label="音量"></div></div>
+    <div class="progress-track" id="seekTrack" role="slider" tabindex="0" aria-label="播放进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progress"></div></div>
+    <div class="transport-options"><label>SCAN <select id="scan" aria-label="播放路径"><option value="radial">◎ Center → out</option><option value="left">→ Left → right</option><option value="right">← Right → left</option><option value="angular">◷ Clockwise</option></select></label><label>MODE <select id="mode" aria-label="播放模式"><option value="loop">↻ Loop / 循环</option><option value="once">→ Once / 单次</option><option value="random">⤨ Random / 随机</option></select></label><button class="mini-button" id="scanLook" title="播放引导线的样式与材质">↝ Style</button><span class="space-hint"><kbd>SPACE</kbd> to play</span></div>
+   </div>
+   <div class="canvas-instructions"><span>↖ 点击音符试听 · 拖动改变星图</span><span>HEADPHONES RECOMMENDED <span class="headphone">♧</span></span></div>
+  </section>
+  <aside class="inspector panel">
+   <div class="panel-title"><span>02 / FINE TUNING</span><span class="tiny">宇宙参数</span></div>
+   <div class="tabs" role="tablist" aria-label="参数面板"><button class="active" data-tab="compose" role="tab" aria-selected="true">Compose<span>构成</span></button><button data-tab="sound" role="tab" aria-selected="false">Sound<span>声音</span></button><button data-tab="visual" role="tab" aria-selected="false">Visual<span>视觉</span></button></div>
+   <div class="tab-content" id="tab-compose" role="tabpanel">
+    <div class="control-section"><div class="section-label"><span>NOTE FORMS</span><span>音符形态</span></div><div class="shape-grid" id="shapes"></div>
+    <div class="variant-heading"><span>SHAPE PALETTE <small id="variantCount">12 / 12</small></span><button id="selectAllVariants">全选</button></div>
+    <div class="variant-grid" id="variants" aria-label="选择参与构成的形状，可多选"></div>
+    <p class="variant-help">点击多选，保留至少一种。每类独立记忆。</p>
+    <div class="draw-modes" id="drawModes" aria-label="描绘方式"><button data-draw="outline">◯<span>纯线稿</span></button><button data-draw="fill">●<span>填充</span></button><button data-draw="both">◉<span>线稿 + 填充</span></button></div>
+    <div class="slider-field"><div><label for="count">Density <span>音符数量</span></label><output for="count">48</output></div><input id="count" type="range" min="12" max="120" step="1" value="48"><div class="range-labels"><span>SPARSE</span><span>DENSE</span></div></div>
+    <div class="slider-field"><div><label for="size">Scale <span>音符大小</span></label><output for="size">1.0×</output></div><input id="size" type="range" min="40" max="180" value="100"></div>
+    <div class="slider-field"><div><label for="variation">Variation <span>大小差异</span></label><output for="variation">72%</output></div><input id="variation" type="range" min="0" max="100" value="72"></div></div>
+    <div class="control-section"><div class="section-label"><span>CELESTIAL MOTION</span><span>行星运动</span></div><div class="motion-grid" id="motions"></div><div class="slider-field"><div><label for="speed">Velocity <span>运动速度</span></label><output for="speed">0.6×</output></div><input id="speed" type="range" min="0" max="200" value="60"></div><div class="slider-field"><div><label for="spread">Expansion <span>星系半径</span></label><output for="spread">88%</output></div><input id="spread" type="range" min="35" max="100" value="88"></div></div>
+    <div class="inspector-tip"><span>↗</span><p>Shape becomes sound.<br><span>位置决定音高，大小决定力度。</span></p></div>
+   </div>
+   <div class="tab-content" id="tab-sound" role="tabpanel" hidden>
+    <div class="control-section"><div class="section-label"><span>SYNTHESIS ENGINE</span><span>合成引擎</span></div><div class="segmented" id="engines"><button data-engine="fm" class="selected">FM <small>调频合成</small></button><button data-engine="va">VA <small>虚拟模拟</small></button></div><div class="select-field"><label for="timbre">Timbre <span>音色</span></label><select id="timbre"><option value="glass">Glass — 玻璃星尘</option><option value="bell">Bell — 金属钟声</option><option value="warm">Warm — 温暖星云</option><option value="deep">Deep — 深空脉冲</option></select></div><div class="select-field"><label for="scale">Pitch collection <span>调式</span></label><select id="scale"><option value="pentatonic">D minor pentatonic / D 小调五声</option><option value="major">C major / C 大调</option><option value="chromatic">Chromatic / 半音阶</option></select></div>
+    <div class="slider-field"><div><label for="modulation">FM index / VA detune</label><output for="modulation">36%</output></div><input id="modulation" type="range" min="0" max="100" value="36"></div><div class="slider-field"><div><label for="decay">Decay <span>衰减时长</span></label><output for="decay">1.8s</output></div><input id="decay" type="range" min="20" max="500" value="180"></div><div class="slider-field"><div><label for="cutoff">Filter <span>低通滤波</span></label><output for="cutoff">4200Hz</output></div><input id="cutoff" type="range" min="300" max="12000" step="100" value="4200"></div></div>
+    <div class="control-section"><div class="section-label"><span>SPATIAL EFFECTS</span><span>空间效果</span></div><div class="slider-field"><div><label for="reverb">Reverb <span>混响</span></label><output for="reverb">35%</output></div><input id="reverb" type="range" min="0" max="90" value="35"></div><div class="slider-field"><div><label for="delay">Echo <span>回声</span></label><output for="delay">20%</output></div><input id="delay" type="range" min="0" max="70" value="20"></div></div><div class="inspector-tip"><span>♪</span><p>A small, spatial orchestra.<br><span>音符在声场中的位置与画面对应。</span></p></div>
+   </div>
+   <div class="tab-content" id="tab-visual" role="tabpanel" hidden>
+    <section class="material-lab" id="materialLab" aria-label="三组独立材质参数"></section>
+    <div class="control-section"><div class="section-label"><span>COLOR SYSTEM</span><span>颜色参数</span></div><div class="color-field"><label for="background">Paper <span>画布底色</span></label><input id="background" type="color" value="#eeeade"><span id="backgroundHex">#EEE ADE</span></div><div class="color-field"><label for="ink">Ink <span>线条颜色</span></label><input id="ink" type="color" value="#343a35"><span id="inkHex">#343A35</span></div><div class="color-field"><label for="accent">Accent <span>强调色</span></label><input id="accent" type="color" value="#b9563b"><span id="accentHex">#B9563B</span></div><div class="color-field"><label for="secondary">Satellite <span>次要色</span></label><input id="secondary" type="color" value="#7c8a75"><span id="secondaryHex">#7C8A75</span></div></div>
+    <div class="control-section"><div class="section-label"><span>LINE WEIGHT</span><span>线条粗细</span></div>
+    <div class="slider-field"><div><label for="guideWidth">Universe lines <span>宇宙轨道线</span></label><output for="guideWidth">0.8px</output></div><input id="guideWidth" type="range" min="0.2" max="6" step="0.1" value="0.8"></div>
+    <div class="slider-field"><div><label for="shapeWidth">Shape lines <span>几何形状线</span></label><output for="shapeWidth">1.1px</output></div><input id="shapeWidth" type="range" min="0.3" max="8" step="0.1" value="1.1"></div>
+    <div class="section-label light-label"><span>LIGHT & MATTER</span><span>光与质感</span></div><div class="slider-field"><div><label for="glow">Note halo <span>音符外辉光</span></label><output for="glow">12%</output></div><input id="glow" type="range" min="0" max="100" value="12"></div><div class="slider-field"><div><label for="opacity">Opacity <span>音符透明度</span></label><output for="opacity">85%</output></div><input id="opacity" type="range" min="10" max="100" value="85"></div><div class="slider-field"><div><label for="trails">Trails <span>运动轨迹</span></label><output for="trails">25%</output></div><input id="trails" type="range" min="0" max="100" value="25"></div><label class="toggle-field">Orbital guides <span>轨道辅助线</span><input id="guides" type="checkbox" checked><i></i></label><label class="toggle-field">Stardust <span>背景星尘</span><input id="stars" type="checkbox" checked><i></i></label><label class="toggle-field">Annotations <span>乐谱标记</span><input id="annotations" type="checkbox" checked><i></i></label></div><button id="resetVisual" class="text-button">↺ Reset visual settings / 重置视觉</button>
+   </div>
+  </aside>
+ </div>
+ <footer><span>ORBITAL <span class="muted">/</span> AN EXPLORATION OF CHANCE, MOTION & SOUND</span><span>COMPOSE YOUR OWN COSMOS. <span class="footer-star">✳</span></span></footer>
+</main>
+<dialog id="helpDialog"><button id="closeHelp" class="dialog-close" aria-label="关闭">×</button><p class="eyebrow">A FIELD GUIDE TO ORBITAL</p><h2>聆听你的宇宙。</h2><p>选择 8 种星系布局与 6 种音符形态，在「构成 / 声音 / 视觉」中调整你的乐谱。</p><ul><li>点击画布中的音符，即可单独试听；拖动音符改变位置。</li><li>按播放或空格键启动扫描。位置映射到音高，大小映射到力度，左右位置映射到立体声。</li><li>中心向外、左右扫描或顺时针播放；可循环、单次或随机演奏。每轮扫描为 16 拍。</li><li>FM 调频与 VA 虚拟模拟合成均由浏览器实时发声。建议用耳机、从较低音量开始。</li><li>六类构成各有 12 种可多选形状；可切换纯线稿、填充及线稿加填充。视觉面板可独立调节轨道与形状线宽。</li><li>Visual → Material lab 可分别控制轨道、音符、播放线的渐变色、线宽、模糊、内外发光。播放线有 8 种样式；播放条上的 Style 可直接打开。</li><li>切换星系时沿曲线变形；全局随机会在 5 秒内过渡。R 只重新生成星图，Shift + R 全局随机。</li><li>Record 录制正方形 GIF 或 MP4，支持提前结束与取消。MP4 可包含当前演奏；GIF 没有声音。</li><li>参数自动保存在当前浏览器。Export 可保存 PNG 或 JSON；JSON 包含星图与拖动位置，可再次导入。</li></ul><p class="shortcut-help"><kbd>SPACE</kbd> 播放 / 暂停 <kbd>R</kbd> 重新生成 <kbd>ESC</kbd> 退出全屏</p></dialog>
+<dialog id="recordDialog" class="record-dialog"><button id="closeRecord" class="dialog-close" aria-label="关闭录制面板">×</button>
+ <p class="eyebrow">CAPTURE YOUR COSMOS / 正方形录制</p><h2>Motion, made tangible.</h2>
+ <p class="record-intro">只录制正方形乐谱，保留你此刻的动态与演奏。录制期间也能切换星系、调整参数或随机。</p>
+ <div class="record-fields"><label>Format / 格式<select id="recordFormat"><option value="mp4">MP4 · 视频，可带声音</option><option value="gif">GIF · 循环动画，无声音</option></select></label><label>Duration / 时长<select id="recordDuration"><option value="5">5 秒</option><option value="10" selected>10 秒</option><option value="15">15 秒</option><option value="30">30 秒</option></select></label><label>Square / 正方形尺寸<select id="recordSize"><option value="512">512 × 512</option><option value="768" selected>768 × 768</option><option value="1080">1080 × 1080</option></select></label><label>Frame rate / 帧率<select id="recordFps"><option value="12">12 FPS</option><option value="24" selected>24 FPS</option><option value="30">30 FPS</option></select></label></div>
+ <label class="record-audio"><input type="checkbox" id="recordAudio" checked> 包含当前演奏的声音 <span>MP4</span></label><p id="recordCapability" class="record-capability"></p>
+ <button id="startRecording" class="generate-button">● Start recording / 开始录制 <span>↗</span></button>
+ <p class="record-detail">需要声音时，先点击 ▶ 演奏或在录制中点击音符。GIF 使用 256 色自适应色盘，支持 512 / 768 像素、12 FPS，最长 15 秒。MP4 使用浏览器本地编码。所有处理都在本机完成。</p>
+ </dialog>
+ <div class="record-tray" id="recordTray" hidden><span class="record-led"></span><span id="recordStatus" role="status">准备录制</span><progress id="recordProgress" max="1" value="0"></progress><button id="stopRecording">■ 提前结束</button><button id="cancelRecording" aria-label="取消录制">×</button></div>
+ <div class="transition-badge" id="transitionBadge" hidden><span>↝</span> <span id="transitionLabel">MORPHING UNIVERSE</span></div>
+ <div id="toast" role="status"></div><input type="file" id="fileInput" accept="application/json,.json" hidden>
+<script src="effects.js"></script>
+<script src="glyphs.js"></script>
+<script src="recorder.js"></script>
+<script src="app.js"></script>
+</body></html>

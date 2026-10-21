@@ -1,0 +1,3 @@
+# Keep the primary offline HTML deliverable; ignore other generated exports.
+exports/*
+!exports/orbital.html
