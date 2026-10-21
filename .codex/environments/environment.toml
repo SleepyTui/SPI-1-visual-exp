@@ -13,3 +13,8 @@ command = "node scripts/preview.mjs collector"
 name = "打开 MD 封面工作台"
 icon = "run"
 command = "node scripts/preview.mjs editor"
+
+[[actions]]
+name = "打开 Orbital 宇宙乐谱"
+icon = "run"
+command = "node demos/orbital-score/preview.mjs"
