@@ -156,3 +156,8 @@ vite.config.ts.timestamp-*
 !demos/beat-luck/
 !demos/beat-luck/dist/
 !demos/beat-luck/dist/**
+
+# synth-plant local QA exports and browser-generated artifacts
+demos/synth_plant/qa/
+demos/synth_plant/*.local.json
+demos/synth_plant/.DS_Store

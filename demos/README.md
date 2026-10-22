@@ -9,6 +9,7 @@ Codex 根据“开始〈项目名称〉工作，并在电脑端打开视觉预�
 | MiniDisc / MD 收藏家 | MD、MiniDisc Atelier、md-atelier、收藏家、MD 收藏室 | `demos/md-atelier/` | 打开 MD 收藏家 / `node scripts/preview.mjs collector` | `dist/collector.html` |
 | MD 封面工作台 | MD 封面编辑器、封面工作台、MD 工作台 | `demos/md-atelier/` | 打开 MD 封面工作台 / `node scripts/preview.mjs editor` | `dist/index.html` |
 | BEAT LUCK / Rhythm Slot Machine | BEAT LUCK、老虎机鼓机、节奏老虎机、rhythm slot、鼓机 | `demos/beat-luck/` | 打开 BEAT LUCK 节奏老虎机 / `node scripts/preview.mjs beat-luck` | `dist/index.html` |
+| 音色植物 / synth-plant | 音色植物、synth plant、synth_plant | `demos/synth_plant/` | 打开音色植物 / `node demos/synth_plant/serve.mjs` | `index.html` |
 
 | 梦游音阶长街 / Scale Street | 音阶长街、霓虹街、Scale Street、梦游音阶 | `demos/scale-street/` | 打开音阶长街 / `node scripts/preview.mjs scale-street` | `index.html` |
 

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fdfcf9">
+  <meta name="description" content="音色植物：十种声音气质的植物标本，可逐层编辑视觉并导出 SVG。">
+  <title>synth-plant · 音色植物</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 30V10M20 23Q4 8 8 6Q24 8 20 23M20 19Q36 5 34 4Q19 4 20 19' fill='%23b4a2d7' stroke='%238171b1' stroke-width='2'/%3E%3Cpath d='M11 29H29L26 38H14Z' fill='%238171b1'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="font-geometry.js"></script>
+  <script defer src="engine.js"></script>
+  <script defer src="app.js?v=scene-color-1"></script>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="toolbar-brand"><span class="four-dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>音色植物<span class="toolbar-separator">/</span><span class="english">BOTANICAL STUDIES</span></span></div>
+    <nav aria-label="工作台操作">
+      <span id="save-status" class="save-status" role="status">已载入初始设计</span>
+      <a class="outline-button" href="greenhouse.html">合成器温室 ↗</a>
+      <a class="outline-button scene-link" href="scenes.html">正方形场景 ↗</a>
+      <button id="import" class="quiet-button">导入配方</button>
+      <button id="save-recipe" class="quiet-button">保存配方</button>
+      <button id="open-editor" class="outline-button">视觉工作台 <span aria-hidden="true">↗</span></button>
+      <button id="export-atlas" class="solid-button">导出图鉴 SVG <span aria-hidden="true">↓</span></button>
+    </nav>
+  </div>
+  <main class="atlas" id="atlas">
+    <header class="atlas-heading">
+      <h1>synth-plant</h1>
+      <div class="manifesto"><strong>SOUND GROWS HERE</strong><span>A PLANT-BASED TIMBRE SYSTEM</span></div>
+      <div class="edition"><span>10 TIMBRE SPECIMENS</span><small>v0.2 / FORM STUDIES</small></div>
+    </header>
+    <div id="specimens" class="specimens" aria-label="十种音色植物标本"></div>
+    <div class="design-logic" id="design-logic" aria-label="设计逻辑：音色气质、内部结构与音乐符号组成音色植物"></div>
+    <footer class="atlas-footer"><span>ONE VOICE. ONE BOTANICAL PERSONALITY.</span><span>点击一株植物，细调它的每一层。 <span aria-hidden="true">↗</span></span></footer>
+  </main>
+
+  <dialog id="editor" class="editor" aria-labelledby="editor-title">
+    <header class="editor-header">
+      <div><span class="eyebrow">BOTANICAL WORKBENCH</span><h2 id="editor-title">视觉工作台</h2></div>
+      <div class="editor-actions"><button id="undo" class="icon-button" aria-label="撤销" title="撤销 Ctrl / Cmd + Z">↶</button><button id="redo" class="icon-button" aria-label="重做" title="重做 Ctrl / Cmd + Shift + Z">↷</button><button id="close-editor" class="icon-button close-button" aria-label="关闭视觉工作台">×</button></div>
+    </header>
+    <div class="editor-body">
+      <section class="preview-pane" aria-label="植物实时预览">
+        <div id="plant-tabs" class="plant-tabs" role="group" aria-label="选择标本"></div>
+        <div class="preview-caption"><span id="specimen-number" class="eyebrow"></span><span id="specimen-kind" class="eyebrow"></span></div>
+        <div id="stage" class="stage"><div id="stage-art"></div><svg id="selection-overlay" viewBox="0 0 320 350" aria-hidden="true"><rect id="selection-box"/></svg></div>
+        <div class="preview-title"><h3 id="plant-name"></h3><p id="plant-words"></p></div>
+        <p id="plant-meaning" class="plant-meaning"></p>
+        <div class="preview-options"><label><input id="checker" type="checkbox"> 透明棋盘</label><label><input id="show-symbols" type="checkbox" checked> 标本符号</label><button id="clear-selection" class="text-button">取消选中</button></div>
+        <p class="stage-tip"><span aria-hidden="true">⌖</span> 点击花叶、枝条或圆环，单独编辑。拖动选中对象可移动。</p>
+        <div class="preview-bottom"><span>LIVE VECTOR / 320 × 350</span><button id="reset-plant" class="text-button">恢复这株初始设计</button></div>
+      </section>
+      <section class="inspector" aria-label="视觉参数">
+        <div class="inspector-intro"><span class="eyebrow">VISUAL PARAMETERS</span><p>直接调整形态、渐变、线条与印刷材质。</p></div>
+        <details id="object-details" class="control-section" open>
+          <summary><span>选中对象 <small id="object-name">尚未选择</small></span><span class="section-marker">⌖</span></summary>
+          <div id="object-controls" class="section-content"><p class="muted">点击左侧的一个形体，即可独立调整。</p></div>
+        </details>
+        <details class="control-section gradient-section" open>
+          <summary><span>色彩与渐变 <small>GRADIENT</small></span><span class="section-marker">＋</span></summary>
+          <div class="section-content">
+            <div class="field-pair"><label>编辑区域<select id="material-target"></select></label><label>渐变类型<select id="gradient-type"><option value="radial">径向渐变</option><option value="linear">线性渐变</option></select></label></div>
+            <div id="gradient-surface" class="gradient-surface"><svg id="gradient-canvas" viewBox="0 0 280 168" aria-label="渐变控制柄，可拖动中心、焦点、半径或线性端点"></svg></div>
+            <p id="gradient-tip" class="mini-help">拖动 C 中心、F 焦点与 R 半径控制柄。</p>
+            <div id="gradient-numbers" class="gradient-numbers"></div>
+            <div id="stop-track" class="stop-track" aria-label="渐变色标，双击空白处添加色标"></div>
+            <div class="stops-heading"><span>色标 / 位置 / 透明度</span><button id="add-stop" class="text-button">＋ 添加色标</button></div>
+            <div id="gradient-stops"></div>
+            <div class="palette-row"><label>整体配色 <input id="base-color" type="color" aria-label="整体配色"></label><span>重配六个区域的渐变</span><button id="reset-gradient" class="text-button">重置当前渐变</button></div>
+          </div>
+        </details>
+        <div id="parameter-sections"></div>
+      </section>
+    </div>
+    <footer class="editor-footer"><span class="export-hint">SVG 保留路径、渐变与材质；标注文字转为路径。</span><div><label><input type="checkbox" id="export-background"> 带底色</label><label><input type="checkbox" id="export-labels" checked> 带标注</label><button id="export-plant" class="solid-button">导出这株 SVG <span aria-hidden="true">↓</span></button></div></footer>
+  </dialog>
+  <input id="recipe-file" type="file" accept="application/json,.json" hidden>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
