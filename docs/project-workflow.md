@@ -14,6 +14,10 @@
 
 > 开始 MD 收藏家工作，并在电脑端打开视觉预览。
 
+或者：
+
+> 开始 BEAT LUCK 节奏老虎机工作，并在电脑端打开视觉预览。
+
 不用记完整名字或固定句式，说“打开 MD”“继续做收藏家”“打开那个封面编辑器”也可以。Codex 会结合仓库内容和对话定位。比如以后有一个 `fd-visual-demo`，且没有其他 FD 项目，“打开 FD 文件”就应定位到这个 demo 并打开视觉预览，不必要求用户补全目录名。这只是识别示例，不代表当前仓库已存在 FD 项目。
 
 之后直接描述修改，例如“背景再暖一点，保持文字清晰”，查看页面并继续调整。每次修改先保存在当前电脑。Codex 在回复末尾提醒实际状态，例如：
@@ -69,6 +73,6 @@
 ## Actions 与维护
 
 - Actions 配置在 `.codex/environments/environment.toml`，跟随仓库同步。按钮取决于桌面版本；未出现时由 Codex 通过本地环境设置加载配置，仍不可用就执行对应脚本，不要求设计同事排查终端。
-- 当前两个 MD Actions 使用 `scripts/preview.mjs`，仅依赖 Node.js 22+，没有 npm 安装步骤，支持 Windows、macOS、Linux。脚本复用同目录服务，默认端口 4199；并行检出可由 Codex 设置进程变量 `MD_ATELIER_PORT` 使用空闲端口。原收藏家 QA 仍默认使用 4199。
+- MD Actions 和 BEAT LUCK Action 使用 `scripts/preview.mjs`，仅依赖 Node.js 22+，没有 npm 安装步骤，支持 Windows、macOS、Linux。MD 复用默认 4199 端口；BEAT LUCK 默认使用 4200。并行检出可由 Codex 设置 `MD_ATELIER_PORT` 或 `BEAT_LUCK_PORT` 使用空闲端口。原收藏家 QA 仍默认使用 4199。
 - 新增 demo 时更新 `demos/README.md` 的名称、别名、工作目录与预览方式，再按需添加 Action，通用口令保持不变。
 - 收藏和星标等浏览器数据不会跟随 Git 同步；要带走可编辑的 MD 设计，先导出参数 JSON，在另一台电脑导入。
