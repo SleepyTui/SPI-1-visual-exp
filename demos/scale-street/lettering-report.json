@@ -1,0 +1,267 @@
+{
+  "signs": 65,
+  "engine": "skia-pathops",
+  "operation": "union/simplify",
+  "entries": {
+    "0:0": {
+      "inputPaths": 4,
+      "contours": 16
+    },
+    "0:1": {
+      "inputPaths": 4,
+      "contours": 12
+    },
+    "0:2": {
+      "inputPaths": 4,
+      "contours": 12
+    },
+    "0:3": {
+      "inputPaths": 4,
+      "contours": 20
+    },
+    "0:4": {
+      "inputPaths": 4,
+      "contours": 16
+    },
+    "0:5": {
+      "inputPaths": 3,
+      "contours": 12
+    },
+    "0:6": {
+      "inputPaths": 3,
+      "contours": 8
+    },
+    "0:7": {
+      "inputPaths": 3,
+      "contours": 20
+    },
+    "0:8": {
+      "inputPaths": 6,
+      "contours": 20
+    },
+    "0:9": {
+      "inputPaths": 6,
+      "contours": 20
+    },
+    "1:0": {
+      "inputPaths": 1,
+      "contours": 5
+    },
+    "1:1": {
+      "inputPaths": 1,
+      "contours": 5
+    },
+    "1:2": {
+      "inputPaths": 3,
+      "contours": 14
+    },
+    "2:0": {
+      "inputPaths": 6,
+      "contours": 25
+    },
+    "2:1": {
+      "inputPaths": 6,
+      "contours": 23
+    },
+    "3:0": {
+      "inputPaths": 7,
+      "contours": 10
+    },
+    "3:1": {
+      "inputPaths": 7,
+      "contours": 11
+    },
+    "3:2": {
+      "inputPaths": 10,
+      "contours": 16
+    },
+    "4:0": {
+      "inputPaths": 14,
+      "contours": 22
+    },
+    "4:1": {
+      "inputPaths": 10,
+      "contours": 16
+    },
+    "4:2": {
+      "inputPaths": 9,
+      "contours": 13
+    },
+    "5:0": {
+      "inputPaths": 14,
+      "contours": 28
+    },
+    "5:1": {
+      "inputPaths": 14,
+      "contours": 28
+    },
+    "5:2": {
+      "inputPaths": 14,
+      "contours": 28
+    },
+    "6:0": {
+      "inputPaths": 10,
+      "contours": 5
+    },
+    "6:1": {
+      "inputPaths": 6,
+      "contours": 4
+    },
+    "6:2": {
+      "inputPaths": 10,
+      "contours": 7
+    },
+    "7:0": {
+      "inputPaths": 10,
+      "contours": 8
+    },
+    "7:1": {
+      "inputPaths": 22,
+      "contours": 14
+    },
+    "7:2": {
+      "inputPaths": 14,
+      "contours": 12
+    },
+    "8:0": {
+      "inputPaths": 7,
+      "contours": 11
+    },
+    "8:1": {
+      "inputPaths": 14,
+      "contours": 18
+    },
+    "8:2": {
+      "inputPaths": 8,
+      "contours": 14
+    },
+    "8:3": {
+      "inputPaths": 10,
+      "contours": 15
+    },
+    "8:4": {
+      "inputPaths": 8,
+      "contours": 11
+    },
+    "8:5": {
+      "inputPaths": 12,
+      "contours": 17
+    },
+    "8:6": {
+      "inputPaths": 9,
+      "contours": 13
+    },
+    "9:0": {
+      "inputPaths": 15,
+      "contours": 20
+    },
+    "9:1": {
+      "inputPaths": 17,
+      "contours": 24
+    },
+    "9:2": {
+      "inputPaths": 17,
+      "contours": 27
+    },
+    "9:3": {
+      "inputPaths": 14,
+      "contours": 23
+    },
+    "9:4": {
+      "inputPaths": 18,
+      "contours": 29
+    },
+    "9:5": {
+      "inputPaths": 10,
+      "contours": 14
+    },
+    "9:6": {
+      "inputPaths": 14,
+      "contours": 18
+    },
+    "10:0": {
+      "inputPaths": 14,
+      "contours": 20
+    },
+    "10:1": {
+      "inputPaths": 13,
+      "contours": 19
+    },
+    "10:2": {
+      "inputPaths": 17,
+      "contours": 26
+    },
+    "10:3": {
+      "inputPaths": 16,
+      "contours": 24
+    },
+    "10:4": {
+      "inputPaths": 17,
+      "contours": 25
+    },
+    "10:5": {
+      "inputPaths": 17,
+      "contours": 22
+    },
+    "10:6": {
+      "inputPaths": 9,
+      "contours": 14
+    },
+    "11:0": {
+      "inputPaths": 17,
+      "contours": 26
+    },
+    "11:1": {
+      "inputPaths": 17,
+      "contours": 25
+    },
+    "11:2": {
+      "inputPaths": 12,
+      "contours": 20
+    },
+    "11:3": {
+      "inputPaths": 12,
+      "contours": 19
+    },
+    "12:0": {
+      "inputPaths": 16,
+      "contours": 24
+    },
+    "12:1": {
+      "inputPaths": 17,
+      "contours": 27
+    },
+    "12:2": {
+      "inputPaths": 16,
+      "contours": 23
+    },
+    "13:0": {
+      "inputPaths": 11,
+      "contours": 13
+    },
+    "13:1": {
+      "inputPaths": 11,
+      "contours": 14
+    },
+    "14:0": {
+      "inputPaths": 12,
+      "contours": 18
+    },
+    "14:1": {
+      "inputPaths": 12,
+      "contours": 18
+    },
+    "15:0": {
+      "inputPaths": 12,
+      "contours": 19
+    },
+    "15:1": {
+      "inputPaths": 13,
+      "contours": 21
+    },
+    "15:2": {
+      "inputPaths": 15,
+      "contours": 22
+    }
+  }
+}

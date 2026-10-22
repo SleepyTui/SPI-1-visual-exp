@@ -1,0 +1,5 @@
+.tools/
+test-output/
+test-output-v2/
+*.zip
+*.bundle

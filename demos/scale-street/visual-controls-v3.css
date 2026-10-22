@@ -1,0 +1,31 @@
+/* Equal-size metadata cells: shared icon row, shared centred caption row. */
+.metadata{grid-template-columns:repeat(3,minmax(0,1fr));height:66px;gap:0}
+.metadata>div{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:40px 22px;justify-content:stretch;justify-items:center;align-items:center;padding:0 3px}
+.metadata>div:last-child{border-right:0}
+.metadata .map-badge svg,.metadata .century-badge svg,.metadata .count-badge svg{position:static;width:40px;height:40px;margin:0;opacity:1;inset:auto;transform:none;flex-shrink:0}
+.metadata .map-badge svg{width:40px;height:40px}
+.metadata .century-badge svg{padding:7px}
+.metadata span{position:static;display:flex;align-items:center;justify-content:center;text-align:center;width:100%;max-width:none;height:22px;min-height:22px;line-height:1.08;font-size:8px;inset:auto;transform:none;white-space:normal;margin:0;padding:0;background:none}
+#count-shape polygon{fill:#f4dfb20b;stroke:#f4dfb2;stroke-width:1.2;stroke-linejoin:round}
+#count-shape text{font-family:Consolas,monospace;fill:#fff3d6;font-size:16px;font-weight:600}
+#scale-menu{height:282px;padding:11px 12px}
+#pitch-strip{height:48px}
+.advanced{grid-column:1/-1}
+.advanced>label{font-size:10px;display:block;margin:8px 0 5px;color:var(--muted)}
+.advanced .control{margin:9px 0 13px}
+.advanced select{width:100%;padding:5px;background:#142630;color:var(--cream);border:1px solid var(--line);font-size:11px}
+.advanced p{font-size:10px;color:var(--muted);line-height:1.65;margin:9px 0}
+.advanced a{font-size:10px;color:var(--cream);text-decoration:underline;text-underline-offset:3px}
+.advanced .check-label{display:flex;align-items:center;justify-content:space-between}
+.config-buttons{display:flex;gap:8px}.config-buttons button{flex:1;padding:8px;background:#2b414a;color:var(--cream);font-size:10px}
+.advanced input:disabled{opacity:.35;cursor:default}
+.stage-column{position:sticky;top:20px}
+aside{max-height:900px;overflow-y:auto;scrollbar-width:thin;padding-right:8px}
+@media(max-width:760px){.stage-column{position:static}aside{max-height:none;overflow:visible;padding-right:18px}}
+@keyframes tube-chase{to{stroke-dashoffset:-100}}
+.neon-emission[data-effect=chase] .chase-lights{animation:tube-chase var(--effect-seconds) linear infinite}
+.neon-emission[data-effect=chase] .chase-lights path{stroke-opacity:calc(1 - var(--effect-min))}
+.traffic-flow .moving-trail{animation:none;filter:none}
+@keyframes city-window{0%,100%{filter:brightness(var(--window-low))}50%{filter:brightness(var(--window-high))}}
+.window-light{animation-iteration-count:infinite;animation-timing-function:ease-in-out}
+@media(prefers-reduced-motion:reduce){.window-light,.chase-lights{animation:none!important}}

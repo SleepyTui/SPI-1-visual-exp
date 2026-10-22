@@ -1,0 +1,2512 @@
+{
+  "version": 8,
+  "families": 16,
+  "scales": 65,
+  "counts": {
+    "signs": 260,
+    "icons": 65,
+    "streets": 4
+  },
+  "assetLanguage": "native",
+  "uiLanguages": [
+    "zh",
+    "en"
+  ],
+  "files": [
+    {
+      "kind": "icon",
+      "family": "chinese",
+      "scale": "gong",
+      "path": "assets-native/chinese/icons/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "gong",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2d/lightbox/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "gong",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/chinese/2d/neon/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "gong",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2.5d/lightbox/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "gong",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/chinese/2.5d/neon/gong.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "chinese",
+      "scale": "shang",
+      "path": "assets-native/chinese/icons/shang.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "shang",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2d/lightbox/shang.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "shang",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/chinese/2d/neon/shang.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "shang",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2.5d/lightbox/shang.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "shang",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/chinese/2.5d/neon/shang.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "chinese",
+      "scale": "jue",
+      "path": "assets-native/chinese/icons/jue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "jue",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2d/lightbox/jue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "jue",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/chinese/2d/neon/jue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "jue",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2.5d/lightbox/jue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "jue",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/chinese/2.5d/neon/jue.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "chinese",
+      "scale": "zhi",
+      "path": "assets-native/chinese/icons/zhi.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "zhi",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2d/lightbox/zhi.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "zhi",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/chinese/2d/neon/zhi.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "zhi",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2.5d/lightbox/zhi.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "zhi",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/chinese/2.5d/neon/zhi.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "chinese",
+      "scale": "yu",
+      "path": "assets-native/chinese/icons/yu.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "yu",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2d/lightbox/yu.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "yu",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/chinese/2d/neon/yu.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "yu",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2.5d/lightbox/yu.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "yu",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/chinese/2.5d/neon/yu.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "chinese",
+      "scale": "qingyue",
+      "path": "assets-native/chinese/icons/qingyue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "qingyue",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2d/lightbox/qingyue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "qingyue",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/chinese/2d/neon/qingyue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "qingyue",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2.5d/lightbox/qingyue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "qingyue",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/chinese/2.5d/neon/qingyue.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "chinese",
+      "scale": "yayue",
+      "path": "assets-native/chinese/icons/yayue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "yayue",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2d/lightbox/yayue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "yayue",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/chinese/2d/neon/yayue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "yayue",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2.5d/lightbox/yayue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "yayue",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/chinese/2.5d/neon/yayue.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "chinese",
+      "scale": "yanyue",
+      "path": "assets-native/chinese/icons/yanyue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "yanyue",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2d/lightbox/yanyue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "yanyue",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/chinese/2d/neon/yanyue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "yanyue",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2.5d/lightbox/yanyue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "yanyue",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/chinese/2.5d/neon/yanyue.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "chinese",
+      "scale": "six-qingjue",
+      "path": "assets-native/chinese/icons/six-qingjue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "six-qingjue",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2d/lightbox/six-qingjue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "six-qingjue",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/chinese/2d/neon/six-qingjue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "six-qingjue",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2.5d/lightbox/six-qingjue.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "six-qingjue",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/chinese/2.5d/neon/six-qingjue.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "chinese",
+      "scale": "six-biangong",
+      "path": "assets-native/chinese/icons/six-biangong.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "six-biangong",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2d/lightbox/six-biangong.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "six-biangong",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/chinese/2d/neon/six-biangong.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "six-biangong",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/chinese/2.5d/lightbox/six-biangong.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "chinese",
+      "scale": "six-biangong",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/chinese/2.5d/neon/six-biangong.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "japanese",
+      "scale": "yo",
+      "path": "assets-native/japanese/icons/yo.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "japanese",
+      "scale": "yo",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/japanese/2d/lightbox/yo.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "japanese",
+      "scale": "yo",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/japanese/2d/neon/yo.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "japanese",
+      "scale": "yo",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/japanese/2.5d/lightbox/yo.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "japanese",
+      "scale": "yo",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/japanese/2.5d/neon/yo.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "japanese",
+      "scale": "in",
+      "path": "assets-native/japanese/icons/in.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "japanese",
+      "scale": "in",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/japanese/2d/lightbox/in.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "japanese",
+      "scale": "in",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/japanese/2d/neon/in.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "japanese",
+      "scale": "in",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/japanese/2.5d/lightbox/in.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "japanese",
+      "scale": "in",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/japanese/2.5d/neon/in.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "japanese",
+      "scale": "hirajoshi",
+      "path": "assets-native/japanese/icons/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "japanese",
+      "scale": "hirajoshi",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/japanese/2d/lightbox/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "japanese",
+      "scale": "hirajoshi",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/japanese/2d/neon/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "japanese",
+      "scale": "hirajoshi",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/japanese/2.5d/lightbox/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "japanese",
+      "scale": "hirajoshi",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/japanese/2.5d/neon/hirajoshi.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "ryukyu",
+      "scale": "ryukyu-five",
+      "path": "assets-native/ryukyu/icons/ryukyu-five.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ryukyu",
+      "scale": "ryukyu-five",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/ryukyu/2d/lightbox/ryukyu-five.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ryukyu",
+      "scale": "ryukyu-five",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/ryukyu/2d/neon/ryukyu-five.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ryukyu",
+      "scale": "ryukyu-five",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/ryukyu/2.5d/lightbox/ryukyu-five.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ryukyu",
+      "scale": "ryukyu-five",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/ryukyu/2.5d/neon/ryukyu-five.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "ryukyu",
+      "scale": "ryukyu-six",
+      "path": "assets-native/ryukyu/icons/ryukyu-six.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ryukyu",
+      "scale": "ryukyu-six",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/ryukyu/2d/lightbox/ryukyu-six.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ryukyu",
+      "scale": "ryukyu-six",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/ryukyu/2d/neon/ryukyu-six.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ryukyu",
+      "scale": "ryukyu-six",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/ryukyu/2.5d/lightbox/ryukyu-six.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ryukyu",
+      "scale": "ryukyu-six",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/ryukyu/2.5d/neon/ryukyu-six.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "ethiopian",
+      "scale": "tizita-major",
+      "path": "assets-native/ethiopian/icons/tizita-major.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ethiopian",
+      "scale": "tizita-major",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/ethiopian/2d/lightbox/tizita-major.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ethiopian",
+      "scale": "tizita-major",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/ethiopian/2d/neon/tizita-major.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ethiopian",
+      "scale": "tizita-major",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/ethiopian/2.5d/lightbox/tizita-major.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ethiopian",
+      "scale": "tizita-major",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/ethiopian/2.5d/neon/tizita-major.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "ethiopian",
+      "scale": "tizita-minor",
+      "path": "assets-native/ethiopian/icons/tizita-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ethiopian",
+      "scale": "tizita-minor",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/ethiopian/2d/lightbox/tizita-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ethiopian",
+      "scale": "tizita-minor",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/ethiopian/2d/neon/tizita-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ethiopian",
+      "scale": "tizita-minor",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/ethiopian/2.5d/lightbox/tizita-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ethiopian",
+      "scale": "tizita-minor",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/ethiopian/2.5d/neon/tizita-minor.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "ethiopian",
+      "scale": "ambassel",
+      "path": "assets-native/ethiopian/icons/ambassel.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ethiopian",
+      "scale": "ambassel",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/ethiopian/2d/lightbox/ambassel.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ethiopian",
+      "scale": "ambassel",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/ethiopian/2d/neon/ambassel.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ethiopian",
+      "scale": "ambassel",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/ethiopian/2.5d/lightbox/ambassel.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "ethiopian",
+      "scale": "ambassel",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/ethiopian/2.5d/neon/ambassel.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "gamelan",
+      "scale": "slendro",
+      "path": "assets-native/gamelan/icons/slendro.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "gamelan",
+      "scale": "slendro",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/gamelan/2d/lightbox/slendro.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "gamelan",
+      "scale": "slendro",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/gamelan/2d/neon/slendro.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "gamelan",
+      "scale": "slendro",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/gamelan/2.5d/lightbox/slendro.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "gamelan",
+      "scale": "slendro",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/gamelan/2.5d/neon/slendro.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "gamelan",
+      "scale": "pelog",
+      "path": "assets-native/gamelan/icons/pelog.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "gamelan",
+      "scale": "pelog",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/gamelan/2d/lightbox/pelog.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "gamelan",
+      "scale": "pelog",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/gamelan/2d/neon/pelog.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "gamelan",
+      "scale": "pelog",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/gamelan/2.5d/lightbox/pelog.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "gamelan",
+      "scale": "pelog",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/gamelan/2.5d/neon/pelog.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "gamelan",
+      "scale": "pelog-lima",
+      "path": "assets-native/gamelan/icons/pelog-lima.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "gamelan",
+      "scale": "pelog-lima",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/gamelan/2d/lightbox/pelog-lima.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "gamelan",
+      "scale": "pelog-lima",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/gamelan/2d/neon/pelog-lima.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "gamelan",
+      "scale": "pelog-lima",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/gamelan/2.5d/lightbox/pelog-lima.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "gamelan",
+      "scale": "pelog-lima",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/gamelan/2.5d/neon/pelog-lima.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "thai",
+      "scale": "thai-seven",
+      "path": "assets-native/thai/icons/thai-seven.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "thai",
+      "scale": "thai-seven",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/thai/2d/lightbox/thai-seven.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "thai",
+      "scale": "thai-seven",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/thai/2d/neon/thai-seven.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "thai",
+      "scale": "thai-seven",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/thai/2.5d/lightbox/thai-seven.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "thai",
+      "scale": "thai-seven",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/thai/2.5d/neon/thai-seven.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "thai",
+      "scale": "thai-five",
+      "path": "assets-native/thai/icons/thai-five.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "thai",
+      "scale": "thai-five",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/thai/2d/lightbox/thai-five.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "thai",
+      "scale": "thai-five",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/thai/2d/neon/thai-five.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "thai",
+      "scale": "thai-five",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/thai/2.5d/lightbox/thai-five.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "thai",
+      "scale": "thai-five",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/thai/2.5d/neon/thai-five.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "thai",
+      "scale": "thai-five-alt",
+      "path": "assets-native/thai/icons/thai-five-alt.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "thai",
+      "scale": "thai-five-alt",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/thai/2d/lightbox/thai-five-alt.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "thai",
+      "scale": "thai-five-alt",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/thai/2d/neon/thai-five-alt.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "thai",
+      "scale": "thai-five-alt",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/thai/2.5d/lightbox/thai-five-alt.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "thai",
+      "scale": "thai-five-alt",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/thai/2.5d/neon/thai-five-alt.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "raga",
+      "scale": "sriranjani",
+      "path": "assets-native/raga/icons/sriranjani.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "raga",
+      "scale": "sriranjani",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/raga/2d/lightbox/sriranjani.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "raga",
+      "scale": "sriranjani",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/raga/2d/neon/sriranjani.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "raga",
+      "scale": "sriranjani",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/raga/2.5d/lightbox/sriranjani.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "raga",
+      "scale": "sriranjani",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/raga/2.5d/neon/sriranjani.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "raga",
+      "scale": "yaman",
+      "path": "assets-native/raga/icons/yaman.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "raga",
+      "scale": "yaman",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/raga/2d/lightbox/yaman.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "raga",
+      "scale": "yaman",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/raga/2d/neon/yaman.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "raga",
+      "scale": "yaman",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/raga/2.5d/lightbox/yaman.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "raga",
+      "scale": "yaman",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/raga/2.5d/neon/yaman.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "raga",
+      "scale": "hamsadhwani",
+      "path": "assets-native/raga/icons/hamsadhwani.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "raga",
+      "scale": "hamsadhwani",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/raga/2d/lightbox/hamsadhwani.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "raga",
+      "scale": "hamsadhwani",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/raga/2d/neon/hamsadhwani.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "raga",
+      "scale": "hamsadhwani",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/raga/2.5d/lightbox/hamsadhwani.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "raga",
+      "scale": "hamsadhwani",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/raga/2.5d/neon/hamsadhwani.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "middle-east",
+      "scale": "rast",
+      "path": "assets-native/middle-east/icons/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "middle-east",
+      "scale": "rast",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/middle-east/2d/lightbox/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "middle-east",
+      "scale": "rast",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/middle-east/2d/neon/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "middle-east",
+      "scale": "rast",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/middle-east/2.5d/lightbox/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "middle-east",
+      "scale": "rast",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/middle-east/2.5d/neon/rast.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "middle-east",
+      "scale": "phrygian-dominant",
+      "path": "assets-native/middle-east/icons/phrygian-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "middle-east",
+      "scale": "phrygian-dominant",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/middle-east/2d/lightbox/phrygian-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "middle-east",
+      "scale": "phrygian-dominant",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/middle-east/2d/neon/phrygian-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "middle-east",
+      "scale": "phrygian-dominant",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/middle-east/2.5d/lightbox/phrygian-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "middle-east",
+      "scale": "phrygian-dominant",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/middle-east/2.5d/neon/phrygian-dominant.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "middle-east",
+      "scale": "double-harmonic",
+      "path": "assets-native/middle-east/icons/double-harmonic.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "middle-east",
+      "scale": "double-harmonic",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/middle-east/2d/lightbox/double-harmonic.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "middle-east",
+      "scale": "double-harmonic",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/middle-east/2d/neon/double-harmonic.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "middle-east",
+      "scale": "double-harmonic",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/middle-east/2.5d/lightbox/double-harmonic.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "middle-east",
+      "scale": "double-harmonic",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/middle-east/2.5d/neon/double-harmonic.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "diatonic",
+      "scale": "major",
+      "path": "assets-native/diatonic/icons/major.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "major",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2d/lightbox/major.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "major",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2d/neon/major.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "major",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2.5d/lightbox/major.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "major",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2.5d/neon/major.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "diatonic",
+      "scale": "minor",
+      "path": "assets-native/diatonic/icons/minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "minor",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2d/lightbox/minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "minor",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2d/neon/minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "minor",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2.5d/lightbox/minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "minor",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2.5d/neon/minor.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "diatonic",
+      "scale": "dorian",
+      "path": "assets-native/diatonic/icons/dorian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "dorian",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2d/lightbox/dorian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "dorian",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2d/neon/dorian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "dorian",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2.5d/lightbox/dorian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "dorian",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2.5d/neon/dorian.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "diatonic",
+      "scale": "phrygian",
+      "path": "assets-native/diatonic/icons/phrygian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "phrygian",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2d/lightbox/phrygian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "phrygian",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2d/neon/phrygian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "phrygian",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2.5d/lightbox/phrygian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "phrygian",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2.5d/neon/phrygian.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "diatonic",
+      "scale": "lydian",
+      "path": "assets-native/diatonic/icons/lydian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "lydian",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2d/lightbox/lydian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "lydian",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2d/neon/lydian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "lydian",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2.5d/lightbox/lydian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "lydian",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2.5d/neon/lydian.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "diatonic",
+      "scale": "mixolydian",
+      "path": "assets-native/diatonic/icons/mixolydian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "mixolydian",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2d/lightbox/mixolydian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "mixolydian",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2d/neon/mixolydian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "mixolydian",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2.5d/lightbox/mixolydian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "mixolydian",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2.5d/neon/mixolydian.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "diatonic",
+      "scale": "locrian",
+      "path": "assets-native/diatonic/icons/locrian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "locrian",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2d/lightbox/locrian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "locrian",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2d/neon/locrian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "locrian",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/diatonic/2.5d/lightbox/locrian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "diatonic",
+      "scale": "locrian",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/diatonic/2.5d/neon/locrian.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "harmonic",
+      "scale": "harmonic-minor",
+      "path": "assets-native/harmonic/icons/harmonic-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "harmonic-minor",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2d/lightbox/harmonic-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "harmonic-minor",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2d/neon/harmonic-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "harmonic-minor",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2.5d/lightbox/harmonic-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "harmonic-minor",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2.5d/neon/harmonic-minor.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "harmonic",
+      "scale": "locrian-natural6",
+      "path": "assets-native/harmonic/icons/locrian-natural6.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "locrian-natural6",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2d/lightbox/locrian-natural6.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "locrian-natural6",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2d/neon/locrian-natural6.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "locrian-natural6",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2.5d/lightbox/locrian-natural6.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "locrian-natural6",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2.5d/neon/locrian-natural6.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "harmonic",
+      "scale": "ionian-augmented",
+      "path": "assets-native/harmonic/icons/ionian-augmented.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "ionian-augmented",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2d/lightbox/ionian-augmented.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "ionian-augmented",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2d/neon/ionian-augmented.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "ionian-augmented",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2.5d/lightbox/ionian-augmented.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "ionian-augmented",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2.5d/neon/ionian-augmented.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "harmonic",
+      "scale": "dorian-sharp4",
+      "path": "assets-native/harmonic/icons/dorian-sharp4.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "dorian-sharp4",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2d/lightbox/dorian-sharp4.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "dorian-sharp4",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2d/neon/dorian-sharp4.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "dorian-sharp4",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2.5d/lightbox/dorian-sharp4.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "dorian-sharp4",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2.5d/neon/dorian-sharp4.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "harmonic",
+      "scale": "harmonic-phrygian-dominant",
+      "path": "assets-native/harmonic/icons/harmonic-phrygian-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "harmonic-phrygian-dominant",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2d/lightbox/harmonic-phrygian-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "harmonic-phrygian-dominant",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2d/neon/harmonic-phrygian-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "harmonic-phrygian-dominant",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2.5d/lightbox/harmonic-phrygian-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "harmonic-phrygian-dominant",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2.5d/neon/harmonic-phrygian-dominant.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "harmonic",
+      "scale": "lydian-sharp2",
+      "path": "assets-native/harmonic/icons/lydian-sharp2.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "lydian-sharp2",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2d/lightbox/lydian-sharp2.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "lydian-sharp2",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2d/neon/lydian-sharp2.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "lydian-sharp2",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2.5d/lightbox/lydian-sharp2.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "lydian-sharp2",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2.5d/neon/lydian-sharp2.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "harmonic",
+      "scale": "ultralocrian",
+      "path": "assets-native/harmonic/icons/ultralocrian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "ultralocrian",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2d/lightbox/ultralocrian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "ultralocrian",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2d/neon/ultralocrian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "ultralocrian",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/harmonic/2.5d/lightbox/ultralocrian.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "harmonic",
+      "scale": "ultralocrian",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/harmonic/2.5d/neon/ultralocrian.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "melodic",
+      "scale": "melodic-minor",
+      "path": "assets-native/melodic/icons/melodic-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "melodic-minor",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2d/lightbox/melodic-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "melodic-minor",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/melodic/2d/neon/melodic-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "melodic-minor",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2.5d/lightbox/melodic-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "melodic-minor",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/melodic/2.5d/neon/melodic-minor.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "melodic",
+      "scale": "dorian-flat2",
+      "path": "assets-native/melodic/icons/dorian-flat2.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "dorian-flat2",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2d/lightbox/dorian-flat2.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "dorian-flat2",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/melodic/2d/neon/dorian-flat2.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "dorian-flat2",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2.5d/lightbox/dorian-flat2.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "dorian-flat2",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/melodic/2.5d/neon/dorian-flat2.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "melodic",
+      "scale": "lydian-augmented",
+      "path": "assets-native/melodic/icons/lydian-augmented.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "lydian-augmented",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2d/lightbox/lydian-augmented.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "lydian-augmented",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/melodic/2d/neon/lydian-augmented.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "lydian-augmented",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2.5d/lightbox/lydian-augmented.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "lydian-augmented",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/melodic/2.5d/neon/lydian-augmented.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "melodic",
+      "scale": "lydian-dominant",
+      "path": "assets-native/melodic/icons/lydian-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "lydian-dominant",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2d/lightbox/lydian-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "lydian-dominant",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/melodic/2d/neon/lydian-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "lydian-dominant",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2.5d/lightbox/lydian-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "lydian-dominant",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/melodic/2.5d/neon/lydian-dominant.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "melodic",
+      "scale": "mixolydian-flat6",
+      "path": "assets-native/melodic/icons/mixolydian-flat6.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "mixolydian-flat6",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2d/lightbox/mixolydian-flat6.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "mixolydian-flat6",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/melodic/2d/neon/mixolydian-flat6.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "mixolydian-flat6",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2.5d/lightbox/mixolydian-flat6.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "mixolydian-flat6",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/melodic/2.5d/neon/mixolydian-flat6.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "melodic",
+      "scale": "locrian-natural2",
+      "path": "assets-native/melodic/icons/locrian-natural2.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "locrian-natural2",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2d/lightbox/locrian-natural2.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "locrian-natural2",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/melodic/2d/neon/locrian-natural2.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "locrian-natural2",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2.5d/lightbox/locrian-natural2.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "locrian-natural2",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/melodic/2.5d/neon/locrian-natural2.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "melodic",
+      "scale": "altered",
+      "path": "assets-native/melodic/icons/altered.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "altered",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2d/lightbox/altered.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "altered",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/melodic/2d/neon/altered.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "altered",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/melodic/2.5d/lightbox/altered.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "melodic",
+      "scale": "altered",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/melodic/2.5d/neon/altered.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "blues",
+      "scale": "major-pentatonic",
+      "path": "assets-native/blues/icons/major-pentatonic.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "major-pentatonic",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/blues/2d/lightbox/major-pentatonic.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "major-pentatonic",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/blues/2d/neon/major-pentatonic.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "major-pentatonic",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/blues/2.5d/lightbox/major-pentatonic.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "major-pentatonic",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/blues/2.5d/neon/major-pentatonic.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "blues",
+      "scale": "minor-pentatonic",
+      "path": "assets-native/blues/icons/minor-pentatonic.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "minor-pentatonic",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/blues/2d/lightbox/minor-pentatonic.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "minor-pentatonic",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/blues/2d/neon/minor-pentatonic.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "minor-pentatonic",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/blues/2.5d/lightbox/minor-pentatonic.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "minor-pentatonic",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/blues/2.5d/neon/minor-pentatonic.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "blues",
+      "scale": "major-blues",
+      "path": "assets-native/blues/icons/major-blues.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "major-blues",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/blues/2d/lightbox/major-blues.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "major-blues",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/blues/2d/neon/major-blues.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "major-blues",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/blues/2.5d/lightbox/major-blues.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "major-blues",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/blues/2.5d/neon/major-blues.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "blues",
+      "scale": "minor-blues",
+      "path": "assets-native/blues/icons/minor-blues.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "minor-blues",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/blues/2d/lightbox/minor-blues.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "minor-blues",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/blues/2d/neon/minor-blues.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "minor-blues",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/blues/2.5d/lightbox/minor-blues.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "blues",
+      "scale": "minor-blues",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/blues/2.5d/neon/minor-blues.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "modal-six",
+      "scale": "major-hex",
+      "path": "assets-native/modal-six/icons/major-hex.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "modal-six",
+      "scale": "major-hex",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/modal-six/2d/lightbox/major-hex.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "modal-six",
+      "scale": "major-hex",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/modal-six/2d/neon/major-hex.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "modal-six",
+      "scale": "major-hex",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/modal-six/2.5d/lightbox/major-hex.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "modal-six",
+      "scale": "major-hex",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/modal-six/2.5d/neon/major-hex.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "modal-six",
+      "scale": "dorian-hex",
+      "path": "assets-native/modal-six/icons/dorian-hex.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "modal-six",
+      "scale": "dorian-hex",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/modal-six/2d/lightbox/dorian-hex.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "modal-six",
+      "scale": "dorian-hex",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/modal-six/2d/neon/dorian-hex.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "modal-six",
+      "scale": "dorian-hex",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/modal-six/2.5d/lightbox/dorian-hex.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "modal-six",
+      "scale": "dorian-hex",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/modal-six/2.5d/neon/dorian-hex.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "modal-six",
+      "scale": "minor-hex",
+      "path": "assets-native/modal-six/icons/minor-hex.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "modal-six",
+      "scale": "minor-hex",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/modal-six/2d/lightbox/minor-hex.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "modal-six",
+      "scale": "minor-hex",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/modal-six/2d/neon/minor-hex.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "modal-six",
+      "scale": "minor-hex",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/modal-six/2.5d/lightbox/minor-hex.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "modal-six",
+      "scale": "minor-hex",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/modal-six/2.5d/neon/minor-hex.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "sym-six",
+      "scale": "whole-tone",
+      "path": "assets-native/sym-six/icons/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-six",
+      "scale": "whole-tone",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/sym-six/2d/lightbox/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-six",
+      "scale": "whole-tone",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/sym-six/2d/neon/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-six",
+      "scale": "whole-tone",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/sym-six/2.5d/lightbox/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-six",
+      "scale": "whole-tone",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/sym-six/2.5d/neon/whole-tone.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "sym-six",
+      "scale": "augmented",
+      "path": "assets-native/sym-six/icons/augmented.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-six",
+      "scale": "augmented",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/sym-six/2d/lightbox/augmented.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-six",
+      "scale": "augmented",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/sym-six/2d/neon/augmented.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-six",
+      "scale": "augmented",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/sym-six/2.5d/lightbox/augmented.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-six",
+      "scale": "augmented",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/sym-six/2.5d/neon/augmented.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "sym-eight",
+      "scale": "diminished-wh",
+      "path": "assets-native/sym-eight/icons/diminished-wh.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-eight",
+      "scale": "diminished-wh",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/sym-eight/2d/lightbox/diminished-wh.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-eight",
+      "scale": "diminished-wh",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/sym-eight/2d/neon/diminished-wh.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-eight",
+      "scale": "diminished-wh",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/sym-eight/2.5d/lightbox/diminished-wh.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-eight",
+      "scale": "diminished-wh",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/sym-eight/2.5d/neon/diminished-wh.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "sym-eight",
+      "scale": "diminished-hw",
+      "path": "assets-native/sym-eight/icons/diminished-hw.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-eight",
+      "scale": "diminished-hw",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/sym-eight/2d/lightbox/diminished-hw.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-eight",
+      "scale": "diminished-hw",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/sym-eight/2d/neon/diminished-hw.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-eight",
+      "scale": "diminished-hw",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/sym-eight/2.5d/lightbox/diminished-hw.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "sym-eight",
+      "scale": "diminished-hw",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/sym-eight/2.5d/neon/diminished-hw.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "bebop",
+      "scale": "bebop-major",
+      "path": "assets-native/bebop/icons/bebop-major.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "bebop",
+      "scale": "bebop-major",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/bebop/2d/lightbox/bebop-major.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "bebop",
+      "scale": "bebop-major",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/bebop/2d/neon/bebop-major.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "bebop",
+      "scale": "bebop-major",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/bebop/2.5d/lightbox/bebop-major.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "bebop",
+      "scale": "bebop-major",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/bebop/2.5d/neon/bebop-major.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "bebop",
+      "scale": "bebop-minor",
+      "path": "assets-native/bebop/icons/bebop-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "bebop",
+      "scale": "bebop-minor",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/bebop/2d/lightbox/bebop-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "bebop",
+      "scale": "bebop-minor",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/bebop/2d/neon/bebop-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "bebop",
+      "scale": "bebop-minor",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/bebop/2.5d/lightbox/bebop-minor.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "bebop",
+      "scale": "bebop-minor",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/bebop/2.5d/neon/bebop-minor.svg"
+    },
+    {
+      "kind": "icon",
+      "family": "bebop",
+      "scale": "bebop-dominant",
+      "path": "assets-native/bebop/icons/bebop-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "bebop",
+      "scale": "bebop-dominant",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/bebop/2d/lightbox/bebop-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "bebop",
+      "scale": "bebop-dominant",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/bebop/2d/neon/bebop-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "bebop",
+      "scale": "bebop-dominant",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/bebop/2.5d/lightbox/bebop-dominant.svg"
+    },
+    {
+      "kind": "sign",
+      "family": "bebop",
+      "scale": "bebop-dominant",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/bebop/2.5d/neon/bebop-dominant.svg"
+    },
+    {
+      "kind": "street",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets-native/street-2d-lightbox.svg"
+    },
+    {
+      "kind": "street",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets-native/street-2d-neon.svg"
+    },
+    {
+      "kind": "street",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets-native/street-2.5d-lightbox.svg"
+    },
+    {
+      "kind": "street",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets-native/street-2.5d-neon.svg"
+    }
+  ],
+  "references": "references/"
+}

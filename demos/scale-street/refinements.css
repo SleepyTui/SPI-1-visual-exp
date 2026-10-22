@@ -1,0 +1,7 @@
+/* Keep the collapsed-menu control outside the square so no sign is covered. */
+#menu-open{position:static;transform:none;backdrop-filter:none;box-shadow:none;font-size:9px;padding:3px 7px;margin-left:auto}
+#menu-open[hidden]{display:none}
+#menu-open span{margin:0 5px}
+.screen-heading>.segmented{flex-shrink:0}
+@media(max-width:760px){.screen-heading{gap:6px}.screen-heading>div:first-child{gap:6px}#menu-open{font-size:8px;padding:2px 4px}#menu-open span{display:none}#size-readout{font-size:8px}}
+@media(max-width:760px){.masthead .quiet-link[href$=".zip"]{display:none}}

@@ -18,3 +18,8 @@ command = "node scripts/preview.mjs editor"
 name = "打开 BEAT LUCK 节奏老虎机"
 icon = "run"
 command = "node scripts/preview.mjs beat-luck"
+
+[[actions]]
+name = "打开音阶长街"
+icon = "run"
+command = "node scripts/preview.mjs scale-street"

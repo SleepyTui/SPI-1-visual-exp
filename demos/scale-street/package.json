@@ -1,0 +1,15 @@
+{
+  "name": "scale-street",
+  "version": "0.11.0",
+  "private": true,
+  "description": "Dream Scale Street: segmented glass neon, sixteen independent light scores, spectral architecture and offline sound.",
+  "scripts": {
+    "generate": "node generate-v2.mjs",
+    "start": "node serve.mjs",
+    "check": "node verify-v2.mjs",
+    "check:browser": "node qa-duotone-v11.mjs",
+    "check:rig": "node qa-rig-v7.mjs",
+    "check:depth": "node qa-depth-v8.mjs",
+    "check:rail": "node qa-rail-v10.mjs"
+  }
+}

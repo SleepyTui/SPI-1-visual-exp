@@ -19,3 +19,7 @@ node serve-collector.mjs
 然后打开 `http://127.0.0.1:4199/collector.html`。验证命令见 [demos/md-atelier/README.md](demos/md-atelier/README.md)。
 
 BEAT LUCK 使用独立的预览端口：在仓库根目录执行 `node scripts/preview.mjs beat-luck`，打开 `http://127.0.0.1:4200/index.html`。运行与验证细节见 [demos/beat-luck/README.md](demos/beat-luck/README.md)。
+
+## 梦游音阶长街
+
+[Scale Street](demos/scale-street/) 是可调双色弥散风格、独立霓虹灯效和四轨环境声的音阶街景 Demo。在仓库根目录运行 `node scripts/preview.mjs scale-street`，打开 `http://127.0.0.1:4178/`；详情见 [项目说明](demos/scale-street/README-GITHUB.md)。

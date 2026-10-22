@@ -1,0 +1,233 @@
+{
+  "schema": "scale-street-settings",
+  "version": 1,
+  "settings": {
+    "popupSettings": {
+      "width": 286,
+      "height": 170,
+      "x": 1,
+      "y": 62,
+      "radius": 10
+    },
+    "buildingDepth": 130,
+    "visualStyle": {
+      "tint": "#8a03d3",
+      "tintAmount": 6,
+      "saturation": 105,
+      "contrast": 88,
+      "brightness": 85,
+      "sky": "#4b63b9",
+      "skyBottom": "#9b819c",
+      "road": "#20283e",
+      "palette": 53,
+      "glowColor": "#a2e6b7",
+      "glow": 92,
+      "bloom": 5.6,
+      "softness": 0,
+      "outlineWidth": 1,
+      "outlineColor": "#adc4cf",
+      "outlineAmount": 0,
+      "aging": 71,
+      "grain": 65,
+      "sepia": 0,
+      "fade": 45,
+      "vignette": 7,
+      "scanlines": 28
+    },
+    "rigSettings": {
+      "style": "warren",
+      "alignment": "auto",
+      "variation": 26,
+      "scatter": 100,
+      "density": 3,
+      "width": 1.5,
+      "color": "#6b6b6b",
+      "backColor": "#5c5c5c",
+      "reach": 121,
+      "span": 72,
+      "opacity": 51,
+      "seed": 17
+    },
+    "rigOverrides": {},
+    "dreamSettings": {
+      "mist": 62,
+      "grain": 7.5,
+      "sky": 54
+    },
+    "signScale": 113,
+    "windowSettings": {
+      "enabled": true,
+      "amount": 0.24,
+      "speed": 1.2,
+      "brightness": 1.3,
+      "mode": "wave",
+      "density": 55,
+      "color": "#ffe2b4",
+      "coolColor": "#a9dce8",
+      "glow": 1.2
+    },
+    "ambience": {
+      "enabled": true,
+      "master": 28,
+      "duck": 23,
+      "tracks": {
+        "footsteps": 30,
+        "traffic": 42,
+        "voices": 28,
+        "music": 18
+      }
+    },
+    "backgroundStyle": {
+      "saturation": 61,
+      "contrast": 59,
+      "brightness": 61,
+      "hue": 360
+    },
+    "neonStyle": {
+      "outer": 6,
+      "inner": 1.3,
+      "glow": 2.1
+    },
+    "dof": 0,
+    "effect": {
+      "mode": "program",
+      "speed": 1,
+      "amount": 0.85
+    },
+    "signEffects": {},
+    "trafficSettings": {
+      "animate": true,
+      "speed": 0.7,
+      "blur": 5.4,
+      "hue": 0,
+      "opacity": 0.55,
+      "variation": 0.85,
+      "carBlur": 1.4,
+      "density": 6
+    },
+    "volume": 55,
+    "audioEnabled": true,
+    "audioMode": "auto",
+    "tempo": 100,
+    "harmony": true,
+    "lang": "zh",
+    "depth": "2d",
+    "light": "neon",
+    "view": "solo",
+    "size": 640,
+    "family": 9,
+    "indices": [
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "hue": 0,
+    "opacity": 37,
+    "blur": 3,
+    "traffic": true,
+    "placements": {
+      "2d": {
+        "0": {
+          "x": 17,
+          "y": 0,
+          "scale": 1.2
+        },
+        "1": {
+          "x": -6,
+          "y": 20,
+          "scale": 0.89
+        },
+        "2": {
+          "x": 94,
+          "y": -89,
+          "scale": 1.24
+        },
+        "3": {
+          "x": 14,
+          "y": 100,
+          "scale": 1.29
+        },
+        "4": {
+          "x": 13,
+          "y": 0,
+          "scale": 1.13
+        },
+        "5": {
+          "x": -19,
+          "y": 32,
+          "scale": 1.2
+        },
+        "6": {
+          "x": 0,
+          "y": 0,
+          "scale": 1.09
+        },
+        "7": {
+          "x": 0,
+          "y": 0,
+          "scale": 1.05
+        },
+        "8": {
+          "x": 0,
+          "y": -5,
+          "scale": 1.37
+        },
+        "10": {
+          "x": 0,
+          "y": 0,
+          "scale": 1.04
+        },
+        "11": {
+          "x": -58,
+          "y": 25,
+          "scale": 1.08
+        },
+        "12": {
+          "x": 0,
+          "y": 0,
+          "scale": 1.28
+        },
+        "13": {
+          "x": 80,
+          "y": -8,
+          "scale": 1.24
+        },
+        "14": {
+          "x": -29,
+          "y": -22,
+          "scale": 1.35
+        },
+        "15": {
+          "x": 13,
+          "y": 25,
+          "scale": 1.04
+        }
+      },
+      "2.5d": {
+        "1": {
+          "x": 5,
+          "y": 22,
+          "scale": 0.77
+        },
+        "15": {
+          "x": 0,
+          "y": 1,
+          "scale": 1.06
+        }
+      }
+    }
+  }
+}

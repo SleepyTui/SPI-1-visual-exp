@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#11191e"><title>音阶长街 · 三种夜色</title><meta name="description" content="世界音阶招牌的三套原创视觉样稿，支持320和640实际尺寸、2D和2.5D、灯箱和霓虹的交互比较。"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="refinements.css"></head>
+<body>
+<header class="masthead"><a class="brand" href="#"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 27V11L16 4l12 7v16M10 26V13m6-3v16m6-13v13M3 28h26"/></svg><span>音阶长街<small>SCALE STREET STUDIO</small></span></a><span class="edition">VISUAL STUDIES <b>01—03</b></span><a class="quiet-link" href="scale-street-samples.zip" download>完整样稿包 ↓</a><a class="quiet-link" href="README.md" target="_blank">交付说明 ↗</a></header>
+<main>
+<section class="intro"><div><p class="eyebrow"><span></span> WORLD SCALES / AFTER DARK</p><h1>同一条街，<em>三种夜色。</em></h1><p class="lede">把世界的音阶变成街头招牌。先选一种视觉语言，再让整条街亮起来。</p></div><div class="edition-note"><span>STYLE EXPLORATION</span><strong>04 <i>×</i> 03</strong><p>四个音阶 · 三套原创方向<br>48 张招牌 / 12 个 Icon / 12 张街景</p></div></section>
+<nav class="page-tabs" aria-label="样稿页面"><button data-page="street" aria-selected="true">01 <span>街景试映</span></button><button data-page="signs" aria-selected="false">02 <span>招牌对照</span></button><button data-page="choice" aria-selected="false">03 <span>选择方向</span></button><span class="stage-badge">第一阶段 · 风格样稿</span></nav>
+<section id="page-street" class="page active">
+ <div class="direction-tabs" id="directions"></div>
+ <div class="workspace">
+  <div class="screen-column">
+   <div class="screen-heading"><div><span class="live-dot"></span><strong id="scene-name"></strong><span id="size-readout"></span></div><button id="menu-open" aria-expanded="false">音阶 <span id="selected-label">Gong</span> <b>↗</b></button><div class="segmented compact" id="sizes"><button data-size="320" aria-pressed="false">320</button><button data-size="640" aria-pressed="true">640</button></div></div>
+   <div class="screen-scroll"><div class="screen-shell">
+    <div class="family-rail"><span>01</span><input id="family-range" type="range" min="0" max="15" step="1" value="0" aria-label="纵向选择音阶家族"><span>16</span></div>
+    <div id="screen" class="screen" style="--screen-size:640px"><div id="scene"></div><section id="scale-menu" class="scale-menu" hidden aria-label="音阶详情"><button id="menu-close" class="close-button" aria-label="收起音阶菜单">×</button><div id="scale-details"></div></section><div class="scene-stamp"><span id="scene-code">H / 2.5D / LIGHTBOX</span><span>16 FAMILIES</span></div></div>
+   </div></div>
+   <div class="under-screen"><span id="scale-index">01 / 01</span><input id="scale-range" type="range" min="0" max="0" value="0" aria-label="横向选择当前家族的具体音阶"><span id="horizontal-note">样稿音阶</span></div>
+   <div class="screen-caption"><span>↗ 点击招牌进入单选体验</span><button id="random">⤨ 随机精样</button><a id="download-street" download>下载街景 SVG ↓</a></div>
+   <p class="draft-note">街景含 <b>4 个精细音阶样稿</b>与 12 个标记为 DRAFT 的家族构图草案。收起菜单时查看完整街景。</p>
+  </div>
+  <aside class="controls">
+   <div class="control-title"><span class="eyebrow">DIRECTOR'S DESK</span><h2>让它成为你的街。</h2><p id="direction-description"></p></div>
+   <div class="control-block"><label>空间表达 <span>FORM</span></label><div class="segmented" id="depths"><button data-depth="2d" aria-pressed="false">2D 平面</button><button data-depth="2.5d" aria-pressed="true">2.5D 立体</button></div></div>
+   <div class="control-block"><label>发光方式 <span>LIGHT</span></label><div class="segmented" id="lights"><button data-light="lightbox" aria-pressed="true">▣ 灯箱</button><button data-light="neon" aria-pressed="false">⌁ 霓虹</button></div></div>
+   <div class="control-block"><label>检视方式 <span>VIEW</span></label><div class="segmented" id="view-modes"><button data-view="all" aria-pressed="true">全亮检视</button><button data-view="solo" aria-pressed="false">单选体验</button></div></div>
+   <div class="control-block"><label>色调 <output id="hue-value">原色</output></label><div class="tone-presets"><button data-hue="0" class="tone original" aria-label="原始色调" aria-pressed="true"></button><button data-hue="35" class="tone warm" aria-label="暖色调" aria-pressed="false"></button><button data-hue="165" class="tone cool" aria-label="冷色调" aria-pressed="false"></button><button data-hue="275" class="tone violet" aria-label="紫青色调" aria-pressed="false"></button><input id="hue" type="range" min="0" max="360" value="0" aria-label="调整色相"></div></div>
+   <details class="placement"><summary>调整当前招牌 <span id="edit-label">CHINESE</span></summary><label>缩放 <output id="zoom-value">100%</output></label><input id="zoom" type="range" min="50" max="150" value="100" aria-label="当前招牌缩放"><label>水平位移 <output id="x-value">0</output></label><input id="offset-x" type="range" min="-80" max="80" value="0" aria-label="当前招牌水平位移"><label>垂直位移 <output id="y-value">0</output></label><input id="offset-y" type="range" min="-80" max="80" value="0" aria-label="当前招牌垂直位移"><div class="text-actions"><button id="reset-sign">复位此牌</button><button id="reset-layout">复位全部</button></div></details>
+   <div class="audio-block"><div><span class="eyebrow">FOUR BARS / 96 BPM</span><strong id="voice-label">丝弦 · Gong</strong></div><button id="audio-toggle" class="audio-toggle" aria-pressed="false" aria-label="开启或关闭试听">声音关闭</button><button id="replay" class="replay" aria-label="重播四小节旋律">↻</button><progress id="audio-progress" max="10" value="0" aria-label="四小节播放进度"></progress><p id="audio-status" role="status">四种合成音色，点击开启后试听。</p></div>
+   <button id="choose-current" class="primary-button">选中这个视觉方向 <span>↗</span></button>
+  </aside>
+ </div>
+ <div class="family-strip-heading"><span class="eyebrow">THE SIXTEEN NEIGHBOURS</span><p>四个亮点是精细样稿，其余家族本轮只检验街道布局。</p></div><div id="family-list" class="family-list"></div>
+</section>
+<section id="page-signs" class="page"><div class="section-heading"><div><p class="eyebrow">SAME SCALE / DIFFERENT LETTERS</p><h2>把招牌放在一起看。</h2></div><p>四种组合都是真正的 SVG。点开近看；下方 Icon 按实际 32×32 显示。</p></div><div id="sample-tabs" class="sample-tabs"></div><div id="comparison" class="comparison"></div></section>
+<section id="page-choice" class="page"><div class="section-heading"><div><p class="eyebrow">PICK A DIRECTION</p><h2>选一种夜色，或混合它们。</h2></div><p>选择会保存在本机；导出选择单后，可以连同修改意见交给下一阶段。</p></div><div id="choice-cards" class="choice-cards"></div><div class="choice-form"><label for="choice-notes">你想保留、混合或调整的地方</label><textarea id="choice-notes" rows="4" placeholder="例如：保留港湾旧招的中文和日文，用电光构成的六声几何牌；整体减少光晕。"></textarea><div><p id="choice-status" role="status">尚未选定方向</p><button id="export-choice" class="primary-button">导出选择单 JSON ↓</button></div></div></section>
+</main>
+<footer><span>SCALE STREET / ORIGINAL VECTOR STUDIES</span><p>原创探索样稿 · 参考图片待补充后定稿 · 历史与调律说明见交付文档</p><a href="scale-street-samples.zip" download>完整样稿包 ↓</a><a href="manifest.json" target="_blank">资源清单 ↗</a></footer>
+<dialog id="art-dialog"><div><span id="dialog-title"></span><button id="dialog-close" aria-label="关闭放大预览">×</button></div><div id="dialog-art"></div><a id="dialog-download" class="primary-button" download>下载这个 SVG ↓</a></dialog>
+<div id="toast" role="status"></div>
+<script src="data.js"></script><script src="sample-data.js"></script><script src="audio.js"></script><script src="app.js"></script>
+</body></html>
