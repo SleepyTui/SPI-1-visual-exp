@@ -1,18 +1,25 @@
-/* Collector-specific opal case. Internal diffusion never filters surface lettering. */
+/* Collector shares the Atelier's transparent shell and detailed disc artwork. */
 window.CollectionMaterial=(()=>{
-const palettes=[['#78d4b4','#c9ef79','#246b57'],['#89b6eb','#f4cb74','#365b86'],['#b59ce9','#efaed5','#6b568f'],['#f29fb2','#f1dc77','#99526b'],['#b4c699','#e4bfa3','#5e7252'],['#83cbb8','#b9dcf2','#376e65'],['#64c3c9','#93ddd0','#326d76'],['#91bbe3','#c4aee8','#52749b'],['#c7a1d9','#efc386','#805c91'],['#91a5ea','#c6e88a','#536b9c'],['#eab18b','#efca93','#946947'],['#92ce9b','#d9e98a','#517955']];
 const uri=svg=>'data:image/svg+xml,'+encodeURIComponent(svg);
-function parts(state,name,index){
-const s=MD.clone(state),[a,b,ink]=palettes[s.template],prefix='opal'+index;
-s.disc.color=a;s.disc.accent='#f8fcf6';s.disc.brightness=110;s.disc.saturation=95;s.shell.blur=0;s.label.paper='#f2f7ef';s.label.ink=ink;s.stickers.color='#f1f6e9';s.stickers.ink=ink;
+function parts(state,name,index,mapping=null){
+const s=MD.clone(state),prefix='clear'+index;
+s.label.title=MD.genres[s.template].split(' / ').join('\n');
 const dom=new DOMParser().parseFromString(MD.render(s,{id:prefix}),'image/svg+xml');
-const defs=dom.querySelector('defs').innerHTML,disc=dom.querySelector('#layer-disc').innerHTML,label=dom.querySelector('#layer-label').outerHTML,stickers=dom.querySelector('#layer-stickers').outerHTML;
-const materialDefs=`<clipPath id="${prefix}-outline"><rect x="41" y="41" width="516" height="508" rx="27"/></clipPath><radialGradient id="${prefix}-bloomA"><stop stop-color="${a}"/><stop offset=".46" stop-color="${a}" stop-opacity=".86"/><stop offset="1" stop-color="${a}" stop-opacity="0"/></radialGradient><radialGradient id="${prefix}-bloomB"><stop stop-color="${b}"/><stop offset=".4" stop-color="${b}" stop-opacity=".9"/><stop offset="1" stop-color="${b}" stop-opacity="0"/></radialGradient><linearGradient id="${prefix}-opal" x2=".7" y2="1"><stop stop-color="#ffffff" stop-opacity=".73"/><stop offset=".21" stop-color="#f6fff9" stop-opacity=".2"/><stop offset=".63" stop-color="#fafff4" stop-opacity=".16"/><stop offset="1" stop-color="#ffffff" stop-opacity=".55"/></linearGradient><filter id="${prefix}-diffuse" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>`;
-const core=`<g id="layer-disc" clip-path="url(#${prefix}-outline)"><rect x="42" y="42" width="514" height="506" rx="27" fill="#e9f1eb"/><circle cx="228" cy="239" r="203" fill="url(#${prefix}-bloomA)"/><circle cx="318" cy="399" r="176" fill="url(#${prefix}-bloomB)"/><circle cx="442" cy="136" r="147" fill="url(#${prefix}-bloomA)"/><g opacity=".28" filter="url(#${prefix}-diffuse)">${disc}</g><circle cx="281" cy="285" r="199" fill="none" stroke="#fbfff7" stroke-width="1.5" stroke-opacity=".5"/><circle cx="281" cy="285" r="56" fill="#f4faf1" fill-opacity=".22" stroke="#fbfff5" stroke-opacity=".6"/><circle cx="281" cy="285" r="33" fill="#f5faf4" fill-opacity=".38" stroke="#ecf8f1"/><circle cx="281" cy="285" r="9" fill="${ink}" fill-opacity=".48"/></g>`;
-const shell=`<g id="layer-shell"><rect x="42" y="42" width="514" height="506" rx="27" fill="url(#${prefix}-opal)" stroke="#ffffff" stroke-opacity=".94" stroke-width="5"/><rect x="49" y="49" width="500" height="492" rx="21" fill="none" stroke="#fafff8" stroke-width="1" stroke-opacity=".67"/><path d="M62 121Q62 106 77 106H355V510H76Q62 510 62 496ZM382 175L476 67H533V239H382ZM382 407H533V509H382Z" fill="#ffffff" fill-opacity=".05" stroke="#ffffff" stroke-opacity=".54" stroke-width="1.5"/><path d="M65 51H526Q548 51 548 76M48 84V512" fill="none" stroke="#ffffff" stroke-width="3" stroke-opacity=".7"/><path d="M434 117q44 -43 74 -29q18 22 -37 50q-40 20 -37 -21Z" fill="#eafff1" fill-opacity=".32" stroke="#ffffff" stroke-opacity=".57" stroke-width="2"/><rect x="44" y="522" width="511" height="18" rx="3" fill="#f5fff5" fill-opacity=".38"/>${[[71,72],[529,72],[71,518],[529,518]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="10" fill="#ffffff" fill-opacity=".18" stroke="#ffffff" stroke-opacity=".64"/><circle cx="${x}" cy="${y}" r="5" fill="none" stroke="#c5d6c9" stroke-opacity=".5"/>`).join('')}</g>`;
-const print=`${label}${stickers}<g fill="${ink}" font-family="Arial,sans-serif"><text x="116" y="77" font-size="7" letter-spacing="2">INSERT THIS END ▴</text><text x="445" y="532" font-size="6" letter-spacing="1">OPAL / STEREO</text></g>`;
-const wrap=body=>`<svg xmlns="http://www.w3.org/2000/svg" viewBox="38 38 522 516" width="1200" height="1200"><title>${MD.esc(name)} — Opal MiniDisc</title><metadata id="md-parameters">${MD.esc(JSON.stringify(state))}</metadata><defs>${defs}${materialDefs}</defs>${body}</svg>`;
-return{core:uri(wrap(core)),shell:uri(wrap(shell)),print:uri(wrap(print)),svg:wrap(core+shell+print),plastic:'#e1ebe4',paper:'#eef4ed',ink,accent:a};
+const defs=dom.querySelector('defs').innerHTML,disc=dom.querySelector('#layer-disc');
+// Keep surface details sharp; depth-of-field remains controlled by the shelf.
+disc.querySelector('g')?.removeAttribute('filter');
+const core=`<g opacity=".72">${disc.outerHTML}</g>`;
+const shell=dom.querySelector('#layer-shell').outerHTML;
+const print=dom.querySelector('#layer-label').outerHTML+dom.querySelector('#layer-stickers').outerHTML;
+const wrap=body=>{const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="39.5 39.5 519 511" preserveAspectRatio="none" width="1200" height="1200"><title>${MD.esc(name)} — Transparent MiniDisc</title><metadata id="md-parameters">${MD.esc(JSON.stringify(state))}</metadata><defs>${defs}</defs>${body}</svg>`;return mapping?mapColors(svg,mapping):svg;};
+return{core:uri(wrap(core)),shell:uri(wrap(shell)),print:uri(wrap(print)),svg:wrap(core+shell+print),plastic:s.shell.color,paper:s.label.paper,ink:s.label.ink,accent:s.disc.accent};
 }
-return{parts};
+function mapColor(hex,mapping){
+const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const source=rgb(hex),l=(source[0]*.2126+source[1]*.7152+source[2]*.0722)/255;
+const low=rgb(l<.5?mapping.shadow:mapping.color),high=rgb(l<.5?mapping.color:mapping.highlight),t=l<.5?l*2:(l-.5)*2,k=mapping.strength/100;
+return '#'+source.map((v,i)=>Math.round(v*(1-k)+(low[i]+(high[i]-low[i])*t)*k).toString(16).padStart(2,'0')).join('');
+}
+function mapColors(svg,mapping){return svg.replace(/#[0-9a-f]{6}\b/gi,h=>mapColor(h,mapping));}
+return{parts,mapColor};
 })();
