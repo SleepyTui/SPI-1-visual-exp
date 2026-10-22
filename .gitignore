@@ -153,3 +153,6 @@ vite.config.ts.timestamp-*
 !demos/md-atelier/
 !demos/md-atelier/dist/
 !demos/md-atelier/dist/**
+!demos/beat-luck/
+!demos/beat-luck/dist/
+!demos/beat-luck/dist/**
