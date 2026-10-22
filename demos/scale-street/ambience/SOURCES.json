@@ -1,0 +1,36 @@
+[
+  {
+    "track": "footsteps",
+    "author": "Frigus_XIII",
+    "source": "https://freesound.org/people/Frigus_XIII/sounds/456428/",
+    "preview": "https://cdn.freesound.org/previews/456/456428_1505134-hq.mp3",
+    "license": "CC0-1.0",
+    "sha256": "9d9ddeb3bbe658943c3a64804fbce2ff5e56834fc1ea807833d82e962620b8ad",
+    "file": "ambience/footsteps.mp3"
+  },
+  {
+    "track": "traffic",
+    "author": "semenov_nick",
+    "source": "https://freesound.org/people/semenov_nick/sounds/380730/",
+    "preview": "https://cdn.freesound.org/previews/380/380730_3596390-hq.mp3",
+    "license": "CC0-1.0",
+    "sha256": "f51eab1dd331a3347a882000c22068a52e39bc1363929409d4a55729db92e2db",
+    "file": "ambience/traffic.mp3"
+  },
+  {
+    "track": "voices",
+    "author": "Selector",
+    "source": "https://freesound.org/people/Selector/sounds/365240/",
+    "preview": "https://cdn.freesound.org/previews/365/365240_270868-hq.mp3",
+    "license": "CC0-1.0",
+    "sha256": "4a3858e62d104f68ec4014c5f923b0001db66494fad68ce71d84bdf86c5ec7e2",
+    "file": "ambience/voices.mp3"
+  },
+  {
+    "track": "music",
+    "author": "Scale Street Demo",
+    "source": "ambience-v4.js: shopMusic",
+    "license": "Original procedural composition included with this demo",
+    "note": "No external music recording; generated locally and filtered as distant shop music."
+  }
+]

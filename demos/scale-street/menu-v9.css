@@ -1,0 +1,37 @@
+/* A single information strip and a shared, pitch-aligned note ruler. */
+#scale-menu[hidden]{display:none!important}
+#scale-menu,#scale-menu.menu-compact,#scale-menu.menu-wide{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(34px,.8fr) minmax(30px,1fr);padding:7px;gap:5px}
+#scale-menu .menu-top{display:grid;grid-template-columns:26px minmax(48px,1fr) minmax(110px,1.25fr);gap:5px;align-items:center;min-width:0;min-height:0}
+#scale-menu .menu-header,#scale-menu.menu-compact .menu-header{height:100%;padding:0;margin:0;gap:0;min-width:0;position:relative}
+#scale-menu #menu-icon,#scale-menu #menu-icon svg,#scale-menu.menu-compact #menu-icon,#scale-menu.menu-compact #menu-icon svg{width:26px;height:26px}
+#scale-menu .menu-identity-text,#scale-menu #pitch-names{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#scale-menu #close-menu{position:static;padding:0;width:16px;height:26px;font-size:20px;align-self:center}
+#scale-menu #menu-select{grid-column:auto;height:100%;min-height:0;--wheel-row:22px;border-radius:3px}
+#menu-select .wheel-scroll{scroll-snap-type:y mandatory;mask-image:linear-gradient(transparent,#0006 12%,#000 36%,#000 64%,#0006 88%,transparent)}
+#menu-select button,#scale-menu.menu-narrow #menu-select button{height:var(--wheel-row);min-height:var(--wheel-row);line-height:var(--wheel-row);padding:0 3px;font-size:clamp(8px,2.8cqw,12px);color:#c5b6d366;letter-spacing:0;transition:color .22s,font-size .22s}
+#menu-select button[aria-selected=true]{color:#fff1ff;font-size:clamp(9px,3cqw,13px);letter-spacing:0}
+#menu-select .wheel-focus{height:var(--wheel-row);border-color:#ddc9e92d;background:#e3c9f208}
+#scale-menu .metadata{height:100%;gap:2px;grid-template-columns:1.25fr 1fr .65fr;align-items:center;min-width:0}
+#scale-menu .metadata>div{display:flex;position:relative;flex-direction:column;justify-content:center;align-items:center;gap:2px;padding:0 2px;height:100%;min-width:0;border-color:#ddd0ed22}
+#scale-menu .metadata svg,#scale-menu.menu-compact .metadata svg{position:static;inset:auto;width:21px!important;height:21px!important;max-height:45%;margin:0;flex-shrink:0;aspect-ratio:auto}
+#scale-menu .metadata #region-map{width:29px!important}
+#scale-menu .metadata span,#scale-menu.menu-compact .metadata span{display:block;height:auto;min-height:0;max-width:100%;line-height:1.2;font-size:clamp(7px,2.5cqw,10px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0;background:none}
+#scale-menu .count-badge>span{display:none}
+#scale-menu #pitch-strip{height:100%;min-height:0;grid-column:1/-1;margin:0;overflow:hidden}
+#scale-menu #pitch-strip svg{display:block;width:100%;height:100%;overflow:visible}
+#scale-menu.menu-mini{height:64px;padding:3px 6px;gap:1px;grid-template-rows:32px minmax(0,1fr)}
+#scale-menu.menu-mini .menu-top{grid-template-columns:20px minmax(48px,1fr) minmax(105px,1.2fr);gap:4px}
+#scale-menu.menu-mini #menu-icon,#scale-menu.menu-mini #menu-icon svg{width:20px;height:20px}
+#scale-menu.menu-mini #menu-select{--wheel-row:12px}
+#scale-menu.menu-mini #menu-select button{font-size:7px}
+#scale-menu.menu-mini #menu-select button[aria-selected=true]{font-size:9px}
+#scale-menu.menu-mini .metadata svg{width:15px!important;height:15px!important;max-height:none}
+#scale-menu.menu-mini .metadata #region-map{width:24px!important}
+#scale-menu.menu-mini .metadata>div{gap:1px}
+#scale-menu.menu-mini .metadata span{font-size:7px}
+#scale-menu.menu-mini #close-menu{width:14px;height:28px;font-size:18px}
+#scale-menu.menu-narrow .menu-top{grid-template-columns:18px minmax(37px,1fr) minmax(83px,1.2fr);gap:2px}
+#scale-menu.menu-narrow .metadata span{font-size:6px}
+@media(prefers-reduced-motion:reduce){#menu-select button{transition:none}}
+
+#menu-select button{backface-visibility:hidden;color:#fff1ff;transition:none}#menu-select.rail-dragging .wheel-scroll{scroll-snap-type:none}#back-menu{border:1px solid #d4ceda;background:#fff7;color:#767286;font-size:8px;padding:5px;border-radius:5px}#back-menu[hidden]{display:none}

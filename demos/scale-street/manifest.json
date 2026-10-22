@@ -1,0 +1,554 @@
+{
+  "stage": "style-samples",
+  "version": 1,
+  "detailedFamilies": 4,
+  "compositionDraftFamilies": 12,
+  "counts": {
+    "signs": 48,
+    "icons": 12,
+    "streets": 12
+  },
+  "files": [
+    {
+      "kind": "icon",
+      "direction": "harbour",
+      "scale": "gong",
+      "path": "assets/harbour/icons/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "gong",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/harbour/2d/lightbox/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "gong",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/harbour/2d/neon/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "gong",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/harbour/2.5d/lightbox/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "gong",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/harbour/2.5d/neon/gong.svg"
+    },
+    {
+      "kind": "icon",
+      "direction": "harbour",
+      "scale": "hirajoshi",
+      "path": "assets/harbour/icons/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "hirajoshi",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/harbour/2d/lightbox/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "hirajoshi",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/harbour/2d/neon/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "hirajoshi",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/harbour/2.5d/lightbox/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "hirajoshi",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/harbour/2.5d/neon/hirajoshi.svg"
+    },
+    {
+      "kind": "icon",
+      "direction": "harbour",
+      "scale": "rast",
+      "path": "assets/harbour/icons/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "rast",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/harbour/2d/lightbox/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "rast",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/harbour/2d/neon/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "rast",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/harbour/2.5d/lightbox/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "rast",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/harbour/2.5d/neon/rast.svg"
+    },
+    {
+      "kind": "icon",
+      "direction": "harbour",
+      "scale": "whole-tone",
+      "path": "assets/harbour/icons/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "whole-tone",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/harbour/2d/lightbox/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "whole-tone",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/harbour/2d/neon/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "whole-tone",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/harbour/2.5d/lightbox/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "harbour",
+      "scale": "whole-tone",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/harbour/2.5d/neon/whole-tone.svg"
+    },
+    {
+      "kind": "street",
+      "direction": "harbour",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/harbour/streets/2d-lightbox.svg"
+    },
+    {
+      "kind": "street",
+      "direction": "harbour",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/harbour/streets/2d-neon.svg"
+    },
+    {
+      "kind": "street",
+      "direction": "harbour",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/harbour/streets/2.5d-lightbox.svg"
+    },
+    {
+      "kind": "street",
+      "direction": "harbour",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/harbour/streets/2.5d-neon.svg"
+    },
+    {
+      "kind": "icon",
+      "direction": "orbital",
+      "scale": "gong",
+      "path": "assets/orbital/icons/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "gong",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/orbital/2d/lightbox/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "gong",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/orbital/2d/neon/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "gong",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/orbital/2.5d/lightbox/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "gong",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/orbital/2.5d/neon/gong.svg"
+    },
+    {
+      "kind": "icon",
+      "direction": "orbital",
+      "scale": "hirajoshi",
+      "path": "assets/orbital/icons/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "hirajoshi",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/orbital/2d/lightbox/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "hirajoshi",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/orbital/2d/neon/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "hirajoshi",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/orbital/2.5d/lightbox/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "hirajoshi",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/orbital/2.5d/neon/hirajoshi.svg"
+    },
+    {
+      "kind": "icon",
+      "direction": "orbital",
+      "scale": "rast",
+      "path": "assets/orbital/icons/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "rast",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/orbital/2d/lightbox/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "rast",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/orbital/2d/neon/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "rast",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/orbital/2.5d/lightbox/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "rast",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/orbital/2.5d/neon/rast.svg"
+    },
+    {
+      "kind": "icon",
+      "direction": "orbital",
+      "scale": "whole-tone",
+      "path": "assets/orbital/icons/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "whole-tone",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/orbital/2d/lightbox/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "whole-tone",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/orbital/2d/neon/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "whole-tone",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/orbital/2.5d/lightbox/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "orbital",
+      "scale": "whole-tone",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/orbital/2.5d/neon/whole-tone.svg"
+    },
+    {
+      "kind": "street",
+      "direction": "orbital",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/orbital/streets/2d-lightbox.svg"
+    },
+    {
+      "kind": "street",
+      "direction": "orbital",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/orbital/streets/2d-neon.svg"
+    },
+    {
+      "kind": "street",
+      "direction": "orbital",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/orbital/streets/2.5d-lightbox.svg"
+    },
+    {
+      "kind": "street",
+      "direction": "orbital",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/orbital/streets/2.5d-neon.svg"
+    },
+    {
+      "kind": "icon",
+      "direction": "electric",
+      "scale": "gong",
+      "path": "assets/electric/icons/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "gong",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/electric/2d/lightbox/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "gong",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/electric/2d/neon/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "gong",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/electric/2.5d/lightbox/gong.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "gong",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/electric/2.5d/neon/gong.svg"
+    },
+    {
+      "kind": "icon",
+      "direction": "electric",
+      "scale": "hirajoshi",
+      "path": "assets/electric/icons/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "hirajoshi",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/electric/2d/lightbox/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "hirajoshi",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/electric/2d/neon/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "hirajoshi",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/electric/2.5d/lightbox/hirajoshi.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "hirajoshi",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/electric/2.5d/neon/hirajoshi.svg"
+    },
+    {
+      "kind": "icon",
+      "direction": "electric",
+      "scale": "rast",
+      "path": "assets/electric/icons/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "rast",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/electric/2d/lightbox/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "rast",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/electric/2d/neon/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "rast",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/electric/2.5d/lightbox/rast.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "rast",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/electric/2.5d/neon/rast.svg"
+    },
+    {
+      "kind": "icon",
+      "direction": "electric",
+      "scale": "whole-tone",
+      "path": "assets/electric/icons/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "whole-tone",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/electric/2d/lightbox/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "whole-tone",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/electric/2d/neon/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "whole-tone",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/electric/2.5d/lightbox/whole-tone.svg"
+    },
+    {
+      "kind": "sign",
+      "direction": "electric",
+      "scale": "whole-tone",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/electric/2.5d/neon/whole-tone.svg"
+    },
+    {
+      "kind": "street",
+      "direction": "electric",
+      "depth": "2d",
+      "light": "lightbox",
+      "path": "assets/electric/streets/2d-lightbox.svg"
+    },
+    {
+      "kind": "street",
+      "direction": "electric",
+      "depth": "2d",
+      "light": "neon",
+      "path": "assets/electric/streets/2d-neon.svg"
+    },
+    {
+      "kind": "street",
+      "direction": "electric",
+      "depth": "2.5d",
+      "light": "lightbox",
+      "path": "assets/electric/streets/2.5d-lightbox.svg"
+    },
+    {
+      "kind": "street",
+      "direction": "electric",
+      "depth": "2.5d",
+      "light": "neon",
+      "path": "assets/electric/streets/2.5d-neon.svg"
+    }
+  ],
+  "fonts": "font-sources/SOURCES.json"
+}

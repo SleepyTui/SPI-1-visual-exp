@@ -1,0 +1,62 @@
+{
+  "brush": [
+    "mashanzheng",
+    "MaShanZheng-Regular.ttf"
+  ],
+  "mincho": [
+    "shipporimincho",
+    "ShipporiMincho-Bold.ttf"
+  ],
+  "ruqaa": [
+    "arefruqaa",
+    "ArefRuqaa-Bold.ttf"
+  ],
+  "bungee": [
+    "bungee",
+    "Bungee-Regular.ttf"
+  ],
+  "qingke": [
+    "zcoolqingkehuangyou",
+    "ZCOOLQingKeHuangYou-Regular.ttf"
+  ],
+  "dot": [
+    "dotgothic16",
+    "DotGothic16-Regular.ttf"
+  ],
+  "reem": [
+    "reemkufi",
+    "ReemKufi[wght].ttf"
+  ],
+  "space": [
+    "spacegrotesk",
+    "SpaceGrotesk[wght].ttf"
+  ],
+  "happy": [
+    "zcoolkuaile",
+    "ZCOOLKuaiLe-Regular.ttf"
+  ],
+  "dela": [
+    "delagothicone",
+    "DelaGothicOne-Regular.ttf"
+  ],
+  "lalezar": [
+    "lalezar",
+    "Lalezar-Regular.ttf"
+  ],
+  "anton": [
+    "anton",
+    "Anton-Regular.ttf"
+  ],
+  "thai": [
+    "notoserifthai",
+    "NotoSerifThai[wdth,wght].ttf"
+  ],
+  "devanagari": [
+    "notoserifdevanagari",
+    "NotoSerifDevanagari[wdth,wght].ttf"
+  ],
+  "ethiopic": [
+    "notoserifethiopic",
+    "NotoSerifEthiopic[wdth,wght].ttf"
+  ]
+}

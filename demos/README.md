@@ -10,6 +10,8 @@ Codex 根据“开始〈项目名称〉工作，并在电脑端打开视觉预�
 | MD 封面工作台 | MD 封面编辑器、封面工作台、MD 工作台 | `demos/md-atelier/` | 打开 MD 封面工作台 / `node scripts/preview.mjs editor` | `dist/index.html` |
 | BEAT LUCK / Rhythm Slot Machine | BEAT LUCK、老虎机鼓机、节奏老虎机、rhythm slot、鼓机 | `demos/beat-luck/` | 打开 BEAT LUCK 节奏老虎机 / `node scripts/preview.mjs beat-luck` | `dist/index.html` |
 
+| 梦游音阶长街 / Scale Street | 音阶长街、霓虹街、Scale Street、梦游音阶 | `demos/scale-street/` | 打开音阶长街 / `node scripts/preview.mjs scale-street` | `index.html` |
+
 通用流程：[设计工作流程](../docs/project-workflow.md)。具体运行与验证细节：[MD README](md-atelier/README.md)、[BEAT LUCK README](beat-luck/README.md)。
 
 新增 demo 时必须更新本表：写明名称、常用简称、实际工作目录、可运行的预览入口和命令。为常用入口增加本机 Action；不要假设新项目也使用 MD 的启动脚本。优先用当前对话消除歧义；只有多个独立项目仍无法区分时，才问一句用户指的是哪个。

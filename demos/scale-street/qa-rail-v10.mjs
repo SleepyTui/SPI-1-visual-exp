@@ -1,0 +1,25 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';
+import{chromium}from'file:///C:/Users/admin/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs';
+const out='test-output-rail-v10';fs.mkdirSync(out,{recursive:true});
+const b=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'}),p=await b.newPage({viewport:{width:1291,height:956}}),errors=[];
+await p.addInitScript(()=>globalThis.STREET_QA=true);p.on('pageerror',e=>errors.push(e.message));
+try{
+await p.goto('http://127.0.0.1:4178/');await p.locator('[data-size="320"]').click();await p.evaluate(()=>{ScaleStreetV2.selectFamily(0);ScaleStreetV2.selectScale(2);});await p.waitForTimeout(400);
+assert.equal(await p.locator('#close-menu').count(),0);assert(await p.locator('#back-menu').isVisible());assert.equal((await p.locator('#scale-menu').boundingBox()).height,64);
+// Move inside the same interval and then across its half-way selection threshold.
+await p.locator('#scale-range').dispatchEvent('pointerdown');
+const positions=[];
+for(const v of [2.1,2.25,2.45,2.55,2.7]){await p.locator('#scale-range').evaluate((e,v)=>{e.value=v;e.dispatchEvent(new Event('input',{bubbles:true}));},v);positions.push(await p.evaluate(()=>({value:+document.querySelector('#scale-range').value,pose:+document.querySelector('#menu-select').dataset.position,index:ScaleStreetV2.state.indices[0],transform:document.querySelector('#wheel-option-2').style.transform})));}
+assert.deepEqual(positions.map(x=>x.index),[2,2,2,3,3]);assert(positions.every((x,i)=>Math.abs(x.pose-[2.1,2.25,2.45,2.55,2.7][i])<.001));assert.equal(new Set(positions.map(x=>x.transform)).size,5);
+await p.locator('#screen').screenshot({path:out+'/fractional-drag.png'});await p.evaluate(()=>window.dispatchEvent(new Event('pointerup')));await p.waitForTimeout(400);assert.equal(await p.locator('#menu-select').getAttribute('data-position'),'3.0000');assert.equal(await p.locator('#scale-range').inputValue(),'3');
+// Actual mouse drag produces fractional input values as well.
+const rect=await p.locator('#scale-range').boundingBox();await p.mouse.move(rect.x+rect.width/2,rect.y+rect.height*.4);await p.mouse.down();await p.mouse.move(rect.x+rect.width/2,rect.y+rect.height*.43,{steps:7});const mouseValue=+(await p.locator('#scale-range').inputValue());assert(Math.abs(mouseValue-Math.round(mouseValue))>.001);await p.mouse.up();await p.waitForTimeout(400);assert(Number.isInteger(+(await p.locator('#scale-range').inputValue())));
+await p.locator('#back-menu').click();assert(await p.locator('#scale-menu').isHidden());await p.locator('#open-menu').click();assert(await p.locator('#scale-menu').isVisible());await p.locator('h1').click();assert(await p.locator('#scale-menu').isHidden());await p.locator('#open-menu').click();await p.locator('#menu-select').click();assert(await p.locator('#scale-menu').isVisible());await p.keyboard.press('Escape');assert(await p.locator('#scale-menu').isHidden());
+await p.locator('#language').click();assert.equal(await p.locator('#back-menu').textContent(),'Back');await p.locator('#open-menu').click();await p.locator('#screen').screenshot({path:out+'/card-no-close.png'});
+await p.locator('#tab-sound').click();assert(await p.locator('.ambience-panel').evaluate(e=>e.open&&e.parentElement.firstElementChild===e));for(const k of ['master','footsteps','traffic','voices','music','duck']){await p.locator('#ambience-'+k).scrollIntoViewIfNeeded();assert(await p.locator('#ambience-'+k).isVisible());}
+await p.locator('#ambience-toggle').scrollIntoViewIfNeeded();await p.locator('#ambience-toggle').click();await p.waitForFunction(()=>ScaleStreetV2.ambience.running,{timeout:20000});assert.equal(await p.evaluate(()=>Object.keys(ScaleStreetV2.ambience.buffers).length),4);
+await p.locator('#ambience-voices').fill('37');assert.equal(await p.evaluate(()=>ScaleStreetV2.state.ambience.tracks.voices),37);await p.evaluate(()=>ScaleStreetV2.ambience.duck(true));assert.equal(await p.evaluate(()=>ScaleStreetV2.ambience.duckLevel),await p.evaluate(()=>ScaleStreetV2.state.ambience.duck/100));await p.locator('#ambience-toggle').click();assert.equal(await p.evaluate(()=>ScaleStreetV2.ambience.running),false);
+await p.locator('.inspector-body').evaluate(e=>e.scrollTop=0);await p.screenshot({path:out+'/sound-panel.png',fullPage:true});
+for(const n of ['user-defaults-v6.json','user-defaults-v6.js'])assert(fs.readFileSync(n).equals(fs.readFileSync(out+'/before/'+n)));
+assert.deepEqual(errors,[]);fs.writeFileSync(out+'/report.json',JSON.stringify({status:'pass',positions,mouseValue,threshold:.5,snapOnRelease:true,returnAndOutsideClose:true,ambiencePanelFirstAndOpen:true,fourTracksDecodedAndRunning:true,individualVolume:true,ducking:true,savedDefaultsUnchanged:true,errors},null,2));console.log('PASS: continuous fractional rail + rotation, midpoint selection, mouse drag, release snap, back/outside/Escape closing, visible four-track ambience, decode/play/volume/duck, defaults unchanged.');
+}finally{await b.close();}

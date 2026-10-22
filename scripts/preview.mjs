@@ -4,20 +4,22 @@ import { fileURLToPath } from 'node:url';
 
 const mdDemo = fileURLToPath(new URL('../demos/md-atelier/', import.meta.url));
 const beatLuckDemo = fileURLToPath(new URL('../demos/beat-luck/', import.meta.url));
+const scaleStreetDemo = fileURLToPath(new URL('../demos/scale-street/', import.meta.url));
 const page = process.argv[2] || 'collector';
 const settings = {
   collector: { app: 'md-atelier', demo: mdDemo, entry: 'collector.html', port: Number(process.env.MD_ATELIER_PORT || 4199), probe: '__md_preview', server: 'serve-collector.mjs' },
   editor: { app: 'md-atelier', demo: mdDemo, entry: 'index.html', port: Number(process.env.MD_ATELIER_PORT || 4199), probe: '__md_preview', server: 'serve-collector.mjs' },
+  'scale-street': { app: 'scale-street', demo: scaleStreetDemo, entry: 'index.html', port: Number(process.env.SCALE_STREET_PORT || 4178), probe: '__scale_street_preview', server: 'serve.mjs', rootDir: '' },
   'beat-luck': { app: 'beat-luck', demo: beatLuckDemo, entry: 'index.html', port: Number(process.env.BEAT_LUCK_PORT || 4200), probe: '__beat_luck_preview', server: 'serve.mjs' },
 }[page];
 if (!settings) {
-  console.error('请选择 collector、editor 或 beat-luck。');
+  console.error('请选择 collector、editor、beat-luck 或 scale-street。');
   process.exit(1);
 }
 const { app, demo, entry, port, probe, server: serverFile } = settings;
-const root = path.join(demo, 'dist');
+const root = path.resolve(demo, settings.rootDir ?? 'dist');
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
-  console.error('MD_ATELIER_PORT 必须是 1 到 65535 之间的端口。');
+  console.error('预览端口必须是 1 到 65535 之间的端口。');
   process.exit(1);
 }
 const base = `http://127.0.0.1:${port}`;

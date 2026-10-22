@@ -1,0 +1,34 @@
+/* Two source inks, luminance-preserving scene colour, portable theme settings. */
+(function(){
+const defaults=()=>({duotone:{enabled:true,a:'#7155a4',b:'#e5ad58',surfaces:76,scene:100,diffusion:38,grain:12,saturation:85}});
+const clamp=(v,a,b,d)=>Number.isFinite(v)?Math.max(a,Math.min(b,v)):d;
+function validate(x){const d=defaults().duotone,v=x.duotone||{};return{duotone:{enabled:typeof v.enabled==='boolean'?v.enabled:true,a:/^#[0-9a-f]{6}$/i.test(v.a)?v.a:d.a,b:/^#[0-9a-f]{6}$/i.test(v.b)?v.b:d.b,...Object.fromEntries(['surfaces','scene','diffusion','grain','saturation'].map(k=>[k,clamp(v[k],0,100,d[k])]))}};}
+function hsl(hex){let[r,g,b]=hex.slice(1).match(/../g).map(v=>parseInt(v,16)/255);const max=Math.max(r,g,b),min=Math.min(r,g,b),delta=max-min,l=(max+min)/2;let h=0,s=0;if(delta){s=delta/(1-Math.abs(2*l-1));h=(max===r?(g-b)/delta+(g<b?6:0):max===g?(b-r)/delta+2:(r-g)/delta+4)*60;}return[h,s*100,l*100];}
+function rgb(h,s,l){s/=100;l/=100;const c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs(h/60%2-1)),m=l-c/2;const v=h<60?[c,x,0]:h<120?[x,c,0]:h<180?[0,c,x]:h<240?[0,x,c]:h<300?[x,0,c]:[c,0,x];return v.map(n=>n+m);}
+let api;
+const words={zh:{duoTitle:'双色弥散 · 两种墨色',duoEnable:'启用双色视觉',duoA:'第一色 · 结构与文字',duoB:'第二色 · 光与留白',duoSurfaces:'面板不透明度',duoScene:'街景不透明度',duoDiffusion:'渐变弥散',duoGrain:'细颗粒质感',duoSaturation:'双色饱和度',duoReset:'恢复紫杏配色',duoHint:'所有色块由这两种颜色的明度与饱和度展开；灯效节奏保持原样。'},en:{duoTitle:'Diffusion · two inks',duoEnable:'Enable two-ink theme',duoA:'Ink one · structure & type',duoB:'Ink two · light & space',duoSurfaces:'Panel opacity',duoScene:'Street opacity',duoDiffusion:'Gradient diffusion',duoGrain:'Fine grain',duoSaturation:'Ink saturation',duoReset:'Reset violet & apricot',duoHint:'Surfaces share two inks at different lightness and saturation. Light programs keep their timing.'}};
+function bind(a){api=a;for(const l of ['zh','en'])Object.assign(a.words[l],words[l]);const range=(k,key)=>`<div class="control"><label for="duo-${k}"><span data-t="${key}"></span><output id="duo-${k}-value"></output></label><input id="duo-${k}" type="range" min="0" max="100"></div>`;
+ const section=document.createElement('details');section.className='advanced v6-style duo-panel';section.open=true;
+ section.innerHTML=`<summary data-t="duoTitle"></summary><div class="duo-swatches" aria-hidden="true"><i></i><i></i></div><label class="check-label"><span data-t="duoEnable"></span><input id="duo-enabled" type="checkbox"></label>`+['a','b'].map((k,i)=>`<label class="colour-control"><span data-t="${i?'duoB':'duoA'}"></span><input id="duo-${k}" type="color"><output id="duo-${k}-value"></output></label>`).join('')+range('surfaces','duoSurfaces')+range('scene','duoScene')+range('diffusion','duoDiffusion')+range('grain','duoGrain')+range('saturation','duoSaturation')+'<div class="small-actions"><button id="duo-reset" data-t="duoReset"></button></div><p data-t="duoHint"></p>';
+ a.$('aside').prepend(section);
+ for(const k of Object.keys(defaults().duotone)){const e=a.$('#duo-'+k);e[k==='enabled'?'onchange':'oninput']=()=>{a.state.duotone[k]=k==='enabled'?e.checked:['a','b'].includes(k)?e.value:+e.value;apply(a.$('#scene>svg'),a.state);a.save();sync();};}
+ a.$('#duo-reset').onclick=()=>{a.state.duotone=defaults().duotone;apply(a.$('#scene>svg'),a.state);a.save();};sync();
+}
+function sync(){if(!api)return;for(const[k,v]of Object.entries(api.state.duotone)){const e=api.$('#duo-'+k);if(k==='enabled')e.checked=v;else{e.value=v;api.$('#duo-'+k+'-value').textContent=typeof v==='number'?v+'%':v.toUpperCase();}}}
+function apply(svg,state){if(typeof document==='undefined')return;const v=state.duotone||defaults().duotone,root=document.documentElement;root.classList.toggle('duo-theme',v.enabled);if(!svg)return;
+ let wrap=svg.querySelector('.duo-colour-pass');if(v.enabled&&!wrap){wrap=document.createElementNS('http://www.w3.org/2000/svg','g');wrap.setAttribute('class','duo-colour-pass');const nodes=[...svg.children].filter(e=>!['defs','style'].includes(e.localName)&&!e.classList.contains('depth-map-layer'));const first=nodes[0];if(first)svg.insertBefore(wrap,first);else svg.append(wrap);wrap.append(...nodes);}
+ if(!v.enabled){if(wrap){wrap.style.filter='';wrap.style.opacity='';}sync();return;}
+ const a=hsl(v.a),b=hsl(v.b),s=v.saturation/100,tone=(ink,l,scale=1)=>`hsl(${ink[0].toFixed(2)} ${(ink[1]*s*scale).toFixed(2)}% ${l}%)`,alpha=v.surfaces/100;
+ const tokens={ink:tone(a,22,.85),muted:tone(a,43,.55),line:tone(a,79,.38),paper:tone(b,97,.4),panel:tone(a,98,.23),accent:tone(a,48),glow:tone(b,68),tint:tone(a,90,.55),wash:tone(b,88,.75),surface:`hsl(${a[0]} ${a[1]*s*.22}% 98% / ${alpha})`,glass:`hsl(${a[0]} ${a[1]*s*.38}% 94% / ${alpha*.55})`,shadow:`hsl(${a[0]} ${a[1]*s*.45}% 30% / .09)`};
+ for(const[k,c]of Object.entries(tokens))root.style.setProperty('--duo-'+k,c);
+ root.style.setProperty('--duo-panel-alpha',alpha);root.style.setProperty('--duo-spread',(45+v.diffusion*.8)+'%');root.style.setProperty('--duo-grain',v.grain/650);root.style.setProperty('--duo-fog',v.diffusion/220);
+ let definitions=document.querySelector('#duo-definitions');if(!definitions){definitions=document.createElementNS('http://www.w3.org/2000/svg','svg');definitions.id='duo-definitions';definitions.setAttribute('width','0');definitions.setAttribute('height','0');definitions.setAttribute('aria-hidden','true');definitions.style.position='absolute';document.body.append(definitions);}
+ const stops=[[a,12,.65],[a,28,.65],[a,49,.85],[b,68,.9],[b,96,.35]].map(([ink,l,k])=>rgb(ink[0],ink[1]*s*k,l));
+ definitions.innerHTML=`<defs><filter id="duo-ink" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB"><feColorMatrix type="saturate" values="0"/><feComponentTransfer>${['R','G','B'].map((k,i)=>`<feFunc${k} type="table" tableValues="${stops.map(c=>c[i].toFixed(5)).join(' ')}"/>`).join('')}</feComponentTransfer></filter><filter id="duo-symbol" color-interpolation-filters="sRGB"><feFlood flood-color="${tokens.accent}"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs>`;
+ wrap.style.filter='url(#duo-ink)';wrap.style.opacity=v.scene/100;
+ // The separate depth pass stays grayscale, including at 100% Mix.
+ sync();
+}
+function prepareExport(svg,state){if(!state.duotone?.enabled)return;const defs=document.querySelector('#duo-definitions defs');if(defs)svg.prepend(defs.cloneNode(true));const paper=document.createElementNS('http://www.w3.org/2000/svg','rect');paper.setAttribute('width','640');paper.setAttribute('height','640');paper.setAttribute('fill',getComputedStyle(document.documentElement).getPropertyValue('--duo-tint').trim());svg.insertBefore(paper,svg.querySelector('.duo-colour-pass'));}
+globalThis.DuotoneUI={defaults,validate,bind,apply,sync,prepareExport};if(typeof module!=='undefined')module.exports=globalThis.DuotoneUI;
+})();
