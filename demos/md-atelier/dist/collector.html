@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MD Collector — 掌心唱片收藏室</title><link rel="stylesheet" href="collector.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MD Collector — 掌心唱片收藏室</title><link rel="stylesheet" href="collector.css"><link rel="stylesheet" href="collector-theme.css"></head>
 <body>
 <header class="page-head"><a href="collector.html" class="wordmark"><span class="symbol">m∂</span>MINIDISC <b>COLLECTOR</b></a><a class="editor-link" href="index.html">唱片设计工作台 ↗</a></header>
 <main>
@@ -19,7 +19,21 @@
 <div class="device-bottom"><span class="mini-mark">MD</span><span>PERSONAL MUSIC COLLECTION</span><div class="speaker" aria-hidden="true"></div><button id="show-favorites" aria-pressed="false">☆ 仅看收藏 <span id="favorite-count">0</span></button></div>
 </section>
 <aside class="under-device"><p>拖动滑条或唱片架 · 点击侧脊选片 · ← → 键切换</p><div class="secondary-actions"><button id="import-disc">＋ 收入我的 MD</button><input hidden id="disc-file" type="file" accept=".json,application/json"><button id="export-disc">导出当前 SVG ↗</button></div></aside>
+<aside class="global-panel" aria-label="收藏室全局效果">
+<span class="eyebrow">PARAMETRIC VISUAL LAB</span><h2>参数视觉实验室</h2>
+<div id="scene-lab"></div>
+<div class="global-fields">
+<label>每侧预览数量 <output id="side-count-output">5</output><input id="side-count" type="range" min="0" max="11" value="5" step="1"></label>
+<label class="check"><input id="overview" type="checkbox"> 全部 MD 平铺预览（隐藏介绍文字）</label>
+<label class="check"><input id="map-enabled" type="checkbox"> 启用统一颜色映射</label>
+<label>映射 · 暗部<input id="map-shadow" type="color" value="#284638"></label>
+<label>映射 · 主色<input id="map-color" type="color" value="#a3ca88"></label>
+<label>映射 · 亮部<input id="map-highlight" type="color" value="#f1f5dc"></label>
+<label>映射强度 <output id="map-strength-output">100%</output><input id="map-strength" type="range" min="0" max="100" value="100"></label>
+</div><p class="global-hint">参数只影响收藏室，不会覆盖工作台原始设计。导出范围为画布，保留当前展示模式与颜色。</p>
+<div class="scene-actions"><button id="reset-scene">恢复默认效果</button><button id="export-scene-svg">导出收藏室 SVG ↗</button><button id="export-scene-png">导出收藏室 PNG ↗</button></div>
+</aside>
 <footer><span>TWELVE GENRES. ONE LITTLE UNIVERSE.</span><span>DESIGNED TO BE KEPT.</span></footer>
-</main><div id="notice" role="status"></div><script src="engine.js"></script><script src="collector-material.js"></script><script src="collector.js"></script>
+</main><div id="notice" role="status"></div><script src="engine.js"></script><script src="collector-material.js"></script><script src="visual-lab.js"></script><script src="collector.js"></script><script src="collector-scene.js"></script>
 </body></html>
 

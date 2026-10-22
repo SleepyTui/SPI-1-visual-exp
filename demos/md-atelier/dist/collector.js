@@ -10,24 +10,34 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let initial=list.findIndex(x=>x.id===saved.selected);if(initial>=0)position=current=target=initial;
 const clamp=v=>MD.clamp(v,0,Math.max(0,list.length-1));
 const materialCache=new Map();
-function getMaterial(record){if(!materialCache.has(record.id))materialCache.set(record.id,CollectionMaterial.parts(record.state,record.name,records.indexOf(record)));return materialCache.get(record.id);}
-function persist(){try{localStorage.setItem(storage,JSON.stringify({favorites:[...favorites],selected:list[current]?.id,extras:records.filter(x=>x.id.startsWith('custom-'))}));}catch{notice('本地空间不足，请保留原始参数文件');}}
+const defaults={...CollectorBackdrop.defaults,sideCount:5,overview:false,mapEnabled:false,shadow:'#284638',color:'#a3ca88',highlight:'#f1f5dc',strength:100};
+const settings={...defaults};
+if(saved.settings&&typeof saved.settings==='object')for(const k of Object.keys(defaults)){const v=saved.settings[k];if(typeof v!==typeof defaults[k])continue;if(typeof v==='string'&&!/^#[0-9a-f]{6}$/i.test(v))continue;if(typeof v==='number'&&!Number.isFinite(v))continue;settings[k]=v;}
+settings.sideCount=Math.round(MD.clamp(settings.sideCount,0,11));settings.strength=MD.clamp(settings.strength,0,100);
+CollectorBackdrop.validate(settings);
+// Migrate earlier background choices into editable color stops.
+if(saved.settings&&!Object.hasOwn(saved.settings,'gradientEnabled')){const p=[null,['#505f56','#77877d','#cfdfda'],['#709eb2','#98bcc9','#e2e8e7'],['#79796f','#aaa294','#e8e1d5']][saved.settings.backgroundStyle];if(p){[settings.gradientA,settings.gradientB,settings.gradientC]=p;settings.gradientB=settings.background;}else settings.gradientEnabled=settings.softEnabled=settings.floorEnabled=settings.spaceShadowEnabled=false;}
+function getMaterial(record){if(!materialCache.has(record.id)){const m=CollectionMaterial.parts(record.state,record.name,records.indexOf(record),settings.mapEnabled?settings:null);if(settings.mapEnabled)for(const k of ['plastic','paper','ink','accent'])m[k]=CollectionMaterial.mapColor(m[k],settings);materialCache.set(record.id,m);}return materialCache.get(record.id);}
+function persist(){try{localStorage.setItem(storage,JSON.stringify({favorites:[...favorites],selected:list[current]?.id,settings,extras:records.filter(x=>x.id.startsWith('custom-'))}));}catch{/* Data URL previews have no persistent origin. Downloads remain available. */}}
 function notice(t){$('#notice').textContent=t;$('#notice').classList.add('show');clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>$('#notice').classList.remove('show'),2400);}
 function build(){
 $('#shelf').innerHTML=list.map((record,i)=>{const m=getMaterial(record);return `<div class="disc-case" data-index="${i}" style="--plastic:${m.plastic};--paper:${m.paper};--print:${m.ink};--accent:${m.accent}"><div class="case-back"></div><div class="cover-face" role="img" aria-label="${MD.esc(record.name)} 乳白磨砂 MD 封面"><img class="case-matter" alt="" draggable="false" src="${m.core}"><img class="case-glass" alt="" draggable="false" src="${m.shell}"><img class="case-print" alt="" draggable="false" src="${m.print}"></div><div class="case-spine left"><div class="spine-surface"></div><div class="spine-label"><small>MD ${String(i+1).padStart(2,'0')}</small><span>${MD.esc(record.name.toUpperCase())}</span><small>74</small></div></div><div class="case-spine right"><div class="spine-surface"></div><div class="spine-label"><small>MD ${String(i+1).padStart(2,'0')}</small><span>${MD.esc(record.name.toUpperCase())}</span><small>74</small></div></div></div><button class="spine-hit" data-index="${i}" aria-label="选取 ${MD.esc(record.name)}" tabindex="-1"></button>`;}).join('');
 $('#disc-range').max=String(Math.max(0,list.length-1));$('#disc-range').disabled=list.length<2;
 $('#rail-ticks').innerHTML=list.map(()=>'<i></i>').join('');
 $('#shelf').querySelectorAll('.spine-hit').forEach(b=>b.onclick=()=>{if(!shelfDrag?.moved)select(+b.dataset.index);});
+$('#shelf').querySelectorAll('.disc-case').forEach((el,i)=>{el.querySelectorAll('.spine-label span').forEach(text=>text.textContent=MD.genres[list[i].state.template]);el.querySelector('.cover-face').setAttribute('aria-label',MD.genres[list[i].state.template]+' MD');});
 paint();updateInfo();
 }
 function paint(){
 const width=$('#screen').clientWidth;
+document.documentElement.style.setProperty('--scene-background',settings.background);$('#screen').classList.toggle('overview',settings.overview);
+CollectorBackdrop.paint(settings,$('#screen'));
 $('#shelf').querySelectorAll('.disc-case').forEach((el,i)=>{
 const d=i-position,ad=Math.abs(d),sg=Math.sign(d),travel=ad<=1?ad*.345:.345+(ad-1)*.043;
 const x=sg*travel*width,angle=-sg*(ad<=1?ad*78:Math.min(84,78+(ad-1)*1.5)),scale=1-Math.min(.22,ad*.035),z=-Math.min(270,ad*40);
 const depth=1-Math.exp(-ad*.48),alpha=1,saturation=1-depth*.91,brightness=1-depth*.68,blur=depth*7.5;
 el.style.transform=`translate3d(${x.toFixed(3)}px,0,${z.toFixed(3)}px) rotateY(${angle.toFixed(3)}deg) scale(${scale.toFixed(4)})`;
-el.style.zIndex=String(100-Math.round(ad*10));el.style.opacity='1';el.style.visibility=ad>6?'hidden':'visible';el.classList.toggle('current',i===current);el.dataset.rotation=angle.toFixed(3);
+el.style.zIndex=String(100-Math.round(ad*10));el.style.opacity='1';el.style.visibility=ad>settings.sideCount+.01?'hidden':'visible';el.classList.toggle('current',i===current);el.dataset.rotation=angle.toFixed(3);
 const face=el.querySelector('.cover-face');face.style.opacity='1';face.style.filter='none';
 el.querySelector('.case-matter').style.filter=`blur(${blur.toFixed(2)}px) saturate(${saturation.toFixed(3)}) contrast(${(1-depth*.36).toFixed(3)}) brightness(${brightness.toFixed(3)})`;
 el.querySelector('.case-glass').style.filter=`blur(${(depth*1.6).toFixed(2)}px) brightness(${brightness.toFixed(3)})`;
@@ -35,12 +45,14 @@ el.querySelector('.case-print').style.filter=`saturate(${Math.max(.25,saturation
 el.querySelectorAll('.case-spine,.case-back').forEach(surface=>{surface.style.opacity='1';surface.style.filter='none';});
 el.style.setProperty('--depth-blur',blur.toFixed(2)+'px');el.style.setProperty('--depth-brightness',brightness.toFixed(3));el.style.setProperty('--depth-saturation',saturation.toFixed(3));el.style.setProperty('--depth',depth.toFixed(3));
 el.dataset.lean='0';el.dataset.alpha=alpha.toFixed(4);el.dataset.saturation=saturation.toFixed(4);
+roundSides(el);
 const hit=$('#shelf').querySelector(`.spine-hit[data-index="${i}"]`);let hitWidth=ad<.7?width*.54:width*.044;
-hit.style.left=`calc(50% + ${(x-hitWidth/2).toFixed(2)}px)`;hit.style.width=hitWidth+'px';hit.style.display=ad>5.5?'none':'block';hit.style.zIndex=String(100-Math.round(ad*10));hit.tabIndex=i===current?0:-1;
+hit.style.left=`calc(50% + ${(x-hitWidth/2).toFixed(2)}px)`;hit.style.width=hitWidth+'px';hit.style.display=settings.overview||ad>settings.sideCount+.01?'none':'block';hit.style.zIndex=String(100-Math.round(ad*10));hit.tabIndex=!settings.overview&&i===current?0:-1;
+if(settings.overview){const cols=Math.ceil(Math.sqrt(list.length)),rows=Math.ceil(list.length/cols),gap=width*.035,size=Math.min((width-gap*(cols+1))/cols,(width-gap*(rows+1))/rows),gx=gap+(i%cols)*(size+gap),gy=(width-rows*size-(rows-1)*gap)/2+Math.floor(i/cols)*(size+gap);el.style.setProperty('--grid-size',size+'px');el.style.left=gx+'px';el.style.top=gy+'px';el.style.transform='none';el.style.visibility='visible';}else{el.style.removeProperty('--grid-size');el.style.left='50%';el.style.top='46%';}
 });
 // Measure projected side faces after the transform writes; hit targets follow actual geometry.
 const shelfBounds=$('#shelf').getBoundingClientRect();
-const hits=Array.from($('#shelf').querySelectorAll('.disc-case')).flatMap((el,i)=>{const d=i-position;if(Math.abs(d)<.7||Math.abs(d)>5.5)return[];const edge=el.querySelector(d>0?'.case-spine.right':'.case-spine.left').getBoundingClientRect(),w=Math.max(20,edge.width+8);return[{el:$('#shelf').querySelector(`.spine-hit[data-index="${i}"]`),left:edge.x+edge.width/2-shelfBounds.x-w/2,width:w}];});
+const hits=Array.from($('#shelf').querySelectorAll('.disc-case')).flatMap((el,i)=>{const d=i-position;if(settings.overview||Math.abs(d)<.7||Math.abs(d)>settings.sideCount+.01)return[];const edge=el.querySelector(d>0?'.case-spine.right':'.case-spine.left').getBoundingClientRect(),w=Math.max(20,edge.width+8);return[{el:$('#shelf').querySelector(`.spine-hit[data-index="${i}"]`),left:edge.x+edge.width/2-shelfBounds.x-w/2,width:w}];});
 hits.forEach(h=>{h.el.style.left=h.left+'px';h.el.style.width=h.width+'px';});
 $('#disc-range').value=String(position);$('#disc-range').style.setProperty('--value',position);
 const chosen=Math.round(position);if(chosen!==current){current=chosen;updateInfo();}
@@ -62,7 +74,10 @@ $('#show-favorites').onclick=()=>{if(!onlyFavorites&&!favorites.size){notice('�
 $('#export-disc').onclick=()=>{const r=list[current],url=URL.createObjectURL(new Blob([getMaterial(r).svg],{type:'image/svg+xml'})),a=document.createElement('a');a.href=url;a.download=r.name.replace(/[^\p{L}\p{N}_-]/gu,'-')+'.svg';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);notice('已导出 '+r.name+' 的四层 SVG');};
 function validateImport(raw){if(!raw||raw.version!==1||!Number.isInteger(raw.template)||raw.template<0||raw.template>11)throw Error('请载入设计工作台保存的参数 JSON');let safe=MD.preset(raw.template);for(const k of ['disc','shell','label','stickers']){if(!raw[k])throw Error('缺少图层参数');for(const [key,base]of Object.entries(safe[k])){let v=raw[k][key];if(typeof base==='boolean'){safe[k][key]=typeof v==='boolean'?v:base;}else if(Array.isArray(base)){if(!Array.isArray(v)||v.length!==4||v.some(n=>typeof n!=='number'||!Number.isFinite(n)))throw Error('图层参数错误');safe[k][key]=v.map((n,j)=>MD.clamp(n,k==='stickers'&&j===0?1:0,k==='stickers'&&j===0?5:100));if(k==='stickers')safe[k][key][0]=Math.round(safe[k][key][0]);}else if(typeof base==='number'){if(typeof v!=='number'||!Number.isFinite(v))throw Error('图层参数错误');const enumKey=['program','texture','font','style'].includes(key);safe[k][key]=MD.clamp(v,key==='angle'?-15:key==='tracking'?-3:0,enumKey?11:key==='size'?64:key==='angle'?15:key==='tracking'?8:200);if(enumKey)safe[k][key]=Math.round(safe[k][key]);}else if(['color','accent','paper','ink'].includes(key)){if(!/^#[a-f0-9]{6}$/i.test(v))throw Error('颜色格式错误');safe[k][key]=v;}else{if(typeof v!=='string')throw Error('文字格式错误');safe[k][key]=v.slice(0,80);}}}safe.seed=typeof raw.seed==='number'&&Number.isFinite(raw.seed)?MD.clamp(raw.seed,0,4294967295):safe.seed;return safe;}
 $('#import-disc').onclick=()=>$('#disc-file').click();$('#disc-file').onchange=async()=>{try{const f=$('#disc-file').files[0];if(!f)return;if(f.size>100000)throw Error('文件过大');if(records.length>=36)throw Error('当前收藏最多容纳 36 张唱片');const s=validateImport(JSON.parse(await f.text())),name=s.label.title.replace(/\n/g,' ').trim()||'Untitled MD',record={id:'custom-'+Date.now(),state:s,name,genre:s.label.subtitle||MD.genres[s.template],mood:'私人收藏 · 自定义设计'};records.push(record);onlyFavorites=false;$('#show-favorites').setAttribute('aria-pressed','false');rebuildList();select(records.length-1);persist();notice('已收入收藏：'+name);}catch(e){notice(e.message||'无法读取此文件');}$('#disc-file').value='';};
-new ResizeObserver(()=>paint()).observe($('#screen'));build();window.MDCollector={get position(){return position;},get selected(){return current;},get count(){return list.length;},select,get record(){return list[current];}};
+// Extrude the rounded front outline: short tangent planes follow each curved corner.
+function sidePoints(w,h,sign){const r=w*.051,pts=[];for(let j=0;j<=8;j++){const t=j/8*Math.PI/2;pts.push([sign*(w/2-r+r*Math.sin(t)),r-r*Math.cos(t)]);}pts.push([sign*w/2,h-r]);for(let j=1;j<=8;j++){const t=j/8*Math.PI/2;pts.push([sign*(w/2-r+r*Math.cos(t)),h-r+r*Math.sin(t)]);}return pts;}
+function roundSides(el){const w=el.clientWidth,h=el.clientHeight,key=w+','+h;if(el.dataset.sideSize===key)return;el.dataset.sideSize=key;el.querySelectorAll('.rounded-edge').forEach(x=>x.remove());for(const sign of [-1,1]){const pts=sidePoints(w,h,sign);for(let j=0;j<pts.length-1;j++){const [x,y]=pts[j],[nx,ny]=pts[j+1],length=Math.hypot(nx-x,ny-y),angle=-Math.atan2(nx-x,ny-y)*180/Math.PI,band=document.createElement('div');band.className='rounded-edge';band.style.cssText=`left:${w/2+(x+nx)/2-9}px;top:${(y+ny)/2-length/2}px;height:${length+.4}px;transform:rotateZ(${angle}deg) rotateY(90deg)`;el.append(band);}}}
+new ResizeObserver(()=>paint()).observe($('#screen'));build();window.MDCollector={get position(){return position;},get selected(){return current;},get count(){return list.length;},select,get record(){return list[current];},settings,defaults,paint,persist,notice,getMaterial,sidePoints,get list(){return list;},refresh(){materialCache.clear();build();persist();}};
 })();
 
 
