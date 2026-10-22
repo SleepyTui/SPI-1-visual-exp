@@ -2,26 +2,32 @@ import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const demo = fileURLToPath(new URL('../demos/md-atelier/', import.meta.url));
+const mdDemo = fileURLToPath(new URL('../demos/md-atelier/', import.meta.url));
+const beatLuckDemo = fileURLToPath(new URL('../demos/beat-luck/', import.meta.url));
+const page = process.argv[2] || 'collector';
+const settings = {
+  collector: { app: 'md-atelier', demo: mdDemo, entry: 'collector.html', port: Number(process.env.MD_ATELIER_PORT || 4199), probe: '__md_preview', server: 'serve-collector.mjs' },
+  editor: { app: 'md-atelier', demo: mdDemo, entry: 'index.html', port: Number(process.env.MD_ATELIER_PORT || 4199), probe: '__md_preview', server: 'serve-collector.mjs' },
+  'beat-luck': { app: 'beat-luck', demo: beatLuckDemo, entry: 'index.html', port: Number(process.env.BEAT_LUCK_PORT || 4200), probe: '__beat_luck_preview', server: 'serve.mjs' },
+}[page];
+if (!settings) {
+  console.error('请选择 collector、editor 或 beat-luck。');
+  process.exit(1);
+}
+const { app, demo, entry, port, probe, server: serverFile } = settings;
 const root = path.join(demo, 'dist');
-const port = Number(process.env.MD_ATELIER_PORT || 4199);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
   console.error('MD_ATELIER_PORT 必须是 1 到 65535 之间的端口。');
   process.exit(1);
 }
 const base = `http://127.0.0.1:${port}`;
-const page = process.argv[2] || 'collector';
-if (!['collector', 'editor'].includes(page)) {
-  console.error('请选择 collector（收藏家）或 editor（封面工作台）。');
-  process.exit(1);
-}
-const url = `${base}/${page === 'editor' ? 'index' : 'collector'}.html`;
+const url = `${base}/${entry}`;
 
 async function runningHere() {
   try {
-    const response = await fetch(`${base}/__md_preview`, { signal: AbortSignal.timeout(1000) });
+    const response = await fetch(`${base}/${probe}`, { signal: AbortSignal.timeout(1000) });
     const data = await response.json();
-    return response.ok && data.app === 'md-atelier' && data.root === root;
+    return response.ok && data.app === app && data.root === root;
   } catch {
     return false;
   }
@@ -52,7 +58,7 @@ function openPage() {
 if (await runningHere()) {
   openPage();
 } else {
-  const server = spawn(process.execPath, [path.join(demo, 'serve-collector.mjs')], {
+  const server = spawn(process.execPath, [path.join(demo, serverFile)], {
     cwd: demo, stdio: ['ignore', 'pipe', 'inherit'],
   });
   let opened = false;

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#eeede6"><title>BEAT LUCK — Rhythm, by chance.</title><meta name="description" content="A four-track rhythm slot machine. Spin 12 genres into something unexpected. Three visual editions, original patterns, real-time VA / FM drum synthesis."><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="cabinet.css"></head>
+<body data-theme="wire">
+<header><a class="brand" href="./" aria-label="Beat Luck home"><span class="brand-icon">✳</span> BEAT LUCK<span class="version">INSTRUMENT / 001</span></a><button class="about-button" id="about">关于这台机器 ↗</button></header>
+<main>
+<div class="intro"><div><div class="eyebrow">A CHANCE-BASED RHYTHM MACHINE</div><h1>Rhythm, by chance<span>.</span></h1><p>拉动、停下，让四种节奏偶然相遇。</p></div><div class="editions" aria-label="视觉风格"><span class="mini-label">CHOOSE YOUR EDITION</span><div class="theme-tabs"><button class="active" data-theme-choice="wire" aria-pressed="true"><i></i>01 · LINE</button><button data-theme-choice="glass" aria-pressed="false"><i></i>02 · GHOST</button><button data-theme-choice="bloom" aria-pressed="false"><i></i>03 · BLOOM</button></div></div></div>
+<div class="workspace">
+<section class="stage" aria-label="正方形老虎机鼓机，一点透视房间">
+<div class="diffusion" aria-hidden="true"></div>
+<div class="scene-corner top-left">BL—04 / MK.II<br>FOUR-VOICE RHYTHM CABINET</div><div class="scene-corner top-right"><span class="live-dot"></span><span id="scene-state">STANDBY</span></div>
+<div class="cabinet-coordinate-space">
+<div id="cabinet-model" aria-hidden="true"></div>
+<div class="cabinet-surface cabinet-marquee" id="cabinet-marquee"><div class="machine-logo">beat luck<span>®</span><small>RHYTHM SLOT SYSTEM</small></div><div class="tempo-screen"><span id="bpm-display">124</span><small>BPM <i id="bpm-source">HOUSE</i></small></div></div>
+<div class="cabinet-surface reel-labels" id="cabinet-track-labels"><span>01 / KICK</span><span>02 / SNARE</span><span>03 / HI-HAT</span><span>04 / FX</span></div>
+<div class="cabinet-surface reel-box" id="reels"></div>
+<div class="cabinet-surface stop-keys" id="stops"></div>
+<div class="cabinet-surface link-group" id="cabinet-link"><button id="link" aria-label="LINK 联动模式" aria-pressed="false"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M12 19l-2 2a5 5 0 01-7-7l5-5a5 5 0 017 0M18 11l2-2a5 5 0 017 7l-5 5a5 5 0 01-7 0M10 20l10-10"/></svg></button><div>LINK<small id="link-text">自由组合</small></div></div>
+<div class="cabinet-surface lock-count" id="cabinet-count"><b id="lock-count">04</b><small>/ 04 LOCKED</small></div>
+<div class="cabinet-surface service-label" id="cabinet-service-label"><span>VOICE CIRCUIT / 004</span><span>VA + FM</span></div>
+<button class="lever cabinet-lever-hit" id="lever" aria-label="拉动拉杆，开始随机转盘"><span class="pull-hint">PULL ↓</span></button>
+</div>
+<div class="stage-status"><span class="status-icon">↳</span><span id="status" role="status">拉动右侧拉杆，开始一次节奏碰撞。</span></div><div class="scene-bottom"><span>DESIGNED FOR HAPPY ACCIDENTS</span><span>4/4 · 32 STEPS</span></div>
+</section>
+<aside class="control-panel">
+<section class="transport panel-section"><div class="section-heading"><h2>SESSION</h2><span id="session-id">001</span></div><div class="transport-row"><button id="play" aria-label="播放节奏"><span id="play-icon">▶</span><b id="play-label">PLAY</b></button><div class="beat-info"><span id="position">01 : 01</span><small>BAR / STEP</small></div><div class="meter" id="meter" aria-label="输出电平"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></section>
+<section class="pattern-panel panel-section"><div class="section-heading"><h2>THE SEQUENCE</h2><div class="bar-tabs"><button class="active" data-bar="0" aria-label="第一小节">01</button><button data-bar="1" aria-label="第二小节">02</button></div></div><div class="grid-beats"><span></span><b>1</b><b>2</b><b>3</b><b>4</b></div><div id="sequencer"></div><div class="grid-caption"><span>点击步进编辑 · 点击轨名静音</span><span>1/16</span></div></section>
+<section class="panel-section sound-panel"><div class="section-heading"><h2>SHAPE THE SOUND</h2><span>↗</span></div><div class="synth-tabs" aria-label="合成方式"><button data-engine="auto" class="active" aria-pressed="true">AUTO<small>STYLE</small></button><button data-engine="va" aria-pressed="false">VA<small>ANALOG</small></button><button data-engine="fm" aria-pressed="false">FM<small>DIGITAL</small></button></div><label class="slider-label" for="swing">SWING <output id="swing-val">8%</output></label><input id="swing" type="range" min="0" max="60" value="8" aria-label="Swing 百分比"><label class="slider-label" for="tone">TONE MACRO <output id="tone-val">58%</output></label><input id="tone" type="range" min="0" max="100" value="58" aria-label="音色亮度"><label class="slider-label" for="decay">DECAY MACRO <output id="decay-val">42%</output></label><input id="decay" type="range" min="0" max="100" value="42" aria-label="衰减时间"><label class="slider-label" for="volume">OUTPUT <output id="volume-val">65%</output></label><input id="volume" type="range" min="0" max="100" value="65" aria-label="主音量"><label class="slider-label" for="shell">SEE INSIDE <output id="shell-val">35%</output></label><input id="shell" type="range" min="0" max="100" value="35" aria-label="机柜内部结构可见程度"></section>
+<section class="howto"><span class="instruction-number">↘</span><div><b>Make your own luck.</b><p>拉杆启动随机，按下四枚彩色按键锁定轨道。最先锁定的风格决定 BPM。</p><p>开启 LINK，四轨共享一种风格；仍需逐一按停。</p></div></section>
+</aside>
+</div>
+<section class="voice-editor" aria-label="四轨鼓机音色参数"><div class="voice-editor-heading"><div><div class="eyebrow">EVERY GENRE HAS ITS OWN MACHINE</div><h2>Inside the sound.</h2></div><p>风格锁定时，音色与参数一起切换。每一轨都可以继续塑形。</p></div><div class="voice-cards" id="voice-cards"></div></section>
+<footer><span><i></i> AN EXPERIMENT IN CONTROL & CHANCE</span><span class="shortcuts">SPACE 播放 / 暂停 <b>·</b> R 拉杆 <b>·</b> 1—4 停止轨道</span><span>NO SAMPLES. ALL SYNTHESIS.</span></footer>
+</main>
+<dialog id="about-dialog"><button class="dialog-close" id="close-about" aria-label="关闭">×</button><div class="eyebrow">BEHIND THE MACHINE</div><h2>12 种风格，<br>一次偶然的碰撞。</h2><p>每个转盘都包含 Techno、Trance、House、UKG、Grime、Trip-Hop、Hip-Hop、Trap、IDM、Breaks、DnB 和 Glitch-Hop。每种风格由四条原创 32 步节奏组成，包含力度变化、切分与部分滚奏。</p><p>LINK 关闭时，各轨独立随机。开启后，四个转盘共享同一个目标风格。每次启动后，必须按下全部四个停止键才能完成组合。第一个停止键决定整个 loop 的 BPM。</p><p>声音由浏览器实时合成：VA 的正弦低鼓、滤波噪声军鼓与金属镲片；FM 的调频打击乐。音色参数会随风格改变。这里的节奏是风格化设计，并非歌曲采样。</p><div class="source-links"><b>节奏与音色设计参考</b><a href="https://www.ableton.com/en/blog/freshly-chopped-program-modern-uk-beats-in-live/" target="_blank" rel="noreferrer">Ableton · UK beats, garage & breaks ↗</a><a href="https://blog.native-instruments.com/hip-hop-drums-101/" target="_blank" rel="noreferrer">Native Instruments · Hip-hop drum programming ↗</a><a href="https://www.roland.com/uk/promos/roland_tr-808/" target="_blank" rel="noreferrer">Roland · The TR-808 Story ↗</a></div><p class="dialog-tip">首次播放需点击播放键或拉杆以启用声音。建议使用耳机。</p></dialog>
+<script src="voices.js"></script><script src="app.js"></script><script src="cabinet.js"></script>
+</body></html>
