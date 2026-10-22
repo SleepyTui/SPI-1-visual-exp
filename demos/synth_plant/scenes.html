@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>synth-plant · 正方形场景实验室</title>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="scenes.css?v=8">
+  <script defer src="font-geometry.js"></script><script defer src="engine.js"></script><script defer src="scenes.js?v=8"></script>
+</head>
+<body class="scene-lab">
+  <header class="lab-header"><a href="index.html" class="lab-brand">synth-plant<span> / SCENE LAB</span></a><div><span id="scene-save" class="save-status">场景独立保存</span><button id="layout-import" class="quiet-button">导入排版</button><button id="layout-save" class="outline-button">保存排版</button><button id="scene-export" class="solid-button">导出屏幕 SVG ↓</button></div></header>
+  <div class="lab-intro"><div><span class="eyebrow">TRANSLUCENT WORLDS / SCENE LAB</span><h1>光透进来的声音。</h1></div><p>半透明长廊、立体图谱与活性回转舱。<br>原有音色植物，三种轻盈的异世界窗口。</p></div>
+  <main class="lab-layout">
+    <aside class="scheme-pane" aria-label="场景交互方案"><div class="pane-label">01—03 <span>切换交互方案</span></div><div id="scheme-list"></div><a class="back-atlas" href="index.html">↗ 返回植物视觉工作台</a></aside>
+    <section class="screen-pane" aria-label="正方形屏幕设计预览">
+      <div class="screen-tools"><div><span class="build-label" id="scene-build" title="实际加载的脚本版本" style="font-size:8px;letter-spacing:.3px;white-space:nowrap">画面载入中</span><select id="resolution" aria-label="屏幕像素规格"><option value="128">128 × 128</option><option value="240">240 × 240</option><option value="320" selected>320 × 320</option><option value="480">480 × 480</option><option value="512">512 × 512</option></select></div><div><label><input id="actual-size" type="checkbox"> 1:1 尺寸</label><label><input id="safe-area" type="checkbox"> 透视辅助线</label></div></div>
+      <div class="device-area"><div class="device-frame" id="device-frame"><svg id="scene-screen" xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 512 512" role="group" aria-label="交互式正方形音色场景"></svg></div></div>
+      <div class="screen-caption"><div><span class="eyebrow" id="mode-number"></span><h2 id="mode-title"></h2></div><p id="mode-description"></p></div>
+      <div class="interaction-row"><button id="scene-prev" class="outline-button" aria-label="上一个音色">←</button><button id="scene-grow" class="outline-button">重新显影 ↗</button><button id="scene-next" class="outline-button" aria-label="下一个音色">→</button><button id="add-pack" class="solid-button">＋ 插入音色包</button></div>
+      <div class="sound-selector"><span class="pane-label">SELECT A VOICE / PACK</span><div id="voice-list"></div></div>
+      <p class="lab-hint">点击场景中的植物切换焦点；空白处左右滑动或按方向键浏览。拖动植物可微调位置。</p>
+    </section>
+    <aside class="scene-inspector" aria-label="场景排版参数">
+      <div class="inspector-heading"><div><span class="eyebrow">LAYOUT INSPECTOR</span><h2>微调当前方案</h2></div><div><button id="scene-undo" class="icon-button" aria-label="撤销">↶</button><button id="scene-redo" class="icon-button" aria-label="重做">↷</button></div></div>
+      <details class="control-section" open><summary><span>焦点与场景 <small>COMPOSITION</small></span><span class="section-marker">＋</span></summary><div id="scene-controls" class="section-content"></div></details>
+      <details class="control-section" open><summary><span>单个场景对象 <small>OBJECT</small></span><span class="section-marker">＋</span></summary><div class="section-content"><label class="muted">微调对象<select id="scene-object"></select></label><div id="scene-object-controls"></div><button id="reset-scene-object" class="text-button">重置这个对象</button></div></details>
+      <details class="control-section"><summary><span>通透与渐变 <small>X-RAY MATERIAL</small></span><span class="section-marker">＋</span></summary><div class="section-content"><div class="material-presets"><button class="outline-button" data-look="half">半透 50%</button><button class="outline-button" data-look="mono">单色透光</button><button class="outline-button" data-look="color">双色弥散</button></div><label class="muted">场景渐变形态<select id="gradient-type"><option value="radial">径向弥散</option><option value="linear">线性透光</option></select></label><div id="appearance-controls"></div><div class="scene-colors"><label>屏幕底色<input id="screen-color" type="color"></label><label>渐变色 A<input id="scenery-color" type="color"></label><label>渐变色 B<input id="secondary-color" type="color"></label><label>文字颜色<input id="type-color" type="color"></label></div><label class="scene-check"><input id="screen-labels" type="checkbox" checked> 显示名称与操作栏</label></div></details>
+      <details class="control-section" open><summary><span>音色听感画像 <small>CHARACTER NOTES</small></span><span class="section-marker">＋</span></summary><div class="section-content"><p class="profile-note">图谱中的听感展示值，可调整视觉标注；不控制声音，也不是音频实测。</p><div id="profile-controls"></div><p id="profile-description" class="profile-note"></p></div></details><details class="control-section" id="pot-scene-controls"><summary><span>容器与植物 <small>PLANTING</small></span><span class="section-marker">＋</span></summary><div class="section-content"><label class="muted">焦点植物使用的盆器<select id="scene-pot"></select></label><p class="muted">默认使用这株音色原本设计的容器。可在这里为当前场景临时替换。</p><label class="scene-check"><input id="override-pot" type="checkbox"> 用此盆器替换焦点原盆</label><a id="edit-voice" class="text-button" href="index.html">↗ 编辑这株的造型、渐变与圆角</a></div></details>
+      <div class="scene-reset"><button id="reset-layout" class="outline-button">恢复当前方案的初始排版</button><p>只恢复当前方案，其他方案与已插入的音色包会保留。</p></div>
+    </aside>
+  </main>
+  <dialog id="pack-dialog" class="pack-dialog" aria-labelledby="pack-dialog-title"><header><div><span class="eyebrow">INSERT A SOUND WORLD</span><h2 id="pack-dialog-title">把音色包种进场景</h2></div><button id="close-pack" class="icon-button" aria-label="关闭">×</button></header><div id="pack-options" class="pack-options"></div><fieldset class="pack-representation"><legend>在场景中呈现为</legend><label><input type="radio" name="representation" value="bonsai" checked> 组合盆景 · 多株共享一只盆</label><label><input type="radio" name="representation" value="illustration"> 插画卡 · 一幅声音风景</label></fieldset><footer><span id="pack-summary"></span><button id="insert-pack" class="solid-button">插入当前场景 ↗</button></footer></dialog>
+  <input id="layout-file" type="file" accept=".json,application/json" hidden><div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
