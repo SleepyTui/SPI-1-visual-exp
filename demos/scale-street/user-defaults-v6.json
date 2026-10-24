@@ -228,6 +228,16 @@
           "scale": 1.06
         }
       }
+    },
+    "duotone": {
+      "enabled": false,
+      "a": "#7155a4",
+      "b": "#e5ad58",
+      "surfaces": 76,
+      "scene": 100,
+      "diffusion": 38,
+      "grain": 12,
+      "saturation": 85
     }
   }
 }

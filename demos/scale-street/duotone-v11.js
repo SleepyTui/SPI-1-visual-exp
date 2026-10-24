@@ -1,8 +1,8 @@
 /* Two source inks, luminance-preserving scene colour, portable theme settings. */
 (function(){
-const defaults=()=>({duotone:{enabled:true,a:'#7155a4',b:'#e5ad58',surfaces:76,scene:100,diffusion:38,grain:12,saturation:85}});
+const defaults=()=>({duotone:{enabled:false,a:'#7155a4',b:'#e5ad58',surfaces:76,scene:100,diffusion:38,grain:12,saturation:85}});
 const clamp=(v,a,b,d)=>Number.isFinite(v)?Math.max(a,Math.min(b,v)):d;
-function validate(x){const d=defaults().duotone,v=x.duotone||{};return{duotone:{enabled:typeof v.enabled==='boolean'?v.enabled:true,a:/^#[0-9a-f]{6}$/i.test(v.a)?v.a:d.a,b:/^#[0-9a-f]{6}$/i.test(v.b)?v.b:d.b,...Object.fromEntries(['surfaces','scene','diffusion','grain','saturation'].map(k=>[k,clamp(v[k],0,100,d[k])]))}};}
+function validate(x){const d=defaults().duotone,v=x.duotone||{};return{duotone:{enabled:typeof v.enabled==='boolean'?v.enabled:false,a:/^#[0-9a-f]{6}$/i.test(v.a)?v.a:d.a,b:/^#[0-9a-f]{6}$/i.test(v.b)?v.b:d.b,...Object.fromEntries(['surfaces','scene','diffusion','grain','saturation'].map(k=>[k,clamp(v[k],0,100,d[k])]))}};}
 function hsl(hex){let[r,g,b]=hex.slice(1).match(/../g).map(v=>parseInt(v,16)/255);const max=Math.max(r,g,b),min=Math.min(r,g,b),delta=max-min,l=(max+min)/2;let h=0,s=0;if(delta){s=delta/(1-Math.abs(2*l-1));h=(max===r?(g-b)/delta+(g<b?6:0):max===g?(b-r)/delta+2:(r-g)/delta+4)*60;}return[h,s*100,l*100];}
 function rgb(h,s,l){s/=100;l/=100;const c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs(h/60%2-1)),m=l-c/2;const v=h<60?[c,x,0]:h<120?[x,c,0]:h<180?[0,c,x]:h<240?[0,x,c]:h<300?[x,0,c]:[c,0,x];return v.map(n=>n+m);}
 let api;
